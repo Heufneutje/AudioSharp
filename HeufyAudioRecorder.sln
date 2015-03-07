@@ -1,0 +1,41 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeufyAudio.GUI", "HeufyAudio.GUI\HeufyAudio.GUI.csproj", "{C684C08E-99EC-434A-B832-B76E7FA99828}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{115A2E51-2A7F-44C6-B818-988488954A32}"
+	ProjectSection(SolutionItems) = preProject
+		Libraries\NAudio.dll = Libraries\NAudio.dll
+		Libraries\NAudio.WindowsMediaFormat.dll = Libraries\NAudio.WindowsMediaFormat.dll
+		Libraries\NAudio.xml = Libraries\NAudio.xml
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeufyAudio.Translations", "HeufyAudio.Translations\HeufyAudio.Translations.csproj", "{0E5BEF57-5D0F-414C-8B3D-B8A3924BDE71}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeufyAudio.Core", "HeufyAudio.Core\HeufyAudio.Core.csproj", "{DF0D4F9C-26ED-416F-8859-582495A23599}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C684C08E-99EC-434A-B832-B76E7FA99828}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C684C08E-99EC-434A-B832-B76E7FA99828}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C684C08E-99EC-434A-B832-B76E7FA99828}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C684C08E-99EC-434A-B832-B76E7FA99828}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E5BEF57-5D0F-414C-8B3D-B8A3924BDE71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E5BEF57-5D0F-414C-8B3D-B8A3924BDE71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E5BEF57-5D0F-414C-8B3D-B8A3924BDE71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E5BEF57-5D0F-414C-8B3D-B8A3924BDE71}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF0D4F9C-26ED-416F-8859-582495A23599}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF0D4F9C-26ED-416F-8859-582495A23599}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF0D4F9C-26ED-416F-8859-582495A23599}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF0D4F9C-26ED-416F-8859-582495A23599}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
