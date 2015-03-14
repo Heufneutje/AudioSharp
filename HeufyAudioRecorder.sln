@@ -10,11 +10,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{
 		Libraries\NAudio.dll = Libraries\NAudio.dll
 		Libraries\NAudio.WindowsMediaFormat.dll = Libraries\NAudio.WindowsMediaFormat.dll
 		Libraries\NAudio.xml = Libraries\NAudio.xml
+		Libraries\Newtonsoft.Json.dll = Libraries\Newtonsoft.Json.dll
+		Libraries\Newtonsoft.Json.pdb = Libraries\Newtonsoft.Json.pdb
+		Libraries\Newtonsoft.Json.xml = Libraries\Newtonsoft.Json.xml
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeufyAudio.Translations", "HeufyAudio.Translations\HeufyAudio.Translations.csproj", "{0E5BEF57-5D0F-414C-8B3D-B8A3924BDE71}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeufyAudio.Core", "HeufyAudio.Core\HeufyAudio.Core.csproj", "{DF0D4F9C-26ED-416F-8859-582495A23599}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeufyAudio.Config", "HeufyAudio.Config\HeufyAudio.Config.csproj", "{FDE08A0C-243D-47F2-8AB7-9B4DD73ED97F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -34,6 +39,10 @@ Global
 		{DF0D4F9C-26ED-416F-8859-582495A23599}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF0D4F9C-26ED-416F-8859-582495A23599}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DF0D4F9C-26ED-416F-8859-582495A23599}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FDE08A0C-243D-47F2-8AB7-9B4DD73ED97F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDE08A0C-243D-47F2-8AB7-9B4DD73ED97F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDE08A0C-243D-47F2-8AB7-9B4DD73ED97F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDE08A0C-243D-47F2-8AB7-9B4DD73ED97F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

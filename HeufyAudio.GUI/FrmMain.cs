@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using HeufyAudio.Config;
 using HeufyAudio.Core;
 using HeufyAudio.Translations;
 using NAudio.CoreAudioApi;
@@ -13,12 +14,14 @@ namespace HeufyAudio.GUI
         #region Fields & Properties
         private AudioRecorder _AudioRecorder;
         private TimeSpan _Timer;
+        private Configuration _Config;
         #endregion
 
         #region Constructors
         public FrmMain()
         {
             InitializeComponent();
+            _Config = ConfigHandler.ReadConfig();
             _AudioRecorder = new AudioRecorder();
             cbInputDevices.Items.AddRange(_AudioRecorder.Devices.ToArray());
             cbInputDevices.SelectedIndex = _AudioRecorder.DefaultDeviceNumber;
@@ -26,6 +29,11 @@ namespace HeufyAudio.GUI
         #endregion
 
         #region Form Events
+        private void FrmMain_Load(object sender, EventArgs e)
+        {
+            txtOutputFile.Text = _Config.NextRecordingPath;
+        }
+
         private void FrmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
             _AudioRecorder.Dispose();
@@ -67,16 +75,6 @@ namespace HeufyAudio.GUI
             timerClock.Stop();
         }
 
-        private void btnBrowse_Click(object sender, EventArgs e)
-        {
-            SaveFileDialog sfd = new SaveFileDialog();
-            sfd.Filter = "Wave File (*.wav)|*.wav";
-            if (sfd.ShowDialog() != DialogResult.OK)
-                return;
-
-            txtOutputFile.Text = sfd.FileName;
-        }
-
         private void timerVAMeter_Tick(object sender, EventArgs e)
         {
             if (cbInputDevices.SelectedItem != null)
@@ -116,6 +114,15 @@ namespace HeufyAudio.GUI
         {
             Close();
         }
+
+        private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (FrmSettings settingsFrm = new FrmSettings(_Config))
+            {
+                if (settingsFrm.ShowDialog() == DialogResult.OK)
+                    _Config = settingsFrm.Config;
+            }
+        }
         #endregion
 
         #region Helper Functions
@@ -123,7 +130,6 @@ namespace HeufyAudio.GUI
         {
             btnRecord.Enabled = !recording;
             btnStop.Enabled = recording;
-            btnBrowse.Enabled = !recording;
             txtOutputFile.ReadOnly = recording;
             cbInputDevices.Enabled = !recording;
         }

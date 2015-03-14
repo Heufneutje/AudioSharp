@@ -31,7 +31,9 @@ namespace HeufyAudio.GUI
             this.components = new System.ComponentModel.Container();
             this.cbInputDevices = new System.Windows.Forms.ComboBox();
             this.gbRecordingSettings = new System.Windows.Forms.GroupBox();
-            this.btnBrowse = new System.Windows.Forms.Button();
+            this.lblVolumePercentage = new System.Windows.Forms.Label();
+            this.lblVolume = new System.Windows.Forms.Label();
+            this.trckVolume = new System.Windows.Forms.TrackBar();
             this.txtOutputFile = new System.Windows.Forms.TextBox();
             this.lblOutputFile = new System.Windows.Forms.Label();
             this.lblInputDevice = new System.Windows.Forms.Label();
@@ -44,18 +46,15 @@ namespace HeufyAudio.GUI
             this.timerClock = new System.Windows.Forms.Timer(this.components);
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.trckVolume = new System.Windows.Forms.TrackBar();
-            this.lblVolume = new System.Windows.Forms.Label();
-            this.lblVolumePercentage = new System.Windows.Forms.Label();
-            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gbRecordingSettings.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trckVolume)).BeginInit();
             this.gbRecording.SuspendLayout();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trckVolume)).BeginInit();
             this.SuspendLayout();
             // 
             // cbInputDevices
@@ -76,7 +75,6 @@ namespace HeufyAudio.GUI
             this.gbRecordingSettings.Controls.Add(this.lblVolumePercentage);
             this.gbRecordingSettings.Controls.Add(this.lblVolume);
             this.gbRecordingSettings.Controls.Add(this.trckVolume);
-            this.gbRecordingSettings.Controls.Add(this.btnBrowse);
             this.gbRecordingSettings.Controls.Add(this.txtOutputFile);
             this.gbRecordingSettings.Controls.Add(this.lblOutputFile);
             this.gbRecordingSettings.Controls.Add(this.lblInputDevice);
@@ -88,16 +86,37 @@ namespace HeufyAudio.GUI
             this.gbRecordingSettings.TabStop = false;
             this.gbRecordingSettings.Text = "Recording Settings";
             // 
-            // btnBrowse
+            // lblVolumePercentage
             // 
-            this.btnBrowse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnBrowse.Location = new System.Drawing.Point(579, 79);
-            this.btnBrowse.Name = "btnBrowse";
-            this.btnBrowse.Size = new System.Drawing.Size(75, 23);
-            this.btnBrowse.TabIndex = 5;
-            this.btnBrowse.Text = "Browse...";
-            this.btnBrowse.UseVisualStyleBackColor = true;
-            this.btnBrowse.Click += new System.EventHandler(this.btnBrowse_Click);
+            this.lblVolumePercentage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblVolumePercentage.AutoSize = true;
+            this.lblVolumePercentage.Location = new System.Drawing.Point(618, 54);
+            this.lblVolumePercentage.Name = "lblVolumePercentage";
+            this.lblVolumePercentage.Size = new System.Drawing.Size(24, 13);
+            this.lblVolumePercentage.TabIndex = 8;
+            this.lblVolumePercentage.Text = "0 %";
+            // 
+            // lblVolume
+            // 
+            this.lblVolume.AutoSize = true;
+            this.lblVolume.Location = new System.Drawing.Point(15, 54);
+            this.lblVolume.Name = "lblVolume";
+            this.lblVolume.Size = new System.Drawing.Size(72, 13);
+            this.lblVolume.TabIndex = 7;
+            this.lblVolume.Text = "Input Volume:";
+            // 
+            // trckVolume
+            // 
+            this.trckVolume.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.trckVolume.AutoSize = false;
+            this.trckVolume.Enabled = false;
+            this.trckVolume.Location = new System.Drawing.Point(139, 51);
+            this.trckVolume.Maximum = 50;
+            this.trckVolume.Name = "trckVolume";
+            this.trckVolume.Size = new System.Drawing.Size(473, 23);
+            this.trckVolume.TabIndex = 6;
+            this.trckVolume.ValueChanged += new System.EventHandler(this.trckVolume_ValueChanged);
             // 
             // txtOutputFile
             // 
@@ -105,7 +124,8 @@ namespace HeufyAudio.GUI
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtOutputFile.Location = new System.Drawing.Point(139, 80);
             this.txtOutputFile.Name = "txtOutputFile";
-            this.txtOutputFile.Size = new System.Drawing.Size(440, 20);
+            this.txtOutputFile.ReadOnly = true;
+            this.txtOutputFile.Size = new System.Drawing.Size(515, 20);
             this.txtOutputFile.TabIndex = 4;
             // 
             // lblOutputFile
@@ -212,6 +232,14 @@ namespace HeufyAudio.GUI
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
             // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
             // toolsToolStripMenuItem
             // 
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -225,6 +253,7 @@ namespace HeufyAudio.GUI
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
             this.settingsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.settingsToolStripMenuItem.Text = "Settings...";
+            this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -237,48 +266,8 @@ namespace HeufyAudio.GUI
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
             this.aboutToolStripMenuItem.Text = "About...";
-            // 
-            // trckVolume
-            // 
-            this.trckVolume.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.trckVolume.AutoSize = false;
-            this.trckVolume.Enabled = false;
-            this.trckVolume.Location = new System.Drawing.Point(139, 51);
-            this.trckVolume.Maximum = 50;
-            this.trckVolume.Name = "trckVolume";
-            this.trckVolume.Size = new System.Drawing.Size(473, 23);
-            this.trckVolume.TabIndex = 6;
-            this.trckVolume.ValueChanged += new System.EventHandler(this.trckVolume_ValueChanged);
-            // 
-            // lblVolume
-            // 
-            this.lblVolume.AutoSize = true;
-            this.lblVolume.Location = new System.Drawing.Point(15, 54);
-            this.lblVolume.Name = "lblVolume";
-            this.lblVolume.Size = new System.Drawing.Size(72, 13);
-            this.lblVolume.TabIndex = 7;
-            this.lblVolume.Text = "Input Volume:";
-            // 
-            // lblVolumePercentage
-            // 
-            this.lblVolumePercentage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblVolumePercentage.AutoSize = true;
-            this.lblVolumePercentage.Location = new System.Drawing.Point(618, 54);
-            this.lblVolumePercentage.Name = "lblVolumePercentage";
-            this.lblVolumePercentage.Size = new System.Drawing.Size(24, 13);
-            this.lblVolumePercentage.TabIndex = 8;
-            this.lblVolumePercentage.Text = "0 %";
-            // 
-            // exitToolStripMenuItem
-            // 
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.exitToolStripMenuItem.Text = "Exit";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // FrmMain
             // 
@@ -295,12 +284,13 @@ namespace HeufyAudio.GUI
             this.Name = "FrmMain";
             this.Text = "Heufy Audio Recorder";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmMain_FormClosing);
+            this.Load += new System.EventHandler(this.FrmMain_Load);
             this.gbRecordingSettings.ResumeLayout(false);
             this.gbRecordingSettings.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trckVolume)).EndInit();
             this.gbRecording.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trckVolume)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -310,7 +300,6 @@ namespace HeufyAudio.GUI
 
         private System.Windows.Forms.ComboBox cbInputDevices;
         private System.Windows.Forms.GroupBox gbRecordingSettings;
-        private System.Windows.Forms.Button btnBrowse;
         private System.Windows.Forms.TextBox txtOutputFile;
         private System.Windows.Forms.Label lblOutputFile;
         private System.Windows.Forms.Label lblInputDevice;

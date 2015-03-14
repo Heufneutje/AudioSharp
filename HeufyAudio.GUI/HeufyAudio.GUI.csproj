@@ -53,10 +53,19 @@
     <Compile Include="FrmMain.Designer.cs">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmSettings.Designer.cs">
+      <DependentUpon>FrmSettings.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmSettings.resx">
+      <DependentUpon>FrmSettings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -67,6 +76,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="Properties\DataSources\HeufyAudio.Config.Configuration.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -81,6 +91,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\HeufyAudio.Config\HeufyAudio.Config.csproj">
+      <Project>{fde08a0c-243d-47f2-8ab7-9b4dd73ed97f}</Project>
+      <Name>HeufyAudio.Config</Name>
+    </ProjectReference>
     <ProjectReference Include="..\HeufyAudio.Core\HeufyAudio.Core.csproj">
       <Project>{df0d4f9c-26ed-416f-8859-582495a23599}</Project>
       <Name>HeufyAudio.Core</Name>
