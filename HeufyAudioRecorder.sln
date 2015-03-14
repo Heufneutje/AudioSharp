@@ -21,6 +21,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeufyAudio.Core", "HeufyAud
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeufyAudio.Config", "HeufyAudio.Config\HeufyAudio.Config.csproj", "{FDE08A0C-243D-47F2-8AB7-9B4DD73ED97F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{01D4AA05-94CD-4966-A2EF-6EBF3A82C84C}"
+	ProjectSection(SolutionItems) = preProject
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -46,5 +52,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{115A2E51-2A7F-44C6-B818-988488954A32} = {01D4AA05-94CD-4966-A2EF-6EBF3A82C84C}
 	EndGlobalSection
 EndGlobal
