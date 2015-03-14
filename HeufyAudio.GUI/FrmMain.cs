@@ -142,6 +142,14 @@ namespace HeufyAudio.GUI
                 }
             }
         }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (FrmAbout aboutFrm = new FrmAbout())
+            {
+                aboutFrm.ShowDialog();
+            }
+        }
         #endregion
 
         #region Helper Functions
