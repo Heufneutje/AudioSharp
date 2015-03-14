@@ -64,7 +64,7 @@ namespace HeufyAudio.GUI
                 txtNextRecording.Text = "<invalid path>";
             else
                 txtNextRecording.Text = String.Format("{0}.wav", 
-                    Path.Combine(config.RecordingsFolder, config.RecordingPrefix + config.CurrentRecordingNumber.ToString("D3")));
+                    Path.Combine(config.RecordingsFolder, config.RecordingPrefix + config.NextRecordingNumber.ToString("D4")));
         }
         #endregion
     }

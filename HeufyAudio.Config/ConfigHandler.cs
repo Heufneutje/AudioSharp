@@ -35,7 +35,9 @@ namespace HeufyAudio.Config
             return new Configuration()
             {
                 RecordingsFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic),
-                RecordingPrefix = "Recording"
+                RecordingPrefix = "Recording",
+                NextRecordingNumber = 1,
+                AutoIncrementRecordingNumber = true
             };
         }
     }

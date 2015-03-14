@@ -11,13 +11,7 @@ namespace HeufyAudio.Config
     {
         public string RecordingsFolder { get; set; }
         public string RecordingPrefix { get; set; }
-        public int CurrentRecordingNumber { get; set; }
-        public string NextRecordingPath
-        {
-            get
-            {
-                return String.Format("{0}.wav", Path.Combine(RecordingsFolder, RecordingPrefix + CurrentRecordingNumber.ToString("D3")));
-            }
-        }
+        public int NextRecordingNumber { get; set; }
+        public bool AutoIncrementRecordingNumber { get; set; }
     }
 }

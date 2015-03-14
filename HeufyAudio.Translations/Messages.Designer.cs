@@ -113,5 +113,23 @@ namespace HeufyAudio.Translations {
                 return ResourceManager.GetString("GUIQuestionOverwriteRecordingTitle", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A recording is currently in progress. Would you like to stop it?.
+        /// </summary>
+        public static string GUIStopRecording {
+            get {
+                return ResourceManager.GetString("GUIStopRecording", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Recording in progress.
+        /// </summary>
+        public static string GUIStopRecordingTitle {
+            get {
+                return ResourceManager.GetString("GUIStopRecordingTitle", resourceCulture);
+            }
+        }
     }
 }

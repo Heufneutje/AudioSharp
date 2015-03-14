@@ -135,4 +135,10 @@
   <data name="GUIQuestionOverwriteRecordingTitle" xml:space="preserve">
     <value>Recording exists</value>
   </data>
+  <data name="GUIStopRecording" xml:space="preserve">
+    <value>A recording is currently in progress. Would you like to stop it?</value>
+  </data>
+  <data name="GUIStopRecordingTitle" xml:space="preserve">
+    <value>Recording in progress</value>
+  </data>
 </root>

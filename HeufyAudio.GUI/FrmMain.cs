@@ -15,6 +15,13 @@ namespace HeufyAudio.GUI
         private AudioRecorder _AudioRecorder;
         private TimeSpan _Timer;
         private Configuration _Config;
+        private string NextRecordingPath
+        {
+            get
+            {
+                return String.Format("{0}.wav", Path.Combine(_Config.RecordingsFolder, _Config.RecordingPrefix + _Config.NextRecordingNumber.ToString("D4")));
+            }
+        }
         #endregion
 
         #region Constructors
@@ -31,11 +38,19 @@ namespace HeufyAudio.GUI
         #region Form Events
         private void FrmMain_Load(object sender, EventArgs e)
         {
-            txtOutputFile.Text = _Config.NextRecordingPath;
+            txtOutputFile.Text = NextRecordingPath;
         }
 
         private void FrmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
+            if (!btnRecord.Enabled)
+            {
+                if (MessageBox.Show(Messages.GUIStopRecording, Messages.GUIStopRecordingTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
+                    e.Cancel = true;
+
+                UpdateRecordingNumber();
+            }
+
             _AudioRecorder.Dispose();
         }
         #endregion
@@ -56,7 +71,7 @@ namespace HeufyAudio.GUI
 
             try
             {
-                _AudioRecorder.StartRecording(txtOutputFile.Text);
+                _AudioRecorder.StartRecording(NextRecordingPath);
                 UpdateButtonStates(true);
                 _Timer = new TimeSpan();
                 lblTimer.Text = _Timer.ToString();
@@ -73,6 +88,7 @@ namespace HeufyAudio.GUI
             UpdateButtonStates(false);
             _AudioRecorder.StopRecording();
             timerClock.Stop();
+            UpdateRecordingNumber();
         }
 
         private void timerVAMeter_Tick(object sender, EventArgs e)
@@ -120,7 +136,10 @@ namespace HeufyAudio.GUI
             using (FrmSettings settingsFrm = new FrmSettings(_Config))
             {
                 if (settingsFrm.ShowDialog() == DialogResult.OK)
+                {
                     _Config = settingsFrm.Config;
+                    txtOutputFile.Text = NextRecordingPath;
+                }
             }
         }
         #endregion
@@ -132,6 +151,20 @@ namespace HeufyAudio.GUI
             btnStop.Enabled = recording;
             txtOutputFile.ReadOnly = recording;
             cbInputDevices.Enabled = !recording;
+        }
+
+        private void UpdateRecordingNumber()
+        {
+            if (!_Config.AutoIncrementRecordingNumber)
+                return;
+
+            if (_Config.NextRecordingNumber < 999)
+                _Config.NextRecordingNumber++;
+            else
+                _Config.NextRecordingNumber = 1;
+
+            txtOutputFile.Text = NextRecordingPath;
+            ConfigHandler.SaveConfig(_Config);
         }
         #endregion
     }
