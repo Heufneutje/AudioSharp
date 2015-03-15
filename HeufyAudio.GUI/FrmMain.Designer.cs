@@ -51,6 +51,7 @@ namespace HeufyAudio.GUI
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.recordingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gbRecordingSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trckVolume)).BeginInit();
             this.gbRecording.SuspendLayout();
@@ -243,6 +244,7 @@ namespace HeufyAudio.GUI
             // toolsToolStripMenuItem
             // 
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.recordingsToolStripMenuItem,
             this.settingsToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
             this.toolsToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
@@ -266,9 +268,16 @@ namespace HeufyAudio.GUI
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
             this.aboutToolStripMenuItem.Text = "About...";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            // 
+            // recordingsToolStripMenuItem
+            // 
+            this.recordingsToolStripMenuItem.Name = "recordingsToolStripMenuItem";
+            this.recordingsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.recordingsToolStripMenuItem.Text = "Recordings...";
+            this.recordingsToolStripMenuItem.Click += new System.EventHandler(this.recordingsToolStripMenuItem_Click);
             // 
             // FrmMain
             // 
@@ -321,6 +330,7 @@ namespace HeufyAudio.GUI
         private System.Windows.Forms.TrackBar trckVolume;
         private System.Windows.Forms.Label lblVolumePercentage;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem recordingsToolStripMenuItem;
     }
 }
 

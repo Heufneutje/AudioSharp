@@ -61,6 +61,33 @@ namespace HeufyAudio.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This recording is already an MP3 file..
+        /// </summary>
+        public static string GUIConvertAlreadyMP3 {
+            get {
+                return ResourceManager.GetString("GUIConvertAlreadyMP3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred while converting the WAV file:.
+        /// </summary>
+        public static string GUIConvertError {
+            get {
+                return ResourceManager.GetString("GUIConvertError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Convert.
+        /// </summary>
+        public static string GUIConvertTitle {
+            get {
+                return ResourceManager.GetString("GUIConvertTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to There&apos;s no input device selected to record from..
         /// </summary>
         public static string GUIErrorInputDevice {

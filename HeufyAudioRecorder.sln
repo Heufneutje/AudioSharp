@@ -5,16 +5,6 @@ VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeufyAudio.GUI", "HeufyAudio.GUI\HeufyAudio.GUI.csproj", "{C684C08E-99EC-434A-B832-B76E7FA99828}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{115A2E51-2A7F-44C6-B818-988488954A32}"
-	ProjectSection(SolutionItems) = preProject
-		Libraries\NAudio.dll = Libraries\NAudio.dll
-		Libraries\NAudio.WindowsMediaFormat.dll = Libraries\NAudio.WindowsMediaFormat.dll
-		Libraries\NAudio.xml = Libraries\NAudio.xml
-		Libraries\Newtonsoft.Json.dll = Libraries\Newtonsoft.Json.dll
-		Libraries\Newtonsoft.Json.pdb = Libraries\Newtonsoft.Json.pdb
-		Libraries\Newtonsoft.Json.xml = Libraries\Newtonsoft.Json.xml
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeufyAudio.Translations", "HeufyAudio.Translations\HeufyAudio.Translations.csproj", "{0E5BEF57-5D0F-414C-8B3D-B8A3924BDE71}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeufyAudio.Core", "HeufyAudio.Core\HeufyAudio.Core.csproj", "{DF0D4F9C-26ED-416F-8859-582495A23599}"
@@ -53,8 +43,5 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{115A2E51-2A7F-44C6-B818-988488954A32} = {01D4AA05-94CD-4966-A2EF-6EBF3A82C84C}
 	EndGlobalSection
 EndGlobal

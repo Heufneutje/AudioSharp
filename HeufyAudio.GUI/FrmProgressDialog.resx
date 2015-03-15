@@ -117,37 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="GUIConvertAlreadyMP3" xml:space="preserve">
-    <value>This recording is already an MP3 file.</value>
-  </data>
-  <data name="GUIConvertError" xml:space="preserve">
-    <value>An error occurred while converting the WAV file:</value>
-  </data>
-  <data name="GUIConvertTitle" xml:space="preserve">
-    <value>Convert</value>
-  </data>
-  <data name="GUIErrorInputDevice" xml:space="preserve">
-    <value>There's no input device selected to record from.</value>
-  </data>
-  <data name="GUIErrorInputDeviceTitle" xml:space="preserve">
-    <value>Input device</value>
-  </data>
-  <data name="GUIErrorOutputFile" xml:space="preserve">
-    <value>The selected output file is invalid.</value>
-  </data>
-  <data name="GUIErrorOutputFileTitle" xml:space="preserve">
-    <value>Output file</value>
-  </data>
-  <data name="GUIQuestionOverwriteRecording" xml:space="preserve">
-    <value>A recording with this name already exists. Do you want to overwrite it?</value>
-  </data>
-  <data name="GUIQuestionOverwriteRecordingTitle" xml:space="preserve">
-    <value>Recording exists</value>
-  </data>
-  <data name="GUIStopRecording" xml:space="preserve">
-    <value>A recording is currently in progress. Would you like to stop it?</value>
-  </data>
-  <data name="GUIStopRecordingTitle" xml:space="preserve">
-    <value>Recording in progress</value>
-  </data>
 </root>

@@ -131,6 +131,12 @@ namespace HeufyAudio.GUI
             Close();
         }
 
+        private void recordingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmRecordingList recordingsForm = new FrmRecordingList(_Config.RecordingsFolder);
+            recordingsForm.Show();
+        }
+
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             using (FrmSettings settingsFrm = new FrmSettings(_Config))
