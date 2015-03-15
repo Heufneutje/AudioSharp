@@ -45,7 +45,11 @@ namespace HeufyAudio.GUI
         private void lvRecordings_DoubleClick(object sender, EventArgs e)
         {
             ListViewItem selectedItem = lvRecordings.SelectedItems[0];
-            Process.Start(_Recordings[selectedItem.Index]);
+
+            if (File.Exists(_Recordings[selectedItem.Index]))
+                Process.Start(_Recordings[selectedItem.Index]);
+            else
+                RefreshRecordings();
         }
 
         private void btnOpenFolder_Click(object sender, EventArgs e)
