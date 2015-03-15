@@ -48,9 +48,12 @@ namespace HeufyAudio.GUI
             this.clmType,
             this.clmDate,
             this.clmSize});
+            this.lvRecordings.FullRowSelect = true;
             this.lvRecordings.GridLines = true;
+            this.lvRecordings.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.lvRecordings.HideSelection = false;
             this.lvRecordings.Location = new System.Drawing.Point(12, 12);
+            this.lvRecordings.MultiSelect = false;
             this.lvRecordings.Name = "lvRecordings";
             this.lvRecordings.ShowGroups = false;
             this.lvRecordings.Size = new System.Drawing.Size(573, 414);
@@ -62,22 +65,22 @@ namespace HeufyAudio.GUI
             // clmName
             // 
             this.clmName.Text = "Name";
-            this.clmName.Width = 25;
+            this.clmName.Width = 111;
             // 
             // clmType
             // 
             this.clmType.Text = "Type";
-            this.clmType.Width = 25;
+            this.clmType.Width = 107;
             // 
             // clmDate
             // 
             this.clmDate.Text = "Date";
-            this.clmDate.Width = 25;
+            this.clmDate.Width = 128;
             // 
             // clmSize
             // 
             this.clmSize.Text = "Size";
-            this.clmSize.Width = 25;
+            this.clmSize.Width = 196;
             // 
             // btnConvertToMp3
             // 

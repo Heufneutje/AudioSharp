@@ -55,6 +55,9 @@ namespace HeufyAudio.GUI
 
         private void btnConvertToMp3_Click(object sender, EventArgs e)
         {
+            if (lvRecordings.SelectedItems.Count == 0)
+                return;
+
             ListViewItem selectedItem = lvRecordings.SelectedItems[0];
             string filePath = _Recordings[selectedItem.Index];
 
