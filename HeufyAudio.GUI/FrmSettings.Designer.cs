@@ -31,6 +31,7 @@ namespace HeufyAudio.GUI
             this.components = new System.ComponentModel.Container();
             this.grpGeneral = new System.Windows.Forms.GroupBox();
             this.chkAutoIncrementRecording = new System.Windows.Forms.CheckBox();
+            this.configurationBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.btnBrowse = new System.Windows.Forms.Button();
             this.txtNextRecording = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -42,10 +43,9 @@ namespace HeufyAudio.GUI
             this.txtRecordingsFolder = new System.Windows.Forms.TextBox();
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
-            this.configurationBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.grpGeneral.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.spinNextRecording)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.configurationBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.spinNextRecording)).BeginInit();
             this.SuspendLayout();
             // 
             // grpGeneral
@@ -81,6 +81,11 @@ namespace HeufyAudio.GUI
             this.chkAutoIncrementRecording.TabIndex = 7;
             this.chkAutoIncrementRecording.Text = "Auto-increment";
             this.chkAutoIncrementRecording.UseVisualStyleBackColor = true;
+            // 
+            // configurationBindingSource
+            // 
+            this.configurationBindingSource.DataSource = typeof(HeufyAudio.Config.Configuration);
+            this.configurationBindingSource.CurrentItemChanged += new System.EventHandler(this.configurationBindingSource_CurrentItemChanged);
             // 
             // btnBrowse
             // 
@@ -146,7 +151,7 @@ namespace HeufyAudio.GUI
             this.spinNextRecording.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.configurationBindingSource, "NextRecordingNumber", true));
             this.spinNextRecording.Location = new System.Drawing.Point(145, 71);
             this.spinNextRecording.Maximum = new decimal(new int[] {
-            999,
+            9999,
             0,
             0,
             0});
@@ -206,11 +211,6 @@ namespace HeufyAudio.GUI
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
-            // configurationBindingSource
-            // 
-            this.configurationBindingSource.DataSource = typeof(HeufyAudio.Config.Configuration);
-            this.configurationBindingSource.CurrentItemChanged += new System.EventHandler(this.configurationBindingSource_CurrentItemChanged);
-            // 
             // FrmSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -225,8 +225,8 @@ namespace HeufyAudio.GUI
             this.Text = "Settings";
             this.grpGeneral.ResumeLayout(false);
             this.grpGeneral.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.spinNextRecording)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.configurationBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.spinNextRecording)).EndInit();
             this.ResumeLayout(false);
 
         }

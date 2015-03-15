@@ -172,7 +172,7 @@ namespace HeufyAudio.GUI
             if (!_Config.AutoIncrementRecordingNumber)
                 return;
 
-            if (_Config.NextRecordingNumber < 999)
+            if (_Config.NextRecordingNumber < 9999)
                 _Config.NextRecordingNumber++;
             else
                 _Config.NextRecordingNumber = 1;
