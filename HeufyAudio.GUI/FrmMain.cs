@@ -163,7 +163,6 @@ namespace HeufyAudio.GUI
         {
             btnRecord.Enabled = !recording;
             btnStop.Enabled = recording;
-            txtOutputFile.ReadOnly = recording;
             cbInputDevices.Enabled = !recording;
         }
 
