@@ -81,6 +81,7 @@ namespace HeufyAudio.GUI
             // 
             // btnConvertToMp3
             // 
+            this.btnConvertToMp3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnConvertToMp3.Location = new System.Drawing.Point(591, 41);
             this.btnConvertToMp3.Name = "btnConvertToMp3";
             this.btnConvertToMp3.Size = new System.Drawing.Size(99, 23);
@@ -98,6 +99,7 @@ namespace HeufyAudio.GUI
             // 
             // btnOpenFolder
             // 
+            this.btnOpenFolder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnOpenFolder.Location = new System.Drawing.Point(591, 12);
             this.btnOpenFolder.Name = "btnOpenFolder";
             this.btnOpenFolder.Size = new System.Drawing.Size(99, 23);
