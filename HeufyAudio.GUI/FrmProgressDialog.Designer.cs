@@ -68,6 +68,7 @@ namespace HeufyAudio.GUI
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.lblTask);
             this.Controls.Add(this.progressBar);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "FrmProgressDialog";
             this.Text = "Please wait...";
             this.ResumeLayout(false);
