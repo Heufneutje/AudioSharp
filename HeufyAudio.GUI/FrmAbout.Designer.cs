@@ -30,11 +30,11 @@ namespace HeufyAudio.GUI
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmAbout));
             this.grpInfo = new System.Windows.Forms.GroupBox();
-            this.grpLicense = new System.Windows.Forms.GroupBox();
-            this.btnClose = new System.Windows.Forms.Button();
-            this.rtbLicense = new System.Windows.Forms.RichTextBox();
-            this.lblVersion = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.lblVersion = new System.Windows.Forms.Label();
+            this.grpLicense = new System.Windows.Forms.GroupBox();
+            this.rtbLicense = new System.Windows.Forms.RichTextBox();
+            this.btnClose = new System.Windows.Forms.Button();
             this.grpInfo.SuspendLayout();
             this.grpLicense.SuspendLayout();
             this.SuspendLayout();
@@ -52,6 +52,24 @@ namespace HeufyAudio.GUI
             this.grpInfo.TabStop = false;
             this.grpInfo.Text = "Information";
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(15, 49);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(251, 13);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Just a simple audio recorder that does simple things.";
+            // 
+            // lblVersion
+            // 
+            this.lblVersion.AutoSize = true;
+            this.lblVersion.Location = new System.Drawing.Point(15, 25);
+            this.lblVersion.Name = "lblVersion";
+            this.lblVersion.Size = new System.Drawing.Size(112, 13);
+            this.lblVersion.TabIndex = 0;
+            this.lblVersion.Text = "Heufy Audio Recorder";
+            // 
             // grpLicense
             // 
             this.grpLicense.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -65,17 +83,6 @@ namespace HeufyAudio.GUI
             this.grpLicense.TabStop = false;
             this.grpLicense.Text = "License";
             // 
-            // btnClose
-            // 
-            this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnClose.Location = new System.Drawing.Point(523, 463);
-            this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(75, 23);
-            this.btnClose.TabIndex = 2;
-            this.btnClose.Text = "Close";
-            this.btnClose.UseVisualStyleBackColor = true;
-            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
-            // 
             // rtbLicense
             // 
             this.rtbLicense.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -86,23 +93,16 @@ namespace HeufyAudio.GUI
             this.rtbLicense.TabIndex = 0;
             this.rtbLicense.Text = resources.GetString("rtbLicense.Text");
             // 
-            // lblVersion
+            // btnClose
             // 
-            this.lblVersion.AutoSize = true;
-            this.lblVersion.Location = new System.Drawing.Point(15, 25);
-            this.lblVersion.Name = "lblVersion";
-            this.lblVersion.Size = new System.Drawing.Size(112, 13);
-            this.lblVersion.TabIndex = 0;
-            this.lblVersion.Text = "Heufy Audio Recorder";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(15, 49);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(251, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Just a simple audio recorder that does simple things.";
+            this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnClose.Location = new System.Drawing.Point(523, 463);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(75, 23);
+            this.btnClose.TabIndex = 2;
+            this.btnClose.Text = "Close";
+            this.btnClose.UseVisualStyleBackColor = true;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
             // FrmAbout
             // 
