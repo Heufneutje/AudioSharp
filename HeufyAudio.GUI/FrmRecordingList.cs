@@ -169,7 +169,7 @@ namespace HeufyAudio.GUI
 
                 _Recordings.Add(filePath);
                 string formattedDate = info.CreationTime.ToString("yyyy-MM-dd HH:mm");
-                ListViewItem item = new ListViewItem(new[] { info.Name, info.Extension, formattedDate, BytesTostring(info.Length) });
+                ListViewItem item = new ListViewItem(new[] { Path.GetFileNameWithoutExtension(filePath), info.Extension, formattedDate, BytesTostring(info.Length) });
                 lvRecordings.Items.Add(item);
             }
         }
