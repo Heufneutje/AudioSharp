@@ -4,7 +4,7 @@ using NAudio.CoreAudioApi;
 
 namespace HeufyAudio.Core
 {
-    public class AudioRecorder : IDisposable
+    public abstract class AudioRecorder : IDisposable
     {
         #region Fields & Properties
         private MMDevice _SelectedDevice;
