@@ -62,7 +62,7 @@ namespace HeufyAudio.GUI
             this.lvRecordings.MultiSelect = false;
             this.lvRecordings.Name = "lvRecordings";
             this.lvRecordings.ShowGroups = false;
-            this.lvRecordings.Size = new System.Drawing.Size(647, 414);
+            this.lvRecordings.Size = new System.Drawing.Size(629, 387);
             this.lvRecordings.TabIndex = 4;
             this.lvRecordings.UseCompatibleStateImageBehavior = false;
             this.lvRecordings.View = System.Windows.Forms.View.Details;
@@ -90,7 +90,6 @@ namespace HeufyAudio.GUI
             // 
             // btnConvertToMp3
             // 
-            this.btnConvertToMp3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnConvertToMp3.Image = global::HeufyAudio.GUI.Properties.Resources.Right;
             this.btnConvertToMp3.Location = new System.Drawing.Point(12, 105);
             this.btnConvertToMp3.Name = "btnConvertToMp3";
@@ -109,7 +108,6 @@ namespace HeufyAudio.GUI
             // 
             // btnOpenFolder
             // 
-            this.btnOpenFolder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnOpenFolder.Image = global::HeufyAudio.GUI.Properties.Resources.Folder;
             this.btnOpenFolder.Location = new System.Drawing.Point(12, 12);
             this.btnOpenFolder.Name = "btnOpenFolder";
@@ -162,12 +160,13 @@ namespace HeufyAudio.GUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(702, 438);
+            this.ClientSize = new System.Drawing.Size(684, 411);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnPlay);
             this.Controls.Add(this.btnOpenFolder);
             this.Controls.Add(this.btnConvertToMp3);
             this.Controls.Add(this.lvRecordings);
+            this.MinimumSize = new System.Drawing.Size(450, 180);
             this.Name = "FrmRecordingList";
             this.Text = "Recordings";
             this.Load += new System.EventHandler(this.FrmRecordingList_Load);

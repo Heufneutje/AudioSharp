@@ -47,7 +47,7 @@ namespace HeufyAudio.GUI
             this.grpInfo.Controls.Add(this.lblVersion);
             this.grpInfo.Location = new System.Drawing.Point(12, 12);
             this.grpInfo.Name = "grpInfo";
-            this.grpInfo.Size = new System.Drawing.Size(586, 79);
+            this.grpInfo.Size = new System.Drawing.Size(560, 79);
             this.grpInfo.TabIndex = 0;
             this.grpInfo.TabStop = false;
             this.grpInfo.Text = "Information";
@@ -78,7 +78,7 @@ namespace HeufyAudio.GUI
             this.grpLicense.Controls.Add(this.rtbLicense);
             this.grpLicense.Location = new System.Drawing.Point(12, 97);
             this.grpLicense.Name = "grpLicense";
-            this.grpLicense.Size = new System.Drawing.Size(586, 360);
+            this.grpLicense.Size = new System.Drawing.Size(560, 329);
             this.grpLicense.TabIndex = 1;
             this.grpLicense.TabStop = false;
             this.grpLicense.Text = "License";
@@ -89,14 +89,14 @@ namespace HeufyAudio.GUI
             this.rtbLicense.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rtbLicense.Location = new System.Drawing.Point(3, 16);
             this.rtbLicense.Name = "rtbLicense";
-            this.rtbLicense.Size = new System.Drawing.Size(580, 341);
+            this.rtbLicense.Size = new System.Drawing.Size(554, 310);
             this.rtbLicense.TabIndex = 0;
             this.rtbLicense.Text = resources.GetString("rtbLicense.Text");
             // 
             // btnClose
             // 
             this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnClose.Location = new System.Drawing.Point(523, 463);
+            this.btnClose.Location = new System.Drawing.Point(497, 432);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(75, 23);
             this.btnClose.TabIndex = 2;
@@ -108,12 +108,13 @@ namespace HeufyAudio.GUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(610, 492);
+            this.ClientSize = new System.Drawing.Size(584, 461);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.grpLicense);
             this.Controls.Add(this.grpInfo);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(345, 250);
             this.Name = "FrmAbout";
             this.Text = "About Heufy Audio Recorder";
             this.Load += new System.EventHandler(this.FrmAbout_Load);
