@@ -31,12 +31,12 @@ namespace HeufyAudio.GUI
         {
             configurationBindingSource.EndEdit();
             ConfigHandler.SaveConfig((Configuration)configurationBindingSource.Current);
-            this.DialogResult = DialogResult.OK;
+            DialogResult = DialogResult.OK;
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            this.DialogResult = DialogResult.Cancel;
+            DialogResult = DialogResult.Cancel;
         }
 
         private void btnBrowse_Click(object sender, EventArgs e)
@@ -53,10 +53,10 @@ namespace HeufyAudio.GUI
         private void configurationBindingSource_CurrentItemChanged(object sender, EventArgs e)
         {
             Configuration config = (Configuration)configurationBindingSource.Current;
-            if (String.IsNullOrEmpty(config.RecordingsFolder) || String.IsNullOrEmpty(config.RecordingPrefix))
+            if (string.IsNullOrEmpty(config.RecordingsFolder) || string.IsNullOrEmpty(config.RecordingPrefix))
                 txtNextRecording.Text = "<invalid path>";
             else
-                txtNextRecording.Text = String.Format("{0}.wav", 
+                txtNextRecording.Text = string.Format("{0}.wav", 
                     Path.Combine(config.RecordingsFolder, config.RecordingPrefix + config.NextRecordingNumber.ToString("D4")));
         }
         #endregion

@@ -1,10 +1,6 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using NAudio.CoreAudioApi;
-using NAudio.Wave;
 
 namespace HeufyAudio.Core
 {
@@ -12,8 +8,8 @@ namespace HeufyAudio.Core
     {
         #region Fields & Properties
         private MMDevice _SelectedDevice;
-        private WasapiCapture _CaptureStream;
-        private WaveFileWriter _OutWriter;
+        protected WasapiCapture _CaptureStream;
+        
         public MMDeviceCollection Devices { get; private set; }
         public MMDevice SelectedDevice
         {
@@ -65,43 +61,24 @@ namespace HeufyAudio.Core
         }
         #endregion
 
-        #region Events
-        private void CaptureStream_DataAvailable(object sender, WaveInEventArgs e)
+        #region Virtual Functions
+        public virtual void StartRecording(string fileName)
         {
-            if (_OutWriter == null)
-                return;
-
-            _OutWriter.Write(e.Buffer, 0, e.BytesRecorded);
-            _OutWriter.Flush();
-        }
-        #endregion
-
-        #region Public Functions
-        public void StartRecording(string fileName)
-        {
-            _OutWriter = new WaveFileWriter(fileName, _CaptureStream.WaveFormat);
-            _CaptureStream.DataAvailable += CaptureStream_DataAvailable;
+            
         }
 
-        public void StopRecording()
+        public virtual void StopRecording()
         {
-            _CaptureStream.DataAvailable -= CaptureStream_DataAvailable;
-            _OutWriter.Dispose();
-            _OutWriter = null;
+            
         }
 
-        public void Dispose()
+        public virtual void Dispose()
         {
             if (_CaptureStream != null)
             {
                 _CaptureStream.StopRecording();
                 _CaptureStream.Dispose();
                 _CaptureStream = null;
-            }
-            if (_OutWriter != null)
-            {
-                _OutWriter.Dispose();
-                _OutWriter = null;
             }
         }
         #endregion

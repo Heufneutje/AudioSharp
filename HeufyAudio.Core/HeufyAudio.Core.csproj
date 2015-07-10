@@ -52,7 +52,9 @@
     </Compile>
     <Compile Include="AudioRecorder.cs" />
     <Compile Include="MP3Convertor.cs" />
+    <Compile Include="MP3Recorder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WaveRecorder.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -19,7 +19,7 @@ namespace HeufyAudio.GUI
         {
             get
             {
-                return String.Format("{0}.wav", Path.Combine(_Config.RecordingsFolder, _Config.RecordingPrefix + _Config.NextRecordingNumber.ToString("D4")));
+                return string.Format("{0}.wav", Path.Combine(_Config.RecordingsFolder, _Config.RecordingPrefix + _Config.NextRecordingNumber.ToString("D4")));
             }
         }
         #endregion
@@ -29,7 +29,7 @@ namespace HeufyAudio.GUI
         {
             InitializeComponent();
             _Config = ConfigHandler.ReadConfig();
-            _AudioRecorder = new AudioRecorder();
+            _AudioRecorder = new WaveRecorder();
             cbInputDevices.Items.AddRange(_AudioRecorder.Devices.ToArray());
             cbInputDevices.SelectedIndex = _AudioRecorder.DefaultDeviceNumber;
         }

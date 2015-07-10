@@ -22,7 +22,7 @@ namespace HeufyAudio.GUI
         public FrmRecordingList(string recordingPath)
         {
             InitializeComponent();
-            this._RecordingPath = recordingPath;
+            _RecordingPath = recordingPath;
             fileSystemWatcher.Path = recordingPath;
             RefreshRecordings();
         }
@@ -169,12 +169,12 @@ namespace HeufyAudio.GUI
 
                 _Recordings.Add(filePath);
                 string formattedDate = info.CreationTime.ToString("yyyy-MM-dd HH:mm");
-                ListViewItem item = new ListViewItem(new[] { info.Name, info.Extension, formattedDate, BytesToString(info.Length) });
+                ListViewItem item = new ListViewItem(new[] { info.Name, info.Extension, formattedDate, BytesTostring(info.Length) });
                 lvRecordings.Items.Add(item);
             }
         }
 
-        private string BytesToString(long byteCount)
+        private string BytesTostring(long byteCount)
         {
             string[] suf = { "B", "KB", "MB", "GB", "TB", "PB", "EB" };
             if (byteCount == 0)
