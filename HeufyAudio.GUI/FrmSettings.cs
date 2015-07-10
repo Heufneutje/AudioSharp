@@ -1,18 +1,11 @@
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using HeufyAudio.Config;
 
 namespace HeufyAudio.GUI
 {
-    public partial class FrmSettings : Form
+    public partial class FrmSettings : HeufyAudioBaseForm
     {
         #region Fields & Properties
         public Configuration Config

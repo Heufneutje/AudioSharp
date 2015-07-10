@@ -1,16 +1,8 @@
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace HeufyAudio.GUI
 {
-    public partial class FrmProgressDialog : Form
+    public partial class FrmProgressDialog : HeufyAudioBaseForm
     {
         #region Fields & Properties
         public event EventHandler Cancelled;

@@ -9,7 +9,7 @@ using NAudio.CoreAudioApi;
 
 namespace HeufyAudio.GUI
 {
-    public partial class FrmMain : Form
+    public partial class FrmMain : HeufyAudioBaseForm
     {
         #region Fields & Properties
         private AudioRecorder _AudioRecorder;

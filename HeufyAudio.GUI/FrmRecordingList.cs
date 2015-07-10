@@ -1,20 +1,15 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using HeufyAudio.Core;
 using HeufyAudio.Translations;
 
 namespace HeufyAudio.GUI
 {
-    public partial class FrmRecordingList : Form
+    public partial class FrmRecordingList : HeufyAudioBaseForm
     {
         #region Fields & Properties
         private string _RecordingPath;
