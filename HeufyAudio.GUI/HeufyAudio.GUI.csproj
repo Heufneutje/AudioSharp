@@ -36,6 +36,7 @@
     <ApplicationIcon>microphone-3-32.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="NAudio, Version=1.7.3.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\NAudio.1.7.3\lib\net35\NAudio.dll</HintPath>
@@ -166,6 +167,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="microphone-3-32.ico" />
+    <None Include="Resources\Trash.png" />
+    <None Include="Resources\Right.png" />
+    <None Include="Resources\play_16.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

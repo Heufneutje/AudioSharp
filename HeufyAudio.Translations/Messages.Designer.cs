@@ -61,6 +61,15 @@ namespace HeufyAudio.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string GUICommonError {
+            get {
+                return ResourceManager.GetString("GUICommonError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This recording is already an MP3 file..
         /// </summary>
         public static string GUIConvertAlreadyMP3 {
@@ -84,6 +93,24 @@ namespace HeufyAudio.Translations {
         public static string GUIConvertTitle {
             get {
                 return ResourceManager.GetString("GUIConvertTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you wish to delete this?.
+        /// </summary>
+        public static string GUIDefaultDelete {
+            get {
+                return ResourceManager.GetString("GUIDefaultDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string GUIDefaultDeleteTitle {
+            get {
+                return ResourceManager.GetString("GUIDefaultDeleteTitle", resourceCulture);
             }
         }
         
@@ -120,6 +147,15 @@ namespace HeufyAudio.Translations {
         public static string GUIErrorOutputFileTitle {
             get {
                 return ResourceManager.GetString("GUIErrorOutputFileTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No file was selected..
+        /// </summary>
+        public static string GUINoFileSelected {
+            get {
+                return ResourceManager.GetString("GUINoFileSelected", resourceCulture);
             }
         }
         

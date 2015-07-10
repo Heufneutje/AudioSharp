@@ -6,6 +6,7 @@ using System.IO;
 using System.Windows.Forms;
 using HeufyAudio.Core;
 using HeufyAudio.Translations;
+using Microsoft.VisualBasic.FileIO;
 
 namespace HeufyAudio.GUI
 {
@@ -22,6 +23,7 @@ namespace HeufyAudio.GUI
         {
             InitializeComponent();
             this._RecordingPath = recordingPath;
+            fileSystemWatcher.Path = recordingPath;
             RefreshRecordings();
         }
         #endregion
@@ -39,12 +41,7 @@ namespace HeufyAudio.GUI
         #region Control Events
         private void lvRecordings_DoubleClick(object sender, EventArgs e)
         {
-            ListViewItem selectedItem = lvRecordings.SelectedItems[0];
-
-            if (File.Exists(_Recordings[selectedItem.Index]))
-                Process.Start(_Recordings[selectedItem.Index]);
-            else
-                RefreshRecordings();
+            PlaySelectedRecording();
         }
 
         private void btnOpenFolder_Click(object sender, EventArgs e)
@@ -52,10 +49,36 @@ namespace HeufyAudio.GUI
             Process.Start(_RecordingPath);
         }
 
+        private void btnPlay_Click(object sender, EventArgs e)
+        {
+            if (lvRecordings.SelectedItems.Count == 0)
+            {
+                MessageBox.Show(Messages.GUINoFileSelected, Messages.GUICommonError, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            PlaySelectedRecording();
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            if (lvRecordings.SelectedItems.Count == 0)
+            {
+                MessageBox.Show(Messages.GUINoFileSelected, Messages.GUICommonError, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (MessageBox.Show(Messages.GUIDefaultDelete, Messages.GUIDefaultDeleteTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                DeleteSelectedRecording();
+        }
+
         private void btnConvertToMp3_Click(object sender, EventArgs e)
         {
             if (lvRecordings.SelectedItems.Count == 0)
+            {
+                MessageBox.Show(Messages.GUINoFileSelected, Messages.GUICommonError, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
+            }
 
             ListViewItem selectedItem = lvRecordings.SelectedItems[0];
             string filePath = _Recordings[selectedItem.Index];
@@ -75,40 +98,34 @@ namespace HeufyAudio.GUI
             _ProgressDialog.Show();
             backgroundWorker.RunWorkerAsync(_Recordings[selectedItem.Index]);
         }
-        #endregion
 
-        #region Helper Functions
-        private void RefreshRecordings()
+        private void convertor_ReportingProgress(object sender, ConvertorProgressEventArgs e)
         {
-            this._Recordings = new List<string>();
-            lvRecordings.Items.Clear();
-            string[] files = Directory.GetFiles(_RecordingPath);
-
-            foreach (string filePath in files)
-            {
-                FileInfo info = new FileInfo(filePath);
-                if (info.Extension.ToLower() != ".wav" && info.Extension.ToLower() != ".mp3")
-                    continue;
-
-                _Recordings.Add(filePath);
-                string formattedDate = info.CreationTime.ToString("yyyy-MM-dd HH:mm");
-                ListViewItem item = new ListViewItem(new[] { info.Name, info.Extension, formattedDate, BytesToString(info.Length) });
-                lvRecordings.Items.Add(item);
-            }
+            backgroundWorker.ReportProgress(e.Progress);
         }
 
-        private string BytesToString(long byteCount)
+        private void fileSystemWatcher_Changed(object sender, FileSystemEventArgs e)
         {
-            string[] suf = { "B", "KB", "MB", "GB", "TB", "PB", "EB" };
-            if (byteCount == 0)
-                return "0 B";
-            long bytes = Math.Abs(byteCount);
-            int place = Convert.ToInt32(Math.Floor(Math.Log(bytes, 1024)));
-            double num = Math.Round(bytes / Math.Pow(1024, place), 1);
-            return String.Format("{0} {1}", Math.Sign(byteCount) * num, suf[place]);
+            RefreshRecordings();
+        }
+
+        private void fileSystemWatcher_Created(object sender, FileSystemEventArgs e)
+        {
+            RefreshRecordings();
+        }
+
+        private void fileSystemWatcher_Deleted(object sender, FileSystemEventArgs e)
+        {
+            RefreshRecordings();
+        }
+
+        private void fileSystemWatcher_Renamed(object sender, RenamedEventArgs e)
+        {
+            RefreshRecordings();
         }
         #endregion
 
+        #region BackgroundWorker Events
         private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             MP3Convertor convertor = new MP3Convertor();
@@ -134,13 +151,55 @@ namespace HeufyAudio.GUI
                 MessageBox.Show(error, Messages.GUIConvertTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-
-            RefreshRecordings();
         }
+        #endregion
 
-        private void convertor_ReportingProgress(object sender, ConvertorProgressEventArgs e)
+        #region Helper Functions
+        private void RefreshRecordings()
         {
-            backgroundWorker.ReportProgress(e.Progress);
+            _Recordings = new List<string>();
+            lvRecordings.Items.Clear();
+            string[] files = Directory.GetFiles(_RecordingPath);
+
+            foreach (string filePath in files)
+            {
+                FileInfo info = new FileInfo(filePath);
+                if (info.Extension.ToLower() != ".wav" && info.Extension.ToLower() != ".mp3")
+                    continue;
+
+                _Recordings.Add(filePath);
+                string formattedDate = info.CreationTime.ToString("yyyy-MM-dd HH:mm");
+                ListViewItem item = new ListViewItem(new[] { info.Name, info.Extension, formattedDate, BytesToString(info.Length) });
+                lvRecordings.Items.Add(item);
+            }
         }
+
+        private string BytesToString(long byteCount)
+        {
+            string[] suf = { "B", "KB", "MB", "GB", "TB", "PB", "EB" };
+            if (byteCount == 0)
+                return "0 B";
+            long bytes = Math.Abs(byteCount);
+            int place = Convert.ToInt32(Math.Floor(Math.Log(bytes, 1024)));
+            double num = Math.Round(bytes / Math.Pow(1024, place), 1);
+            return string.Format("{0} {1}", Math.Sign(byteCount) * num, suf[place]);
+        }
+
+        private void PlaySelectedRecording()
+        {
+            ListViewItem selectedItem = lvRecordings.SelectedItems[0];
+
+            if (File.Exists(_Recordings[selectedItem.Index]))
+                Process.Start(_Recordings[selectedItem.Index]);
+        }
+
+        private void DeleteSelectedRecording()
+        {
+            ListViewItem selectedItem = lvRecordings.SelectedItems[0];
+
+            if (File.Exists(_Recordings[selectedItem.Index]))
+                FileSystem.DeleteFile(_Recordings[selectedItem.Index], UIOption.OnlyErrorDialogs, RecycleOption.SendToRecycleBin);
+        }
+        #endregion
     }
 }
