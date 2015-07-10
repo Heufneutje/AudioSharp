@@ -22,6 +22,7 @@ namespace HeufyAudio.GUI
         public FrmSettings(Configuration currentConfig)
         {
             InitializeComponent();
+            cbOutputFormat.SelectedIndex = 0;
             configurationBindingSource.DataSource = currentConfig;
         }
         #endregion
@@ -56,8 +57,8 @@ namespace HeufyAudio.GUI
             if (string.IsNullOrEmpty(config.RecordingsFolder) || string.IsNullOrEmpty(config.RecordingPrefix))
                 txtNextRecording.Text = "<invalid path>";
             else
-                txtNextRecording.Text = string.Format("{0}.wav", 
-                    Path.Combine(config.RecordingsFolder, config.RecordingPrefix + config.NextRecordingNumber.ToString("D4")));
+                txtNextRecording.Text = string.Format("{0}.{1}", 
+                    Path.Combine(config.RecordingsFolder, config.RecordingPrefix + config.NextRecordingNumber.ToString("D4")), config.OutputFormat);
         }
         #endregion
     }

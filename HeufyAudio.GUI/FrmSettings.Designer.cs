@@ -30,8 +30,10 @@ namespace HeufyAudio.GUI
         {
             this.components = new System.ComponentModel.Container();
             this.grpGeneral = new System.Windows.Forms.GroupBox();
-            this.chkAutoIncrementRecording = new System.Windows.Forms.CheckBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.cbOutputFormat = new System.Windows.Forms.ComboBox();
             this.configurationBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.chkAutoIncrementRecording = new System.Windows.Forms.CheckBox();
             this.btnBrowse = new System.Windows.Forms.Button();
             this.txtNextRecording = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -53,6 +55,8 @@ namespace HeufyAudio.GUI
             this.grpGeneral.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpGeneral.Controls.Add(this.label5);
+            this.grpGeneral.Controls.Add(this.cbOutputFormat);
             this.grpGeneral.Controls.Add(this.chkAutoIncrementRecording);
             this.grpGeneral.Controls.Add(this.btnBrowse);
             this.grpGeneral.Controls.Add(this.txtNextRecording);
@@ -65,27 +69,48 @@ namespace HeufyAudio.GUI
             this.grpGeneral.Controls.Add(this.txtRecordingsFolder);
             this.grpGeneral.Location = new System.Drawing.Point(12, 12);
             this.grpGeneral.Name = "grpGeneral";
-            this.grpGeneral.Size = new System.Drawing.Size(510, 128);
+            this.grpGeneral.Size = new System.Drawing.Size(510, 158);
             this.grpGeneral.TabIndex = 0;
             this.grpGeneral.TabStop = false;
             this.grpGeneral.Text = "General";
             // 
-            // chkAutoIncrementRecording
+            // label5
             // 
-            this.chkAutoIncrementRecording.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.chkAutoIncrementRecording.AutoSize = true;
-            this.chkAutoIncrementRecording.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.configurationBindingSource, "AutoIncrementRecordingNumber", true));
-            this.chkAutoIncrementRecording.Location = new System.Drawing.Point(402, 72);
-            this.chkAutoIncrementRecording.Name = "chkAutoIncrementRecording";
-            this.chkAutoIncrementRecording.Size = new System.Drawing.Size(97, 17);
-            this.chkAutoIncrementRecording.TabIndex = 7;
-            this.chkAutoIncrementRecording.Text = "Auto-increment";
-            this.chkAutoIncrementRecording.UseVisualStyleBackColor = true;
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(10, 100);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(74, 13);
+            this.label5.TabIndex = 10;
+            this.label5.Text = "Output format:";
+            // 
+            // cbOutputFormat
+            // 
+            this.cbOutputFormat.DataBindings.Add(new System.Windows.Forms.Binding("SelectedItem", this.configurationBindingSource, "OutputFormat", true));
+            this.cbOutputFormat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbOutputFormat.FormattingEnabled = true;
+            this.cbOutputFormat.Items.AddRange(new object[] {
+            "wav",
+            "mp3"});
+            this.cbOutputFormat.Location = new System.Drawing.Point(145, 97);
+            this.cbOutputFormat.Name = "cbOutputFormat";
+            this.cbOutputFormat.Size = new System.Drawing.Size(61, 21);
+            this.cbOutputFormat.TabIndex = 5;
             // 
             // configurationBindingSource
             // 
             this.configurationBindingSource.DataSource = typeof(HeufyAudio.Config.Configuration);
             this.configurationBindingSource.CurrentItemChanged += new System.EventHandler(this.configurationBindingSource_CurrentItemChanged);
+            // 
+            // chkAutoIncrementRecording
+            // 
+            this.chkAutoIncrementRecording.AutoSize = true;
+            this.chkAutoIncrementRecording.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.configurationBindingSource, "AutoIncrementRecordingNumber", true));
+            this.chkAutoIncrementRecording.Location = new System.Drawing.Point(212, 72);
+            this.chkAutoIncrementRecording.Name = "chkAutoIncrementRecording";
+            this.chkAutoIncrementRecording.Size = new System.Drawing.Size(97, 17);
+            this.chkAutoIncrementRecording.TabIndex = 4;
+            this.chkAutoIncrementRecording.Text = "Auto-increment";
+            this.chkAutoIncrementRecording.UseVisualStyleBackColor = true;
             // 
             // btnBrowse
             // 
@@ -102,19 +127,20 @@ namespace HeufyAudio.GUI
             // 
             this.txtNextRecording.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtNextRecording.Location = new System.Drawing.Point(145, 97);
+            this.txtNextRecording.Location = new System.Drawing.Point(145, 124);
             this.txtNextRecording.Name = "txtNextRecording";
             this.txtNextRecording.ReadOnly = true;
             this.txtNextRecording.Size = new System.Drawing.Size(354, 20);
-            this.txtNextRecording.TabIndex = 4;
+            this.txtNextRecording.TabIndex = 6;
+            this.txtNextRecording.TabStop = false;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(10, 100);
+            this.label4.Location = new System.Drawing.Point(10, 127);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(79, 13);
-            this.label4.TabIndex = 6;
+            this.label4.TabIndex = 11;
             this.label4.Text = "Next recording:";
             // 
             // label3
@@ -123,7 +149,7 @@ namespace HeufyAudio.GUI
             this.label3.Location = new System.Drawing.Point(10, 73);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(117, 13);
-            this.label3.TabIndex = 5;
+            this.label3.TabIndex = 9;
             this.label3.Text = "Next recording number:";
             // 
             // label2
@@ -132,7 +158,7 @@ namespace HeufyAudio.GUI
             this.label2.Location = new System.Drawing.Point(10, 48);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(87, 13);
-            this.label2.TabIndex = 4;
+            this.label2.TabIndex = 8;
             this.label2.Text = "Recording prefix:";
             // 
             // label1
@@ -141,13 +167,11 @@ namespace HeufyAudio.GUI
             this.label1.Location = new System.Drawing.Point(10, 22);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(93, 13);
-            this.label1.TabIndex = 3;
+            this.label1.TabIndex = 7;
             this.label1.Text = "Recordings folder:";
             // 
             // spinNextRecording
             // 
-            this.spinNextRecording.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.spinNextRecording.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.configurationBindingSource, "NextRecordingNumber", true));
             this.spinNextRecording.Location = new System.Drawing.Point(145, 71);
             this.spinNextRecording.Maximum = new decimal(new int[] {
@@ -161,7 +185,7 @@ namespace HeufyAudio.GUI
             0,
             0});
             this.spinNextRecording.Name = "spinNextRecording";
-            this.spinNextRecording.Size = new System.Drawing.Size(251, 20);
+            this.spinNextRecording.Size = new System.Drawing.Size(61, 20);
             this.spinNextRecording.TabIndex = 3;
             this.spinNextRecording.Value = new decimal(new int[] {
             1,
@@ -192,7 +216,7 @@ namespace HeufyAudio.GUI
             // btnOK
             // 
             this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnOK.Location = new System.Drawing.Point(366, 146);
+            this.btnOK.Location = new System.Drawing.Point(366, 176);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);
             this.btnOK.TabIndex = 1;
@@ -203,7 +227,7 @@ namespace HeufyAudio.GUI
             // btnCancel
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancel.Location = new System.Drawing.Point(447, 146);
+            this.btnCancel.Location = new System.Drawing.Point(447, 176);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 2;
@@ -215,13 +239,13 @@ namespace HeufyAudio.GUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(534, 176);
+            this.ClientSize = new System.Drawing.Size(534, 206);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
             this.Controls.Add(this.grpGeneral);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(350, 215);
+            this.MinimumSize = new System.Drawing.Size(350, 245);
             this.Name = "FrmSettings";
             this.Text = "Settings";
             this.grpGeneral.ResumeLayout(false);
@@ -248,5 +272,7 @@ namespace HeufyAudio.GUI
         private System.Windows.Forms.TextBox txtNextRecording;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.CheckBox chkAutoIncrementRecording;
+        private System.Windows.Forms.ComboBox cbOutputFormat;
+        private System.Windows.Forms.Label label5;
     }
 }

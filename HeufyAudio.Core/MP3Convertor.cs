@@ -1,9 +1,5 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using NAudio.Lame;
 using NAudio.Wave;
 
@@ -34,13 +30,13 @@ namespace HeufyAudio.Core
                     runningTotal += read;
                     if (ReportingProgress != null)
                     {
-                        double progress = (double)runningTotal / (double)size * 100;
+                        double progress = runningTotal / (double)size * 100;
                         ConvertorProgressEventArgs args = new ConvertorProgressEventArgs() { Progress = Convert.ToInt32(progress) };
                         ReportingProgress(this, args);
                     }
                 }
 
-                string mp3Path = String.Format("{0}.mp3", wavInfo.FullName.Substring(0, wavInfo.FullName.LastIndexOf('.')));
+                string mp3Path = string.Format("{0}.mp3", wavInfo.FullName.Substring(0, wavInfo.FullName.LastIndexOf('.')));
                 File.WriteAllBytes(mp3Path, retMs.ToArray());
             }
         }

@@ -19,7 +19,7 @@ namespace HeufyAudio.GUI
         {
             get
             {
-                return string.Format("{0}.wav", Path.Combine(_Config.RecordingsFolder, _Config.RecordingPrefix + _Config.NextRecordingNumber.ToString("D4")));
+                return string.Format("{0}.{1}", Path.Combine(_Config.RecordingsFolder, _Config.RecordingPrefix + _Config.NextRecordingNumber.ToString("D4")), _Config.OutputFormat);
             }
         }
         #endregion
@@ -29,9 +29,7 @@ namespace HeufyAudio.GUI
         {
             InitializeComponent();
             _Config = ConfigHandler.ReadConfig();
-            _AudioRecorder = new WaveRecorder();
-            cbInputDevices.Items.AddRange(_AudioRecorder.Devices.ToArray());
-            cbInputDevices.SelectedIndex = _AudioRecorder.DefaultDeviceNumber;
+            InitAudioDevices();
         }
         #endregion
 
@@ -120,7 +118,7 @@ namespace HeufyAudio.GUI
             if (_AudioRecorder.SelectedDevice != null)
             {
                 _AudioRecorder.SelectedDevice.AudioEndpointVolume.MasterVolumeLevelScalar = (float)trckVolume.Value / 50.0f;
-                lblVolumePercentage.Text = String.Format("{0} %", (float)trckVolume.Value / 50 * 100);
+                lblVolumePercentage.Text = string.Format("{0} %", (float)trckVolume.Value / 50 * 100);
             }
         }
         #endregion
@@ -139,12 +137,16 @@ namespace HeufyAudio.GUI
 
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            string oldOutputFormat = _Config.OutputFormat;
             using (FrmSettings settingsFrm = new FrmSettings(_Config))
             {
                 if (settingsFrm.ShowDialog() == DialogResult.OK)
                 {
                     _Config = settingsFrm.Config;
                     txtOutputFile.Text = NextRecordingPath;
+
+                    if (oldOutputFormat != _Config.OutputFormat)
+                        InitAudioDevices();
                 }
             }
         }
@@ -159,6 +161,29 @@ namespace HeufyAudio.GUI
         #endregion
 
         #region Helper Functions
+        private void InitAudioDevices()
+        {
+            if (_AudioRecorder != null)
+            {
+                _AudioRecorder.Dispose();
+                _AudioRecorder = null;
+            }
+
+            switch (_Config.OutputFormat)
+            {
+                case "wav":
+                    _AudioRecorder = new WaveRecorder();
+                    break;
+                case "mp3":
+                    _AudioRecorder = new MP3Recorder();
+                    break;
+            }
+
+            cbInputDevices.Items.Clear();
+            cbInputDevices.Items.AddRange(_AudioRecorder.Devices.ToArray());
+            cbInputDevices.SelectedIndex = _AudioRecorder.DefaultDeviceNumber;
+        }
+
         private void UpdateButtonStates(bool recording)
         {
             btnRecord.Enabled = !recording;

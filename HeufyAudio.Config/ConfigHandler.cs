@@ -1,9 +1,5 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
 
 namespace HeufyAudio.Config
@@ -37,7 +33,8 @@ namespace HeufyAudio.Config
                 RecordingsFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic),
                 RecordingPrefix = "Recording",
                 NextRecordingNumber = 1,
-                AutoIncrementRecordingNumber = true
+                AutoIncrementRecordingNumber = true,
+                OutputFormat = "wav"
             };
         }
     }

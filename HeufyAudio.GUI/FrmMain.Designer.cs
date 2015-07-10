@@ -63,6 +63,7 @@ namespace HeufyAudio.GUI
             // 
             this.cbInputDevices.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbInputDevices.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbInputDevices.FormattingEnabled = true;
             this.cbInputDevices.Location = new System.Drawing.Point(139, 23);
             this.cbInputDevices.Name = "cbInputDevices";
