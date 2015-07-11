@@ -48,6 +48,11 @@ namespace HeufyAudio.GUI
                     txtRecordingsFolder.Text = fbd.SelectedPath;
             }
         }
+
+        private void cbOutputFormat_SelectedValueChanged(object sender, EventArgs e)
+        {
+            configurationBindingSource.EndEdit();
+        }
         #endregion
 
         #region DataSource Events

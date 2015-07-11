@@ -95,6 +95,7 @@ namespace HeufyAudio.GUI
             this.cbOutputFormat.Name = "cbOutputFormat";
             this.cbOutputFormat.Size = new System.Drawing.Size(61, 21);
             this.cbOutputFormat.TabIndex = 5;
+            this.cbOutputFormat.SelectedValueChanged += new System.EventHandler(this.cbOutputFormat_SelectedValueChanged);
             // 
             // configurationBindingSource
             // 
