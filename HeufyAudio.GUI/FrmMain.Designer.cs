@@ -152,9 +152,11 @@ namespace HeufyAudio.GUI
             // btnRecord
             // 
             this.btnRecord.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRecord.Location = new System.Drawing.Point(416, 226);
+            this.btnRecord.Image = global::HeufyAudio.GUI.Properties.Resources.record;
+            this.btnRecord.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnRecord.Location = new System.Drawing.Point(366, 230);
             this.btnRecord.Name = "btnRecord";
-            this.btnRecord.Size = new System.Drawing.Size(75, 23);
+            this.btnRecord.Size = new System.Drawing.Size(100, 25);
             this.btnRecord.TabIndex = 4;
             this.btnRecord.Text = "&Record";
             this.btnRecord.UseVisualStyleBackColor = true;
@@ -164,9 +166,11 @@ namespace HeufyAudio.GUI
             // 
             this.btnStop.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnStop.Enabled = false;
-            this.btnStop.Location = new System.Drawing.Point(497, 226);
+            this.btnStop.Image = global::HeufyAudio.GUI.Properties.Resources.stop;
+            this.btnStop.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnStop.Location = new System.Drawing.Point(472, 230);
             this.btnStop.Name = "btnStop";
-            this.btnStop.Size = new System.Drawing.Size(75, 23);
+            this.btnStop.Size = new System.Drawing.Size(100, 25);
             this.btnStop.TabIndex = 5;
             this.btnStop.Text = "&Stop";
             this.btnStop.UseVisualStyleBackColor = true;

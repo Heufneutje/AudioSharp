@@ -167,6 +167,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="microphone-3-32.ico" />
+    <None Include="Resources\stop.png" />
+    <None Include="Resources\record.png" />
     <None Include="Resources\Trash.png" />
     <None Include="Resources\Right.png" />
     <None Include="Resources\play_16.png" />
