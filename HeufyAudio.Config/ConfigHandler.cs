@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using HeufyAudio.Utils;
 using Newtonsoft.Json;
 
 namespace HeufyAudio.Config
@@ -8,23 +9,16 @@ namespace HeufyAudio.Config
     {
         public static void SaveConfig(Configuration config)
         {
-            string dir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "HeufyAudioRecorder");
-            if (!Directory.Exists(dir))
-                Directory.CreateDirectory(dir);
-
             string json = JsonConvert.SerializeObject(config);
-            File.WriteAllText(Path.Combine(dir, "settings.json"), json);
+            File.WriteAllText(Path.Combine(FileUtils.AppDataFolder, "settings.json"), json);
         }
 
         public static Configuration ReadConfig()
         {
-            string dir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "HeufyAudioRecorder");
-            if (!Directory.Exists(dir))
-                Directory.CreateDirectory(dir);
-
-            if (File.Exists(Path.Combine(dir, "settings.json")))
+            string path = Path.Combine(FileUtils.AppDataFolder, "settings.json");
+            if (File.Exists(path))
             {
-                string json = File.ReadAllText(Path.Combine(dir, "settings.json"));
+                string json = File.ReadAllText(path);
                 return JsonConvert.DeserializeObject<Configuration>(json);
             }
 

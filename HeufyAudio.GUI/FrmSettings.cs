@@ -45,7 +45,10 @@ namespace HeufyAudio.GUI
             using (FolderBrowserDialog fbd = new FolderBrowserDialog())
             {
                 if (fbd.ShowDialog() == DialogResult.OK)
+                {
                     txtRecordingsFolder.Text = fbd.SelectedPath;
+                    configurationBindingSource.EndEdit();
+                }
             }
         }
 
