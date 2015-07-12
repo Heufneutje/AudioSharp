@@ -163,6 +163,9 @@ namespace HeufyAudio.GUI
 
             foreach (string filePath in files)
             {
+                if (!File.Exists(filePath))
+                    break; // Most likely received a Changed event on a deleted file. In this case we don't need to update anything.
+
                 FileInfo info = new FileInfo(filePath);
                 if (info.Extension.ToLower() != ".wav" && info.Extension.ToLower() != ".mp3")
                     continue;
