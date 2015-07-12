@@ -29,10 +29,15 @@ namespace HeufyAudio.GUI
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            this.grpTray = new System.Windows.Forms.GroupBox();
+            this.chkMinimizeToTray = new System.Windows.Forms.CheckBox();
+            this.configurationBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.chkShowTrayIcon = new System.Windows.Forms.CheckBox();
+            this.btnCancel = new System.Windows.Forms.Button();
+            this.btnOK = new System.Windows.Forms.Button();
             this.grpGeneral = new System.Windows.Forms.GroupBox();
             this.label5 = new System.Windows.Forms.Label();
             this.cbOutputFormat = new System.Windows.Forms.ComboBox();
-            this.configurationBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.chkAutoIncrementRecording = new System.Windows.Forms.CheckBox();
             this.btnBrowse = new System.Windows.Forms.Button();
             this.txtNextRecording = new System.Windows.Forms.TextBox();
@@ -43,12 +48,75 @@ namespace HeufyAudio.GUI
             this.spinNextRecording = new System.Windows.Forms.NumericUpDown();
             this.txtRecordingPrefix = new System.Windows.Forms.TextBox();
             this.txtRecordingsFolder = new System.Windows.Forms.TextBox();
-            this.btnOK = new System.Windows.Forms.Button();
-            this.btnCancel = new System.Windows.Forms.Button();
-            this.grpGeneral.SuspendLayout();
+            this.grpTray.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.configurationBindingSource)).BeginInit();
+            this.grpGeneral.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.spinNextRecording)).BeginInit();
             this.SuspendLayout();
+            // 
+            // grpTray
+            // 
+            this.grpTray.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpTray.Controls.Add(this.chkMinimizeToTray);
+            this.grpTray.Controls.Add(this.chkShowTrayIcon);
+            this.grpTray.Location = new System.Drawing.Point(13, 175);
+            this.grpTray.Name = "grpTray";
+            this.grpTray.Size = new System.Drawing.Size(509, 70);
+            this.grpTray.TabIndex = 3;
+            this.grpTray.TabStop = false;
+            this.grpTray.Text = "System tray";
+            // 
+            // chkMinimizeToTray
+            // 
+            this.chkMinimizeToTray.AutoSize = true;
+            this.chkMinimizeToTray.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.configurationBindingSource, "MinimizeToTray", true));
+            this.chkMinimizeToTray.Enabled = false;
+            this.chkMinimizeToTray.Location = new System.Drawing.Point(12, 42);
+            this.chkMinimizeToTray.Name = "chkMinimizeToTray";
+            this.chkMinimizeToTray.Size = new System.Drawing.Size(98, 17);
+            this.chkMinimizeToTray.TabIndex = 1;
+            this.chkMinimizeToTray.Text = "Minimize to tray";
+            this.chkMinimizeToTray.UseVisualStyleBackColor = true;
+            // 
+            // configurationBindingSource
+            // 
+            this.configurationBindingSource.DataSource = typeof(HeufyAudio.Config.Configuration);
+            this.configurationBindingSource.CurrentItemChanged += new System.EventHandler(this.configurationBindingSource_CurrentItemChanged);
+            // 
+            // chkShowTrayIcon
+            // 
+            this.chkShowTrayIcon.AutoSize = true;
+            this.chkShowTrayIcon.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.configurationBindingSource, "ShowTrayIcon", true));
+            this.chkShowTrayIcon.Location = new System.Drawing.Point(12, 19);
+            this.chkShowTrayIcon.Name = "chkShowTrayIcon";
+            this.chkShowTrayIcon.Size = new System.Drawing.Size(96, 17);
+            this.chkShowTrayIcon.TabIndex = 0;
+            this.chkShowTrayIcon.Text = "Show tray icon";
+            this.chkShowTrayIcon.UseVisualStyleBackColor = true;
+            this.chkShowTrayIcon.CheckedChanged += new System.EventHandler(this.chkShowTrayIcon_CheckedChanged);
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCancel.Location = new System.Drawing.Point(447, 251);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.TabIndex = 2;
+            this.btnCancel.Text = "Cancel";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            // 
+            // btnOK
+            // 
+            this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnOK.Location = new System.Drawing.Point(366, 251);
+            this.btnOK.Name = "btnOK";
+            this.btnOK.Size = new System.Drawing.Size(75, 23);
+            this.btnOK.TabIndex = 1;
+            this.btnOK.Text = "Save";
+            this.btnOK.UseVisualStyleBackColor = true;
+            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
             // 
             // grpGeneral
             // 
@@ -69,7 +137,7 @@ namespace HeufyAudio.GUI
             this.grpGeneral.Controls.Add(this.txtRecordingsFolder);
             this.grpGeneral.Location = new System.Drawing.Point(12, 12);
             this.grpGeneral.Name = "grpGeneral";
-            this.grpGeneral.Size = new System.Drawing.Size(510, 158);
+            this.grpGeneral.Size = new System.Drawing.Size(510, 157);
             this.grpGeneral.TabIndex = 0;
             this.grpGeneral.TabStop = false;
             this.grpGeneral.Text = "General";
@@ -96,11 +164,6 @@ namespace HeufyAudio.GUI
             this.cbOutputFormat.Size = new System.Drawing.Size(61, 21);
             this.cbOutputFormat.TabIndex = 5;
             this.cbOutputFormat.SelectedValueChanged += new System.EventHandler(this.cbOutputFormat_SelectedValueChanged);
-            // 
-            // configurationBindingSource
-            // 
-            this.configurationBindingSource.DataSource = typeof(HeufyAudio.Config.Configuration);
-            this.configurationBindingSource.CurrentItemChanged += new System.EventHandler(this.configurationBindingSource_CurrentItemChanged);
             // 
             // chkAutoIncrementRecording
             // 
@@ -214,44 +277,26 @@ namespace HeufyAudio.GUI
             this.txtRecordingsFolder.Size = new System.Drawing.Size(284, 20);
             this.txtRecordingsFolder.TabIndex = 0;
             // 
-            // btnOK
-            // 
-            this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnOK.Location = new System.Drawing.Point(366, 176);
-            this.btnOK.Name = "btnOK";
-            this.btnOK.Size = new System.Drawing.Size(75, 23);
-            this.btnOK.TabIndex = 1;
-            this.btnOK.Text = "Save";
-            this.btnOK.UseVisualStyleBackColor = true;
-            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
-            // 
-            // btnCancel
-            // 
-            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancel.Location = new System.Drawing.Point(447, 176);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(75, 23);
-            this.btnCancel.TabIndex = 2;
-            this.btnCancel.Text = "Cancel";
-            this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
-            // 
             // FrmSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(534, 206);
+            this.ClientSize = new System.Drawing.Size(534, 281);
+            this.Controls.Add(this.grpTray);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
             this.Controls.Add(this.grpGeneral);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(350, 245);
             this.Name = "FrmSettings";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Settings";
+            this.grpTray.ResumeLayout(false);
+            this.grpTray.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.configurationBindingSource)).EndInit();
             this.grpGeneral.ResumeLayout(false);
             this.grpGeneral.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.configurationBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.spinNextRecording)).EndInit();
             this.ResumeLayout(false);
 
@@ -275,5 +320,8 @@ namespace HeufyAudio.GUI
         private System.Windows.Forms.CheckBox chkAutoIncrementRecording;
         private System.Windows.Forms.ComboBox cbOutputFormat;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.GroupBox grpTray;
+        private System.Windows.Forms.CheckBox chkMinimizeToTray;
+        private System.Windows.Forms.CheckBox chkShowTrayIcon;
     }
 }

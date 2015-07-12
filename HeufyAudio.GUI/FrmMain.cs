@@ -15,6 +15,7 @@ namespace HeufyAudio.GUI
         private AudioRecorder _AudioRecorder;
         private TimeSpan _Timer;
         private Configuration _Config;
+        private NotifyIcon _TrayIcon;
         private string NextRecordingPath
         {
             get
@@ -30,6 +31,7 @@ namespace HeufyAudio.GUI
             InitializeComponent();
             _Config = ConfigHandler.ReadConfig();
             InitAudioDevices();
+            InitTrayIcon();
         }
         #endregion
 
@@ -37,6 +39,7 @@ namespace HeufyAudio.GUI
         private void FrmMain_Load(object sender, EventArgs e)
         {
             txtOutputFile.Text = NextRecordingPath;
+            Hide();
         }
 
         private void FrmMain_FormClosing(object sender, FormClosingEventArgs e)
@@ -53,43 +56,25 @@ namespace HeufyAudio.GUI
             }
 
             _AudioRecorder.Dispose();
+            _TrayIcon.Dispose();
+        }
+
+        private void FrmMain_Resize(object sender, EventArgs e)
+        {
+            if (WindowState == FormWindowState.Minimized && _Config.MinimizeToTray)
+                Hide();
         }
         #endregion
 
         #region Control Events
         private void btnRecord_Click(object sender, EventArgs e)
         {
-            if (cbInputDevices.SelectedItem == null)
-            {
-                MessageBox.Show(Messages.GUIErrorInputDevice, Messages.GUIErrorInputDeviceTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            if (File.Exists(txtOutputFile.Text))
-            {
-                if (MessageBox.Show(Messages.GUIQuestionOverwriteRecording, Messages.GUIQuestionOverwriteRecordingTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
-                    return;
-            }
-
-            try
-            {
-                _AudioRecorder.StartRecording(NextRecordingPath);
-                UpdateGUIState(true);
-                _Timer = new TimeSpan();
-                lblTimer.Text = _Timer.ToString();
-                timerClock.Start();
-            }
-            catch (ArgumentException)
-            {
-                MessageBox.Show(Messages.GUIErrorOutputFile, Messages.GUIErrorOutputFileTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            StartRecording();
         }
 
         private void btnStop_Click(object sender, EventArgs e)
         {
-            UpdateGUIState(false);
-            _AudioRecorder.StopRecording();
-            timerClock.Stop();
-            UpdateRecordingNumber();
+            StopRecording();
         }
 
         private void timerVAMeter_Tick(object sender, EventArgs e)
@@ -120,7 +105,7 @@ namespace HeufyAudio.GUI
         {
             if (_AudioRecorder.SelectedDevice != null)
             {
-                _AudioRecorder.SelectedDevice.AudioEndpointVolume.MasterVolumeLevelScalar = (float)trckVolume.Value / 50.0f;
+                _AudioRecorder.SelectedDevice.AudioEndpointVolume.MasterVolumeLevelScalar = trckVolume.Value / 50.0f;
                 lblVolumePercentage.Text = string.Format("{0} %", (float)trckVolume.Value / 50 * 100);
             }
         }
@@ -147,6 +132,7 @@ namespace HeufyAudio.GUI
                 {
                     _Config = settingsFrm.Config;
                     txtOutputFile.Text = NextRecordingPath;
+                    _TrayIcon.Visible = _Config.ShowTrayIcon;
 
                     if (oldOutputFormat != _Config.OutputFormat)
                         InitAudioDevices();
@@ -159,6 +145,33 @@ namespace HeufyAudio.GUI
             using (FrmAbout aboutFrm = new FrmAbout())
             {
                 aboutFrm.ShowDialog();
+            }
+        }
+        #endregion
+
+        #region Context Menu Events
+        private void recordToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            StartRecording();
+        }
+
+        private void stopToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            StopRecording();
+        }
+
+        private void exitToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void _TrayIcon_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                Show();
+                if (WindowState == FormWindowState.Minimized)
+                    WindowState = FormWindowState.Normal;
             }
         }
         #endregion
@@ -187,6 +200,51 @@ namespace HeufyAudio.GUI
             cbInputDevices.SelectedIndex = _AudioRecorder.DefaultDeviceNumber;
         }
 
+        private void InitTrayIcon()
+        {
+            _TrayIcon = new NotifyIcon();
+            _TrayIcon.Text = Text;
+            _TrayIcon.Icon = Properties.Resources.icon_default;
+            _TrayIcon.ContextMenuStrip = contextMenuStrip;
+            _TrayIcon.Visible = _Config.ShowTrayIcon;
+            _TrayIcon.MouseClick += _TrayIcon_MouseClick;
+        }
+
+        private void StartRecording()
+        {
+            if (cbInputDevices.SelectedItem == null)
+            {
+                MessageBox.Show(Messages.GUIErrorInputDevice, Messages.GUIErrorInputDeviceTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (File.Exists(txtOutputFile.Text))
+            {
+                if (MessageBox.Show(Messages.GUIQuestionOverwriteRecording, Messages.GUIQuestionOverwriteRecordingTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
+                    return;
+            }
+
+            try
+            {
+                _AudioRecorder.StartRecording(NextRecordingPath);
+                UpdateGUIState(true);
+                _Timer = new TimeSpan();
+                lblTimer.Text = _Timer.ToString();
+                timerClock.Start();
+            }
+            catch (ArgumentException)
+            {
+                MessageBox.Show(Messages.GUIErrorOutputFile, Messages.GUIErrorOutputFileTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void StopRecording()
+        {
+            UpdateGUIState(false);
+            _AudioRecorder.StopRecording();
+            timerClock.Stop();
+            UpdateRecordingNumber();
+        }
+
         private void UpdateGUIState(bool recording)
         {
             btnRecord.Enabled = !recording;
@@ -195,11 +253,14 @@ namespace HeufyAudio.GUI
             settingsToolStripMenuItem.Enabled = !recording;
 
             Icon = recording ? Properties.Resources.icon_recording : Properties.Resources.icon_default;
+            _TrayIcon.Icon = recording ? Properties.Resources.icon_recording : Properties.Resources.icon_default;
 
             if (recording)
                 Text += " [RECORDING IN PROGRESS]";
             else
                 Text = "Heufy Audio Recorder";
+
+            _TrayIcon.Text = Text;
         }
 
         private void UpdateRecordingNumber()

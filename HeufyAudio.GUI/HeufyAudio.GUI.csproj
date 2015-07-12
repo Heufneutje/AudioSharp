@@ -170,9 +170,11 @@
     <None Include="Resources\play_16.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="icon_default.ico" />
     <None Include="Resources\icon_recording.ico" />
     <None Include="Resources\icon_default.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="icon_default.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -28,7 +28,8 @@ namespace HeufyAudio.Config
                 RecordingPrefix = "Recording",
                 NextRecordingNumber = 1,
                 AutoIncrementRecordingNumber = true,
-                OutputFormat = "wav"
+                OutputFormat = "wav",
+                ShowTrayIcon = true
             };
         }
     }

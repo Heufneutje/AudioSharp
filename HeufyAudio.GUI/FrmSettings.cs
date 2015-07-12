@@ -56,6 +56,19 @@ namespace HeufyAudio.GUI
         {
             configurationBindingSource.EndEdit();
         }
+
+        private void chkShowTrayIcon_CheckedChanged(object sender, EventArgs e)
+        {
+            chkMinimizeToTray.Enabled = chkShowTrayIcon.Checked;
+            if (!chkShowTrayIcon.Checked)
+            {
+                configurationBindingSource.EndEdit();
+                Configuration config = (Configuration)configurationBindingSource.DataSource;
+                config.MinimizeToTray = false;
+                chkMinimizeToTray.Checked = false;
+                configurationBindingSource.DataSource = config;
+            }
+        }
         #endregion
 
         #region DataSource Events
@@ -69,5 +82,10 @@ namespace HeufyAudio.GUI
                     Path.Combine(config.RecordingsFolder, config.RecordingPrefix + config.NextRecordingNumber.ToString("D4")), config.OutputFormat);
         }
         #endregion
+
+        private void textBox1_KeyDown(object sender, KeyEventArgs e)
+        {
+            
+        }
     }
 }

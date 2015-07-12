@@ -1,10 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace HeufyAudio.Config
 {
     public class Configuration
@@ -14,5 +7,7 @@ namespace HeufyAudio.Config
         public int NextRecordingNumber { get; set; }
         public bool AutoIncrementRecordingNumber { get; set; }
         public string OutputFormat { get; set; }
+        public bool ShowTrayIcon { get; set; }
+        public bool MinimizeToTray { get; set; }
     }
 }
