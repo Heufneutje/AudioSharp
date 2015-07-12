@@ -44,7 +44,10 @@ namespace HeufyAudio.GUI
             if (!btnRecord.Enabled)
             {
                 if (MessageBox.Show(Messages.GUIStopRecording, Messages.GUIStopRecordingTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
+                {
                     e.Cancel = true;
+                    return;
+                }
 
                 UpdateRecordingNumber();
             }
@@ -70,7 +73,7 @@ namespace HeufyAudio.GUI
             try
             {
                 _AudioRecorder.StartRecording(NextRecordingPath);
-                UpdateButtonStates(true);
+                UpdateGUIState(true);
                 _Timer = new TimeSpan();
                 lblTimer.Text = _Timer.ToString();
                 timerClock.Start();
@@ -83,7 +86,7 @@ namespace HeufyAudio.GUI
 
         private void btnStop_Click(object sender, EventArgs e)
         {
-            UpdateButtonStates(false);
+            UpdateGUIState(false);
             _AudioRecorder.StopRecording();
             timerClock.Stop();
             UpdateRecordingNumber();
@@ -184,11 +187,19 @@ namespace HeufyAudio.GUI
             cbInputDevices.SelectedIndex = _AudioRecorder.DefaultDeviceNumber;
         }
 
-        private void UpdateButtonStates(bool recording)
+        private void UpdateGUIState(bool recording)
         {
             btnRecord.Enabled = !recording;
             btnStop.Enabled = recording;
             cbInputDevices.Enabled = !recording;
+            settingsToolStripMenuItem.Enabled = !recording;
+
+            Icon = recording ? Properties.Resources.icon_recording : Properties.Resources.icon_default;
+
+            if (recording)
+                Text += " [RECORDING IN PROGRESS]";
+            else
+                Text = "Heufy Audio Recorder";
         }
 
         private void UpdateRecordingNumber()

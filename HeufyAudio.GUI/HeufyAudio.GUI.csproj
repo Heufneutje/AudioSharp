@@ -33,7 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>microphone-3-32.ico</ApplicationIcon>
+    <ApplicationIcon>icon_default.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.VisualBasic" />
@@ -163,15 +163,16 @@
     <None Include="Resources\Info.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\microphone-3-32.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="microphone-3-32.ico" />
     <None Include="Resources\stop.png" />
     <None Include="Resources\record.png" />
     <None Include="Resources\Trash.png" />
     <None Include="Resources\Right.png" />
     <None Include="Resources\play_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="icon_default.ico" />
+    <None Include="Resources\icon_recording.ico" />
+    <None Include="Resources\icon_default.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
