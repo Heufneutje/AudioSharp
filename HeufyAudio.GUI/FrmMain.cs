@@ -248,7 +248,9 @@ namespace HeufyAudio.GUI
         private void UpdateGUIState(bool recording)
         {
             btnRecord.Enabled = !recording;
+            recordToolStripMenuItem.Enabled = !recording;
             btnStop.Enabled = recording;
+            stopToolStripMenuItem.Enabled = recording;
             cbInputDevices.Enabled = !recording;
             settingsToolStripMenuItem.Enabled = !recording;
 

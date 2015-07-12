@@ -301,21 +301,22 @@ namespace HeufyAudio.GUI
             this.stopToolStripMenuItem,
             this.exitToolStripMenuItem1});
             this.contextMenuStrip.Name = "contextMenuStrip";
-            this.contextMenuStrip.Size = new System.Drawing.Size(112, 70);
+            this.contextMenuStrip.Size = new System.Drawing.Size(153, 92);
             // 
             // recordToolStripMenuItem
             // 
             this.recordToolStripMenuItem.Image = global::HeufyAudio.GUI.Properties.Resources.record;
             this.recordToolStripMenuItem.Name = "recordToolStripMenuItem";
-            this.recordToolStripMenuItem.Size = new System.Drawing.Size(111, 22);
+            this.recordToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.recordToolStripMenuItem.Text = "Record";
             this.recordToolStripMenuItem.Click += new System.EventHandler(this.recordToolStripMenuItem_Click);
             // 
             // stopToolStripMenuItem
             // 
+            this.stopToolStripMenuItem.Enabled = false;
             this.stopToolStripMenuItem.Image = global::HeufyAudio.GUI.Properties.Resources.stop;
             this.stopToolStripMenuItem.Name = "stopToolStripMenuItem";
-            this.stopToolStripMenuItem.Size = new System.Drawing.Size(111, 22);
+            this.stopToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.stopToolStripMenuItem.Text = "Stop";
             this.stopToolStripMenuItem.Click += new System.EventHandler(this.stopToolStripMenuItem_Click);
             // 
@@ -323,7 +324,7 @@ namespace HeufyAudio.GUI
             // 
             this.exitToolStripMenuItem1.Image = global::HeufyAudio.GUI.Properties.Resources.Application_cancel;
             this.exitToolStripMenuItem1.Name = "exitToolStripMenuItem1";
-            this.exitToolStripMenuItem1.Size = new System.Drawing.Size(111, 22);
+            this.exitToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.exitToolStripMenuItem1.Text = "Exit";
             this.exitToolStripMenuItem1.Click += new System.EventHandler(this.exitToolStripMenuItem1_Click);
             // 
