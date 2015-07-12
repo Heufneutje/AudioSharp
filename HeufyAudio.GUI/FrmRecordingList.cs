@@ -198,7 +198,7 @@ namespace HeufyAudio.GUI
             ListViewItem selectedItem = lvRecordings.SelectedItems[0];
 
             if (File.Exists(_Recordings[selectedItem.Index]))
-                FileSystem.DeleteFile(_Recordings[selectedItem.Index], UIOption.OnlyErrorDialogs, RecycleOption.SendToRecycleBin);
+                FileSystem.DeleteFile(_Recordings[selectedItem.Index], UIOption.OnlyErrorDialogs, RecycleOption.SendToRecycleBin, UICancelOption.DoNothing);
         }
         #endregion
     }
