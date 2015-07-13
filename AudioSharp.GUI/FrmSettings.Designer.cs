@@ -34,7 +34,7 @@ namespace AudioSharp.GUI
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.tabControl = new System.Windows.Forms.TabControl();
-            this.tabPageGeneral = new System.Windows.Forms.TabPage();
+            this.tabPageRecording = new System.Windows.Forms.TabPage();
             this.grpGeneral = new System.Windows.Forms.GroupBox();
             this.label5 = new System.Windows.Forms.Label();
             this.cbOutputFormat = new System.Windows.Forms.ComboBox();
@@ -55,7 +55,7 @@ namespace AudioSharp.GUI
             ((System.ComponentModel.ISupportInitialize)(this.configurationBindingSource)).BeginInit();
             this.panel1.SuspendLayout();
             this.tabControl.SuspendLayout();
-            this.tabPageGeneral.SuspendLayout();
+            this.tabPageRecording.SuspendLayout();
             this.grpGeneral.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.spinNextRecording)).BeginInit();
             this.tabPageInterface.SuspendLayout();
@@ -75,7 +75,7 @@ namespace AudioSharp.GUI
             this.panel1.Location = new System.Drawing.Point(0, 188);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(534, 33);
-            this.panel1.TabIndex = 5;
+            this.panel1.TabIndex = 1;
             // 
             // btnOK
             // 
@@ -83,7 +83,7 @@ namespace AudioSharp.GUI
             this.btnOK.Location = new System.Drawing.Point(371, 3);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);
-            this.btnOK.TabIndex = 1;
+            this.btnOK.TabIndex = 0;
             this.btnOK.Text = "Save";
             this.btnOK.UseVisualStyleBackColor = true;
             this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
@@ -94,32 +94,32 @@ namespace AudioSharp.GUI
             this.btnCancel.Location = new System.Drawing.Point(452, 3);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
-            this.btnCancel.TabIndex = 2;
+            this.btnCancel.TabIndex = 1;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // tabControl
             // 
-            this.tabControl.Controls.Add(this.tabPageGeneral);
+            this.tabControl.Controls.Add(this.tabPageRecording);
             this.tabControl.Controls.Add(this.tabPageInterface);
             this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl.Location = new System.Drawing.Point(0, 0);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
             this.tabControl.Size = new System.Drawing.Size(534, 221);
-            this.tabControl.TabIndex = 4;
+            this.tabControl.TabIndex = 0;
             // 
-            // tabPageGeneral
+            // tabPageRecording
             // 
-            this.tabPageGeneral.Controls.Add(this.grpGeneral);
-            this.tabPageGeneral.Location = new System.Drawing.Point(4, 22);
-            this.tabPageGeneral.Name = "tabPageGeneral";
-            this.tabPageGeneral.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageGeneral.Size = new System.Drawing.Size(526, 195);
-            this.tabPageGeneral.TabIndex = 0;
-            this.tabPageGeneral.Text = "General";
-            this.tabPageGeneral.UseVisualStyleBackColor = true;
+            this.tabPageRecording.Controls.Add(this.grpGeneral);
+            this.tabPageRecording.Location = new System.Drawing.Point(4, 22);
+            this.tabPageRecording.Name = "tabPageRecording";
+            this.tabPageRecording.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageRecording.Size = new System.Drawing.Size(526, 195);
+            this.tabPageRecording.TabIndex = 0;
+            this.tabPageRecording.Text = "Recording";
+            this.tabPageRecording.UseVisualStyleBackColor = true;
             // 
             // grpGeneral
             // 
@@ -301,7 +301,7 @@ namespace AudioSharp.GUI
             this.grpTray.Location = new System.Drawing.Point(8, 6);
             this.grpTray.Name = "grpTray";
             this.grpTray.Size = new System.Drawing.Size(512, 154);
-            this.grpTray.TabIndex = 4;
+            this.grpTray.TabIndex = 0;
             this.grpTray.TabStop = false;
             this.grpTray.Text = "System tray";
             // 
@@ -344,7 +344,7 @@ namespace AudioSharp.GUI
             ((System.ComponentModel.ISupportInitialize)(this.configurationBindingSource)).EndInit();
             this.panel1.ResumeLayout(false);
             this.tabControl.ResumeLayout(false);
-            this.tabPageGeneral.ResumeLayout(false);
+            this.tabPageRecording.ResumeLayout(false);
             this.grpGeneral.ResumeLayout(false);
             this.grpGeneral.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.spinNextRecording)).EndInit();
@@ -374,7 +374,7 @@ namespace AudioSharp.GUI
         private System.Windows.Forms.ComboBox cbOutputFormat;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TabControl tabControl;
-        private System.Windows.Forms.TabPage tabPageGeneral;
+        private System.Windows.Forms.TabPage tabPageRecording;
         private System.Windows.Forms.TabPage tabPageInterface;
         private System.Windows.Forms.GroupBox grpTray;
         private System.Windows.Forms.CheckBox chkMinimizeToTray;
