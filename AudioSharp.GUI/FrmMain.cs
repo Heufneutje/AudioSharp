@@ -172,7 +172,9 @@ namespace AudioSharp.GUI
         {
             using (FrmAbout aboutFrm = new FrmAbout())
             {
+                TopMost = false;
                 aboutFrm.ShowDialog();
+                TopMost = _Config.AlwaysOnTop;
             }
         }
         #endregion
