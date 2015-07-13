@@ -49,6 +49,8 @@ namespace AudioSharp.GUI
             this.txtRecordingPrefix = new System.Windows.Forms.TextBox();
             this.txtRecordingsFolder = new System.Windows.Forms.TextBox();
             this.tabPageInterface = new System.Windows.Forms.TabPage();
+            this.grpMainInterface = new System.Windows.Forms.GroupBox();
+            this.chkAlwaysOnTop = new System.Windows.Forms.CheckBox();
             this.grpTray = new System.Windows.Forms.GroupBox();
             this.chkMinimizeToTray = new System.Windows.Forms.CheckBox();
             this.chkShowTrayIcon = new System.Windows.Forms.CheckBox();
@@ -59,6 +61,7 @@ namespace AudioSharp.GUI
             this.grpGeneral.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.spinNextRecording)).BeginInit();
             this.tabPageInterface.SuspendLayout();
+            this.grpMainInterface.SuspendLayout();
             this.grpTray.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -282,6 +285,7 @@ namespace AudioSharp.GUI
             // 
             // tabPageInterface
             // 
+            this.tabPageInterface.Controls.Add(this.grpMainInterface);
             this.tabPageInterface.Controls.Add(this.grpTray);
             this.tabPageInterface.Location = new System.Drawing.Point(4, 22);
             this.tabPageInterface.Name = "tabPageInterface";
@@ -291,6 +295,29 @@ namespace AudioSharp.GUI
             this.tabPageInterface.Text = "Interface";
             this.tabPageInterface.UseVisualStyleBackColor = true;
             // 
+            // grpMainInterface
+            // 
+            this.grpMainInterface.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpMainInterface.Controls.Add(this.chkAlwaysOnTop);
+            this.grpMainInterface.Location = new System.Drawing.Point(7, 7);
+            this.grpMainInterface.Name = "grpMainInterface";
+            this.grpMainInterface.Size = new System.Drawing.Size(513, 46);
+            this.grpMainInterface.TabIndex = 1;
+            this.grpMainInterface.TabStop = false;
+            this.grpMainInterface.Text = "Main interface";
+            // 
+            // chkAlwaysOnTop
+            // 
+            this.chkAlwaysOnTop.AutoSize = true;
+            this.chkAlwaysOnTop.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.configurationBindingSource, "AlwaysOnTop", true));
+            this.chkAlwaysOnTop.Location = new System.Drawing.Point(8, 19);
+            this.chkAlwaysOnTop.Name = "chkAlwaysOnTop";
+            this.chkAlwaysOnTop.Size = new System.Drawing.Size(217, 17);
+            this.chkAlwaysOnTop.TabIndex = 2;
+            this.chkAlwaysOnTop.Text = "Always show AudioSharp window on top";
+            this.chkAlwaysOnTop.UseVisualStyleBackColor = true;
+            // 
             // grpTray
             // 
             this.grpTray.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -298,9 +325,9 @@ namespace AudioSharp.GUI
             | System.Windows.Forms.AnchorStyles.Right)));
             this.grpTray.Controls.Add(this.chkMinimizeToTray);
             this.grpTray.Controls.Add(this.chkShowTrayIcon);
-            this.grpTray.Location = new System.Drawing.Point(8, 6);
+            this.grpTray.Location = new System.Drawing.Point(8, 59);
             this.grpTray.Name = "grpTray";
-            this.grpTray.Size = new System.Drawing.Size(512, 154);
+            this.grpTray.Size = new System.Drawing.Size(512, 101);
             this.grpTray.TabIndex = 0;
             this.grpTray.TabStop = false;
             this.grpTray.Text = "System tray";
@@ -310,7 +337,7 @@ namespace AudioSharp.GUI
             this.chkMinimizeToTray.AutoSize = true;
             this.chkMinimizeToTray.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.configurationBindingSource, "MinimizeToTray", true));
             this.chkMinimizeToTray.Enabled = false;
-            this.chkMinimizeToTray.Location = new System.Drawing.Point(12, 42);
+            this.chkMinimizeToTray.Location = new System.Drawing.Point(7, 42);
             this.chkMinimizeToTray.Name = "chkMinimizeToTray";
             this.chkMinimizeToTray.Size = new System.Drawing.Size(98, 17);
             this.chkMinimizeToTray.TabIndex = 1;
@@ -321,7 +348,7 @@ namespace AudioSharp.GUI
             // 
             this.chkShowTrayIcon.AutoSize = true;
             this.chkShowTrayIcon.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.configurationBindingSource, "ShowTrayIcon", true));
-            this.chkShowTrayIcon.Location = new System.Drawing.Point(12, 19);
+            this.chkShowTrayIcon.Location = new System.Drawing.Point(7, 19);
             this.chkShowTrayIcon.Name = "chkShowTrayIcon";
             this.chkShowTrayIcon.Size = new System.Drawing.Size(96, 17);
             this.chkShowTrayIcon.TabIndex = 0;
@@ -349,6 +376,8 @@ namespace AudioSharp.GUI
             this.grpGeneral.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.spinNextRecording)).EndInit();
             this.tabPageInterface.ResumeLayout(false);
+            this.grpMainInterface.ResumeLayout(false);
+            this.grpMainInterface.PerformLayout();
             this.grpTray.ResumeLayout(false);
             this.grpTray.PerformLayout();
             this.ResumeLayout(false);
@@ -380,5 +409,7 @@ namespace AudioSharp.GUI
         private System.Windows.Forms.CheckBox chkMinimizeToTray;
         private System.Windows.Forms.CheckBox chkShowTrayIcon;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.CheckBox chkAlwaysOnTop;
+        private System.Windows.Forms.GroupBox grpMainInterface;
     }
 }

@@ -166,6 +166,8 @@ namespace AudioSharp.GUI
             this.Controls.Add(this.btnOpenFolder);
             this.Controls.Add(this.btnConvertToMp3);
             this.Controls.Add(this.lvRecordings);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(450, 180);
             this.Name = "FrmRecordingList";
             this.Text = "Recordings";

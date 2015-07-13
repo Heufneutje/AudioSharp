@@ -9,5 +9,6 @@ namespace AudioSharp.Config
         public string OutputFormat { get; set; }
         public bool ShowTrayIcon { get; set; }
         public bool MinimizeToTray { get; set; }
+        public bool AlwaysOnTop { get; set; }
     }
 }

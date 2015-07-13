@@ -39,8 +39,7 @@ namespace AudioSharp.GUI
         #region Form Events
         private void FrmMain_Load(object sender, EventArgs e)
         {
-            txtOutputFile.Text = NextRecordingPath;
-            Hide();
+            ApplySettings();
         }
 
         private void FrmMain_FormClosing(object sender, FormClosingEventArgs e)
@@ -145,8 +144,12 @@ namespace AudioSharp.GUI
 
         private void menuButtonRecordings_Click(object sender, EventArgs e)
         {
-            FrmRecordingList recordingsForm = new FrmRecordingList(_Config.RecordingsFolder);
-            recordingsForm.Show();
+            using (FrmRecordingList recordingsForm = new FrmRecordingList(_Config.RecordingsFolder))
+            {
+                TopMost = false;
+                recordingsForm.ShowDialog();
+                TopMost = _Config.AlwaysOnTop;
+            }
         }
 
         private void menuButtonSettings_Click(object sender, EventArgs e)
@@ -154,12 +157,11 @@ namespace AudioSharp.GUI
             string oldOutputFormat = _Config.OutputFormat;
             using (FrmSettings settingsFrm = new FrmSettings(_Config))
             {
+                TopMost = false;
                 if (settingsFrm.ShowDialog() == DialogResult.OK)
                 {
                     _Config = settingsFrm.Config;
-                    txtOutputFile.Text = NextRecordingPath;
-                    _TrayIcon.Visible = _Config.ShowTrayIcon;
-
+                    ApplySettings();
                     if (oldOutputFormat != _Config.OutputFormat)
                         InitAudioDevices();
                 }
@@ -217,7 +219,6 @@ namespace AudioSharp.GUI
             _TrayIcon.Text = Text;
             _TrayIcon.Icon = Properties.Resources.icon_default;
             _TrayIcon.ContextMenuStrip = contextMenuStrip;
-            _TrayIcon.Visible = _Config.ShowTrayIcon;
             _TrayIcon.MouseClick += _TrayIcon_MouseClick;
         }
 
@@ -255,6 +256,13 @@ namespace AudioSharp.GUI
 
             txtOutputFile.Text = NextRecordingPath;
             ConfigHandler.SaveConfig(_Config);
+        }
+
+        private void ApplySettings()
+        {
+            txtOutputFile.Text = NextRecordingPath;
+            _TrayIcon.Visible = _Config.ShowTrayIcon;
+            TopMost = _Config.AlwaysOnTop;
         }
         #endregion
     }

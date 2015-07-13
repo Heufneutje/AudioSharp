@@ -82,10 +82,5 @@ namespace AudioSharp.GUI
                     Path.Combine(config.RecordingsFolder, config.RecordingPrefix + config.NextRecordingNumber.ToString("D4")), config.OutputFormat);
         }
         #endregion
-
-        private void textBox1_KeyDown(object sender, KeyEventArgs e)
-        {
-            
-        }
     }
 }
