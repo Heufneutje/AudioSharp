@@ -390,7 +390,7 @@ namespace AudioSharp.GUI
             this.Controls.Add(this.gbRecordingSettings);
             this.Controls.Add(this.menuStrip);
             this.MainMenuStrip = this.menuStrip;
-            this.MinimumSize = new System.Drawing.Size(500, 300);
+            this.MinimumSize = new System.Drawing.Size(600, 325);
             this.Name = "FrmMain";
             this.Text = "AudioSharp";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmMain_FormClosing);
