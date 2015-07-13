@@ -29,12 +29,12 @@ namespace AudioSharp.GUI
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.grpTray = new System.Windows.Forms.GroupBox();
-            this.chkMinimizeToTray = new System.Windows.Forms.CheckBox();
             this.configurationBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.chkShowTrayIcon = new System.Windows.Forms.CheckBox();
-            this.btnCancel = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.btnOK = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
+            this.tabControl = new System.Windows.Forms.TabControl();
+            this.tabPageGeneral = new System.Windows.Forms.TabPage();
             this.grpGeneral = new System.Windows.Forms.GroupBox();
             this.label5 = new System.Windows.Forms.Label();
             this.cbOutputFormat = new System.Windows.Forms.ComboBox();
@@ -48,58 +48,50 @@ namespace AudioSharp.GUI
             this.spinNextRecording = new System.Windows.Forms.NumericUpDown();
             this.txtRecordingPrefix = new System.Windows.Forms.TextBox();
             this.txtRecordingsFolder = new System.Windows.Forms.TextBox();
-            this.grpTray.SuspendLayout();
+            this.tabPageInterface = new System.Windows.Forms.TabPage();
+            this.grpTray = new System.Windows.Forms.GroupBox();
+            this.chkMinimizeToTray = new System.Windows.Forms.CheckBox();
+            this.chkShowTrayIcon = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.configurationBindingSource)).BeginInit();
+            this.panel1.SuspendLayout();
+            this.tabControl.SuspendLayout();
+            this.tabPageGeneral.SuspendLayout();
             this.grpGeneral.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.spinNextRecording)).BeginInit();
+            this.tabPageInterface.SuspendLayout();
+            this.grpTray.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // grpTray
-            // 
-            this.grpTray.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.grpTray.Controls.Add(this.chkMinimizeToTray);
-            this.grpTray.Controls.Add(this.chkShowTrayIcon);
-            this.grpTray.Location = new System.Drawing.Point(13, 175);
-            this.grpTray.Name = "grpTray";
-            this.grpTray.Size = new System.Drawing.Size(509, 70);
-            this.grpTray.TabIndex = 3;
-            this.grpTray.TabStop = false;
-            this.grpTray.Text = "System tray";
-            // 
-            // chkMinimizeToTray
-            // 
-            this.chkMinimizeToTray.AutoSize = true;
-            this.chkMinimizeToTray.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.configurationBindingSource, "MinimizeToTray", true));
-            this.chkMinimizeToTray.Enabled = false;
-            this.chkMinimizeToTray.Location = new System.Drawing.Point(12, 42);
-            this.chkMinimizeToTray.Name = "chkMinimizeToTray";
-            this.chkMinimizeToTray.Size = new System.Drawing.Size(98, 17);
-            this.chkMinimizeToTray.TabIndex = 1;
-            this.chkMinimizeToTray.Text = "Minimize to tray";
-            this.chkMinimizeToTray.UseVisualStyleBackColor = true;
             // 
             // configurationBindingSource
             // 
             this.configurationBindingSource.DataSource = typeof(AudioSharp.Config.Configuration);
             this.configurationBindingSource.CurrentItemChanged += new System.EventHandler(this.configurationBindingSource_CurrentItemChanged);
             // 
-            // chkShowTrayIcon
+            // panel1
             // 
-            this.chkShowTrayIcon.AutoSize = true;
-            this.chkShowTrayIcon.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.configurationBindingSource, "ShowTrayIcon", true));
-            this.chkShowTrayIcon.Location = new System.Drawing.Point(12, 19);
-            this.chkShowTrayIcon.Name = "chkShowTrayIcon";
-            this.chkShowTrayIcon.Size = new System.Drawing.Size(96, 17);
-            this.chkShowTrayIcon.TabIndex = 0;
-            this.chkShowTrayIcon.Text = "Show tray icon";
-            this.chkShowTrayIcon.UseVisualStyleBackColor = true;
-            this.chkShowTrayIcon.CheckedChanged += new System.EventHandler(this.chkShowTrayIcon_CheckedChanged);
+            this.panel1.Controls.Add(this.btnOK);
+            this.panel1.Controls.Add(this.btnCancel);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel1.Location = new System.Drawing.Point(0, 188);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(534, 33);
+            this.panel1.TabIndex = 5;
+            // 
+            // btnOK
+            // 
+            this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnOK.Location = new System.Drawing.Point(371, 3);
+            this.btnOK.Name = "btnOK";
+            this.btnOK.Size = new System.Drawing.Size(75, 23);
+            this.btnOK.TabIndex = 1;
+            this.btnOK.Text = "Save";
+            this.btnOK.UseVisualStyleBackColor = true;
+            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
             // 
             // btnCancel
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancel.Location = new System.Drawing.Point(447, 251);
+            this.btnCancel.Location = new System.Drawing.Point(452, 3);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 2;
@@ -107,16 +99,27 @@ namespace AudioSharp.GUI
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
-            // btnOK
+            // tabControl
             // 
-            this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnOK.Location = new System.Drawing.Point(366, 251);
-            this.btnOK.Name = "btnOK";
-            this.btnOK.Size = new System.Drawing.Size(75, 23);
-            this.btnOK.TabIndex = 1;
-            this.btnOK.Text = "Save";
-            this.btnOK.UseVisualStyleBackColor = true;
-            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
+            this.tabControl.Controls.Add(this.tabPageGeneral);
+            this.tabControl.Controls.Add(this.tabPageInterface);
+            this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl.Location = new System.Drawing.Point(0, 0);
+            this.tabControl.Name = "tabControl";
+            this.tabControl.SelectedIndex = 0;
+            this.tabControl.Size = new System.Drawing.Size(534, 221);
+            this.tabControl.TabIndex = 4;
+            // 
+            // tabPageGeneral
+            // 
+            this.tabPageGeneral.Controls.Add(this.grpGeneral);
+            this.tabPageGeneral.Location = new System.Drawing.Point(4, 22);
+            this.tabPageGeneral.Name = "tabPageGeneral";
+            this.tabPageGeneral.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageGeneral.Size = new System.Drawing.Size(526, 195);
+            this.tabPageGeneral.TabIndex = 0;
+            this.tabPageGeneral.Text = "General";
+            this.tabPageGeneral.UseVisualStyleBackColor = true;
             // 
             // grpGeneral
             // 
@@ -135,9 +138,9 @@ namespace AudioSharp.GUI
             this.grpGeneral.Controls.Add(this.spinNextRecording);
             this.grpGeneral.Controls.Add(this.txtRecordingPrefix);
             this.grpGeneral.Controls.Add(this.txtRecordingsFolder);
-            this.grpGeneral.Location = new System.Drawing.Point(12, 12);
+            this.grpGeneral.Location = new System.Drawing.Point(8, 6);
             this.grpGeneral.Name = "grpGeneral";
-            this.grpGeneral.Size = new System.Drawing.Size(510, 157);
+            this.grpGeneral.Size = new System.Drawing.Size(512, 154);
             this.grpGeneral.TabIndex = 0;
             this.grpGeneral.TabStop = false;
             this.grpGeneral.Text = "General";
@@ -179,7 +182,7 @@ namespace AudioSharp.GUI
             // btnBrowse
             // 
             this.btnBrowse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnBrowse.Location = new System.Drawing.Point(435, 18);
+            this.btnBrowse.Location = new System.Drawing.Point(437, 18);
             this.btnBrowse.Name = "btnBrowse";
             this.btnBrowse.Size = new System.Drawing.Size(64, 23);
             this.btnBrowse.TabIndex = 1;
@@ -194,7 +197,7 @@ namespace AudioSharp.GUI
             this.txtNextRecording.Location = new System.Drawing.Point(145, 124);
             this.txtNextRecording.Name = "txtNextRecording";
             this.txtNextRecording.ReadOnly = true;
-            this.txtNextRecording.Size = new System.Drawing.Size(354, 20);
+            this.txtNextRecording.Size = new System.Drawing.Size(356, 20);
             this.txtNextRecording.TabIndex = 6;
             this.txtNextRecording.TabStop = false;
             // 
@@ -264,7 +267,7 @@ namespace AudioSharp.GUI
             this.txtRecordingPrefix.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.configurationBindingSource, "RecordingPrefix", true));
             this.txtRecordingPrefix.Location = new System.Drawing.Point(145, 45);
             this.txtRecordingPrefix.Name = "txtRecordingPrefix";
-            this.txtRecordingPrefix.Size = new System.Drawing.Size(354, 20);
+            this.txtRecordingPrefix.Size = new System.Drawing.Size(356, 20);
             this.txtRecordingPrefix.TabIndex = 2;
             // 
             // txtRecordingsFolder
@@ -274,30 +277,80 @@ namespace AudioSharp.GUI
             this.txtRecordingsFolder.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.configurationBindingSource, "RecordingsFolder", true));
             this.txtRecordingsFolder.Location = new System.Drawing.Point(145, 20);
             this.txtRecordingsFolder.Name = "txtRecordingsFolder";
-            this.txtRecordingsFolder.Size = new System.Drawing.Size(284, 20);
+            this.txtRecordingsFolder.Size = new System.Drawing.Size(286, 20);
             this.txtRecordingsFolder.TabIndex = 0;
+            // 
+            // tabPageInterface
+            // 
+            this.tabPageInterface.Controls.Add(this.grpTray);
+            this.tabPageInterface.Location = new System.Drawing.Point(4, 22);
+            this.tabPageInterface.Name = "tabPageInterface";
+            this.tabPageInterface.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageInterface.Size = new System.Drawing.Size(526, 195);
+            this.tabPageInterface.TabIndex = 1;
+            this.tabPageInterface.Text = "Interface";
+            this.tabPageInterface.UseVisualStyleBackColor = true;
+            // 
+            // grpTray
+            // 
+            this.grpTray.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpTray.Controls.Add(this.chkMinimizeToTray);
+            this.grpTray.Controls.Add(this.chkShowTrayIcon);
+            this.grpTray.Location = new System.Drawing.Point(8, 6);
+            this.grpTray.Name = "grpTray";
+            this.grpTray.Size = new System.Drawing.Size(512, 154);
+            this.grpTray.TabIndex = 4;
+            this.grpTray.TabStop = false;
+            this.grpTray.Text = "System tray";
+            // 
+            // chkMinimizeToTray
+            // 
+            this.chkMinimizeToTray.AutoSize = true;
+            this.chkMinimizeToTray.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.configurationBindingSource, "MinimizeToTray", true));
+            this.chkMinimizeToTray.Enabled = false;
+            this.chkMinimizeToTray.Location = new System.Drawing.Point(12, 42);
+            this.chkMinimizeToTray.Name = "chkMinimizeToTray";
+            this.chkMinimizeToTray.Size = new System.Drawing.Size(98, 17);
+            this.chkMinimizeToTray.TabIndex = 1;
+            this.chkMinimizeToTray.Text = "Minimize to tray";
+            this.chkMinimizeToTray.UseVisualStyleBackColor = true;
+            // 
+            // chkShowTrayIcon
+            // 
+            this.chkShowTrayIcon.AutoSize = true;
+            this.chkShowTrayIcon.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.configurationBindingSource, "ShowTrayIcon", true));
+            this.chkShowTrayIcon.Location = new System.Drawing.Point(12, 19);
+            this.chkShowTrayIcon.Name = "chkShowTrayIcon";
+            this.chkShowTrayIcon.Size = new System.Drawing.Size(96, 17);
+            this.chkShowTrayIcon.TabIndex = 0;
+            this.chkShowTrayIcon.Text = "Show tray icon";
+            this.chkShowTrayIcon.UseVisualStyleBackColor = true;
             // 
             // FrmSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(534, 281);
-            this.Controls.Add(this.grpTray);
-            this.Controls.Add(this.btnCancel);
-            this.Controls.Add(this.btnOK);
-            this.Controls.Add(this.grpGeneral);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.ClientSize = new System.Drawing.Size(534, 221);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.tabControl);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(350, 260);
             this.Name = "FrmSettings";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Settings";
-            this.grpTray.ResumeLayout(false);
-            this.grpTray.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.configurationBindingSource)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.tabControl.ResumeLayout(false);
+            this.tabPageGeneral.ResumeLayout(false);
             this.grpGeneral.ResumeLayout(false);
             this.grpGeneral.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.spinNextRecording)).EndInit();
+            this.tabPageInterface.ResumeLayout(false);
+            this.grpTray.ResumeLayout(false);
+            this.grpTray.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -320,8 +373,12 @@ namespace AudioSharp.GUI
         private System.Windows.Forms.CheckBox chkAutoIncrementRecording;
         private System.Windows.Forms.ComboBox cbOutputFormat;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TabControl tabControl;
+        private System.Windows.Forms.TabPage tabPageGeneral;
+        private System.Windows.Forms.TabPage tabPageInterface;
         private System.Windows.Forms.GroupBox grpTray;
         private System.Windows.Forms.CheckBox chkMinimizeToTray;
         private System.Windows.Forms.CheckBox chkShowTrayIcon;
+        private System.Windows.Forms.Panel panel1;
     }
 }

@@ -46,22 +46,28 @@ namespace AudioSharp.GUI
             this.timerVAMeter = new System.Windows.Forms.Timer(this.components);
             this.timerClock = new System.Windows.Forms.Timer(this.components);
             this.menuStrip = new System.Windows.Forms.MenuStrip();
-            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.recordingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuFile = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuButtonRecord = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuButtonStop = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.menuButtonExit = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuTools = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuButtonRecordings = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuButtonSettings = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuHelp = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuButtonAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.recordToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.stopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exitToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextButtonRecord = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextButtonStop = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextButtonExit = new System.Windows.Forms.ToolStripMenuItem();
+            this.statusStrip = new System.Windows.Forms.StatusStrip();
+            this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.gbRecordingSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trckVolume)).BeginInit();
             this.gbRecording.SuspendLayout();
             this.menuStrip.SuspendLayout();
             this.contextMenuStrip.SuspendLayout();
+            this.statusStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // cbInputDevices
@@ -159,7 +165,7 @@ namespace AudioSharp.GUI
             this.btnRecord.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnRecord.Image = global::AudioSharp.GUI.Properties.Resources.record;
             this.btnRecord.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnRecord.Location = new System.Drawing.Point(366, 230);
+            this.btnRecord.Location = new System.Drawing.Point(366, 231);
             this.btnRecord.Name = "btnRecord";
             this.btnRecord.Size = new System.Drawing.Size(100, 25);
             this.btnRecord.TabIndex = 4;
@@ -173,7 +179,7 @@ namespace AudioSharp.GUI
             this.btnStop.Enabled = false;
             this.btnStop.Image = global::AudioSharp.GUI.Properties.Resources.stop;
             this.btnStop.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnStop.Location = new System.Drawing.Point(472, 230);
+            this.btnStop.Location = new System.Drawing.Point(472, 231);
             this.btnStop.Name = "btnStop";
             this.btnStop.Size = new System.Drawing.Size(100, 25);
             this.btnStop.TabIndex = 5;
@@ -227,112 +233,157 @@ namespace AudioSharp.GUI
             // menuStrip
             // 
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem,
-            this.toolsToolStripMenuItem,
-            this.helpToolStripMenuItem});
+            this.menuFile,
+            this.menuTools,
+            this.menuHelp});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
             this.menuStrip.Size = new System.Drawing.Size(584, 24);
             this.menuStrip.TabIndex = 7;
             this.menuStrip.Text = "menuStrip1";
             // 
-            // fileToolStripMenuItem
+            // menuFile
             // 
-            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.exitToolStripMenuItem});
-            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
-            this.fileToolStripMenuItem.Text = "File";
+            this.menuFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuButtonRecord,
+            this.menuButtonStop,
+            this.toolStripSeparator1,
+            this.menuButtonExit});
+            this.menuFile.Name = "menuFile";
+            this.menuFile.Size = new System.Drawing.Size(37, 20);
+            this.menuFile.Text = "File";
             // 
-            // exitToolStripMenuItem
+            // menuButtonRecord
             // 
-            this.exitToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("exitToolStripMenuItem.Image")));
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
-            this.exitToolStripMenuItem.Text = "Exit";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            this.menuButtonRecord.Image = global::AudioSharp.GUI.Properties.Resources.record;
+            this.menuButtonRecord.Name = "menuButtonRecord";
+            this.menuButtonRecord.Size = new System.Drawing.Size(134, 22);
+            this.menuButtonRecord.Text = "Record";
+            this.menuButtonRecord.Click += new System.EventHandler(this.btnRecord_Click);
             // 
-            // toolsToolStripMenuItem
+            // menuButtonStop
             // 
-            this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.recordingsToolStripMenuItem,
-            this.settingsToolStripMenuItem});
-            this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
-            this.toolsToolStripMenuItem.Text = "Tools";
+            this.menuButtonStop.Enabled = false;
+            this.menuButtonStop.Image = global::AudioSharp.GUI.Properties.Resources.stop;
+            this.menuButtonStop.Name = "menuButtonStop";
+            this.menuButtonStop.Size = new System.Drawing.Size(134, 22);
+            this.menuButtonStop.Text = "Stop";
+            this.menuButtonStop.Click += new System.EventHandler(this.btnStop_Click);
             // 
-            // recordingsToolStripMenuItem
+            // toolStripSeparator1
             // 
-            this.recordingsToolStripMenuItem.Image = global::AudioSharp.GUI.Properties.Resources.Folder;
-            this.recordingsToolStripMenuItem.Name = "recordingsToolStripMenuItem";
-            this.recordingsToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
-            this.recordingsToolStripMenuItem.Text = "Recordings...";
-            this.recordingsToolStripMenuItem.Click += new System.EventHandler(this.recordingsToolStripMenuItem_Click);
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(131, 6);
             // 
-            // settingsToolStripMenuItem
+            // menuButtonExit
             // 
-            this.settingsToolStripMenuItem.Image = global::AudioSharp.GUI.Properties.Resources.Compile;
-            this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
-            this.settingsToolStripMenuItem.Text = "Settings...";
-            this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
+            this.menuButtonExit.Image = ((System.Drawing.Image)(resources.GetObject("menuButtonExit.Image")));
+            this.menuButtonExit.Name = "menuButtonExit";
+            this.menuButtonExit.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
+            this.menuButtonExit.Size = new System.Drawing.Size(134, 22);
+            this.menuButtonExit.Text = "Exit";
+            this.menuButtonExit.Click += new System.EventHandler(this.menuButtonExit_Click);
             // 
-            // helpToolStripMenuItem
+            // menuTools
             // 
-            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.aboutToolStripMenuItem});
-            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
-            this.helpToolStripMenuItem.Text = "Help";
+            this.menuTools.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuButtonRecordings,
+            this.menuButtonSettings});
+            this.menuTools.Name = "menuTools";
+            this.menuTools.Size = new System.Drawing.Size(47, 20);
+            this.menuTools.Text = "Tools";
             // 
-            // aboutToolStripMenuItem
+            // menuButtonRecordings
             // 
-            this.aboutToolStripMenuItem.Image = global::AudioSharp.GUI.Properties.Resources.Info;
-            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
-            this.aboutToolStripMenuItem.Text = "About...";
-            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            this.menuButtonRecordings.Image = global::AudioSharp.GUI.Properties.Resources.Folder;
+            this.menuButtonRecordings.Name = "menuButtonRecordings";
+            this.menuButtonRecordings.Size = new System.Drawing.Size(142, 22);
+            this.menuButtonRecordings.Text = "Recordings...";
+            this.menuButtonRecordings.Click += new System.EventHandler(this.menuButtonRecordings_Click);
+            // 
+            // menuButtonSettings
+            // 
+            this.menuButtonSettings.Image = global::AudioSharp.GUI.Properties.Resources.Compile;
+            this.menuButtonSettings.Name = "menuButtonSettings";
+            this.menuButtonSettings.Size = new System.Drawing.Size(142, 22);
+            this.menuButtonSettings.Text = "Settings...";
+            this.menuButtonSettings.Click += new System.EventHandler(this.menuButtonSettings_Click);
+            // 
+            // menuHelp
+            // 
+            this.menuHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuButtonAbout});
+            this.menuHelp.Name = "menuHelp";
+            this.menuHelp.Size = new System.Drawing.Size(44, 20);
+            this.menuHelp.Text = "Help";
+            // 
+            // menuButtonAbout
+            // 
+            this.menuButtonAbout.Image = global::AudioSharp.GUI.Properties.Resources.Info;
+            this.menuButtonAbout.Name = "menuButtonAbout";
+            this.menuButtonAbout.Size = new System.Drawing.Size(116, 22);
+            this.menuButtonAbout.Text = "About...";
+            this.menuButtonAbout.Click += new System.EventHandler(this.menuButtonAbout_Click);
             // 
             // contextMenuStrip
             // 
             this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.recordToolStripMenuItem,
-            this.stopToolStripMenuItem,
-            this.exitToolStripMenuItem1});
+            this.contextButtonRecord,
+            this.contextButtonStop,
+            this.contextButtonExit});
             this.contextMenuStrip.Name = "contextMenuStrip";
             this.contextMenuStrip.Size = new System.Drawing.Size(112, 70);
             // 
-            // recordToolStripMenuItem
+            // contextButtonRecord
             // 
-            this.recordToolStripMenuItem.Image = global::AudioSharp.GUI.Properties.Resources.record;
-            this.recordToolStripMenuItem.Name = "recordToolStripMenuItem";
-            this.recordToolStripMenuItem.Size = new System.Drawing.Size(111, 22);
-            this.recordToolStripMenuItem.Text = "Record";
-            this.recordToolStripMenuItem.Click += new System.EventHandler(this.recordToolStripMenuItem_Click);
+            this.contextButtonRecord.Image = global::AudioSharp.GUI.Properties.Resources.record;
+            this.contextButtonRecord.Name = "contextButtonRecord";
+            this.contextButtonRecord.Size = new System.Drawing.Size(111, 22);
+            this.contextButtonRecord.Text = "Record";
+            this.contextButtonRecord.Click += new System.EventHandler(this.btnRecord_Click);
             // 
-            // stopToolStripMenuItem
+            // contextButtonStop
             // 
-            this.stopToolStripMenuItem.Enabled = false;
-            this.stopToolStripMenuItem.Image = global::AudioSharp.GUI.Properties.Resources.stop;
-            this.stopToolStripMenuItem.Name = "stopToolStripMenuItem";
-            this.stopToolStripMenuItem.Size = new System.Drawing.Size(111, 22);
-            this.stopToolStripMenuItem.Text = "Stop";
-            this.stopToolStripMenuItem.Click += new System.EventHandler(this.stopToolStripMenuItem_Click);
+            this.contextButtonStop.Enabled = false;
+            this.contextButtonStop.Image = global::AudioSharp.GUI.Properties.Resources.stop;
+            this.contextButtonStop.Name = "contextButtonStop";
+            this.contextButtonStop.Size = new System.Drawing.Size(111, 22);
+            this.contextButtonStop.Text = "Stop";
+            this.contextButtonStop.Click += new System.EventHandler(this.btnStop_Click);
             // 
-            // exitToolStripMenuItem1
+            // contextButtonExit
             // 
-            this.exitToolStripMenuItem1.Image = global::AudioSharp.GUI.Properties.Resources.Application_cancel;
-            this.exitToolStripMenuItem1.Name = "exitToolStripMenuItem1";
-            this.exitToolStripMenuItem1.Size = new System.Drawing.Size(111, 22);
-            this.exitToolStripMenuItem1.Text = "Exit";
-            this.exitToolStripMenuItem1.Click += new System.EventHandler(this.exitToolStripMenuItem1_Click);
+            this.contextButtonExit.Image = global::AudioSharp.GUI.Properties.Resources.Application_cancel;
+            this.contextButtonExit.Name = "contextButtonExit";
+            this.contextButtonExit.Size = new System.Drawing.Size(111, 22);
+            this.contextButtonExit.Text = "Exit";
+            this.contextButtonExit.Click += new System.EventHandler(this.menuButtonExit_Click);
+            // 
+            // statusStrip
+            // 
+            this.statusStrip.BackColor = System.Drawing.Color.DodgerBlue;
+            this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.statusLabel});
+            this.statusStrip.Location = new System.Drawing.Point(0, 264);
+            this.statusStrip.Name = "statusStrip";
+            this.statusStrip.Size = new System.Drawing.Size(584, 22);
+            this.statusStrip.TabIndex = 8;
+            this.statusStrip.Text = "statusStrip1";
+            // 
+            // statusLabel
+            // 
+            this.statusLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.statusLabel.ForeColor = System.Drawing.Color.White;
+            this.statusLabel.Name = "statusLabel";
+            this.statusLabel.Size = new System.Drawing.Size(41, 17);
+            this.statusLabel.Text = "Ready";
             // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(584, 261);
+            this.ClientSize = new System.Drawing.Size(584, 286);
+            this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.gbRecording);
             this.Controls.Add(this.btnStop);
             this.Controls.Add(this.btnRecord);
@@ -352,6 +403,8 @@ namespace AudioSharp.GUI
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
             this.contextMenuStrip.ResumeLayout(false);
+            this.statusStrip.ResumeLayout(false);
+            this.statusStrip.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -372,20 +425,25 @@ namespace AudioSharp.GUI
         private System.Windows.Forms.Timer timerVAMeter;
         private System.Windows.Forms.Timer timerClock;
         private System.Windows.Forms.MenuStrip menuStrip;
-        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem menuFile;
+        private System.Windows.Forms.ToolStripMenuItem menuTools;
+        private System.Windows.Forms.ToolStripMenuItem menuButtonSettings;
+        private System.Windows.Forms.ToolStripMenuItem menuHelp;
+        private System.Windows.Forms.ToolStripMenuItem menuButtonAbout;
         private System.Windows.Forms.Label lblVolume;
         private System.Windows.Forms.TrackBar trckVolume;
         private System.Windows.Forms.Label lblVolumePercentage;
-        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem recordingsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem menuButtonExit;
+        private System.Windows.Forms.ToolStripMenuItem menuButtonRecordings;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip;
-        private System.Windows.Forms.ToolStripMenuItem recordToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem stopToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem contextButtonRecord;
+        private System.Windows.Forms.ToolStripMenuItem contextButtonStop;
+        private System.Windows.Forms.ToolStripMenuItem contextButtonExit;
+        private System.Windows.Forms.ToolStripMenuItem menuButtonRecord;
+        private System.Windows.Forms.ToolStripMenuItem menuButtonStop;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.StatusStrip statusStrip;
+        private System.Windows.Forms.ToolStripStatusLabel statusLabel;
     }
 }
 

@@ -1,4 +1,5 @@
 using System;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -69,12 +70,37 @@ namespace AudioSharp.GUI
         #region Control Events
         private void btnRecord_Click(object sender, EventArgs e)
         {
-            StartRecording();
+            if (cbInputDevices.SelectedItem == null)
+            {
+                MessageBox.Show(Messages.GUIErrorInputDevice, Messages.GUIErrorInputDeviceTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (File.Exists(txtOutputFile.Text))
+            {
+                if (MessageBox.Show(Messages.GUIQuestionOverwriteRecording, Messages.GUIQuestionOverwriteRecordingTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
+                    return;
+            }
+
+            try
+            {
+                _AudioRecorder.StartRecording(NextRecordingPath);
+                UpdateGUIState(true);
+                _Timer = new TimeSpan();
+                lblTimer.Text = _Timer.ToString();
+                timerClock.Start();
+            }
+            catch (ArgumentException)
+            {
+                MessageBox.Show(Messages.GUIErrorOutputFile, Messages.GUIErrorOutputFileTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnStop_Click(object sender, EventArgs e)
         {
-            StopRecording();
+            UpdateGUIState(false);
+            _AudioRecorder.StopRecording();
+            timerClock.Stop();
+            UpdateRecordingNumber();
         }
 
         private void timerVAMeter_Tick(object sender, EventArgs e)
@@ -112,18 +138,18 @@ namespace AudioSharp.GUI
         #endregion
 
         #region Menu Events
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        private void menuButtonExit_Click(object sender, EventArgs e)
         {
             Close();
         }
 
-        private void recordingsToolStripMenuItem_Click(object sender, EventArgs e)
+        private void menuButtonRecordings_Click(object sender, EventArgs e)
         {
             FrmRecordingList recordingsForm = new FrmRecordingList(_Config.RecordingsFolder);
             recordingsForm.Show();
         }
 
-        private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
+        private void menuButtonSettings_Click(object sender, EventArgs e)
         {
             string oldOutputFormat = _Config.OutputFormat;
             using (FrmSettings settingsFrm = new FrmSettings(_Config))
@@ -140,7 +166,7 @@ namespace AudioSharp.GUI
             }
         }
 
-        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        private void menuButtonAbout_Click(object sender, EventArgs e)
         {
             using (FrmAbout aboutFrm = new FrmAbout())
             {
@@ -150,21 +176,6 @@ namespace AudioSharp.GUI
         #endregion
 
         #region Context Menu Events
-        private void recordToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            StartRecording();
-        }
-
-        private void stopToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            StopRecording();
-        }
-
-        private void exitToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
-
         private void _TrayIcon_MouseClick(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
@@ -210,59 +221,26 @@ namespace AudioSharp.GUI
             _TrayIcon.MouseClick += _TrayIcon_MouseClick;
         }
 
-        private void StartRecording()
-        {
-            if (cbInputDevices.SelectedItem == null)
-            {
-                MessageBox.Show(Messages.GUIErrorInputDevice, Messages.GUIErrorInputDeviceTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            if (File.Exists(txtOutputFile.Text))
-            {
-                if (MessageBox.Show(Messages.GUIQuestionOverwriteRecording, Messages.GUIQuestionOverwriteRecordingTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
-                    return;
-            }
-
-            try
-            {
-                _AudioRecorder.StartRecording(NextRecordingPath);
-                UpdateGUIState(true);
-                _Timer = new TimeSpan();
-                lblTimer.Text = _Timer.ToString();
-                timerClock.Start();
-            }
-            catch (ArgumentException)
-            {
-                MessageBox.Show(Messages.GUIErrorOutputFile, Messages.GUIErrorOutputFileTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void StopRecording()
-        {
-            UpdateGUIState(false);
-            _AudioRecorder.StopRecording();
-            timerClock.Stop();
-            UpdateRecordingNumber();
-        }
-
         private void UpdateGUIState(bool recording)
         {
             btnRecord.Enabled = !recording;
-            recordToolStripMenuItem.Enabled = !recording;
+            contextButtonRecord.Enabled = !recording;
+            menuButtonRecord.Enabled = !recording;
             btnStop.Enabled = recording;
-            stopToolStripMenuItem.Enabled = recording;
+            contextButtonStop.Enabled = recording;
+            menuButtonStop.Enabled = recording;
             cbInputDevices.Enabled = !recording;
-            settingsToolStripMenuItem.Enabled = !recording;
+            menuButtonSettings.Enabled = !recording;
 
             Icon = recording ? Properties.Resources.icon_recording : Properties.Resources.icon_default;
             _TrayIcon.Icon = recording ? Properties.Resources.icon_recording : Properties.Resources.icon_default;
+            statusStrip.BackColor = recording ? Color.Red : Color.DodgerBlue;
+            statusLabel.Text = recording ? "Recording in progress..." : "Ready";
 
             if (recording)
-                Text += " [RECORDING IN PROGRESS]";
+                _TrayIcon.Text += " [RECORDING IN PROGRESS]";
             else
-                Text = "AudioSharp";
-
-            _TrayIcon.Text = Text;
+                _TrayIcon.Text = "AudioSharp";
         }
 
         private void UpdateRecordingNumber()
