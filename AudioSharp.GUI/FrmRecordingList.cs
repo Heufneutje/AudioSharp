@@ -165,6 +165,9 @@ namespace AudioSharp.GUI
 
             foreach (string filePath in files)
             {
+                if (!File.Exists(filePath))
+                    continue;
+
                 FileInfo info = new FileInfo(filePath);
                 if (info.Extension.ToLower() != ".wav" && info.Extension.ToLower() != ".mp3")
                     continue;
