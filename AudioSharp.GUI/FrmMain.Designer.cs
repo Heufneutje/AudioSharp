@@ -62,6 +62,8 @@ namespace AudioSharp.GUI
             this.contextButtonExit = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.driveSpaceLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.timerSpaceCheck = new System.Windows.Forms.Timer(this.components);
             this.gbRecordingSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trckVolume)).BeginInit();
             this.gbRecording.SuspendLayout();
@@ -363,7 +365,8 @@ namespace AudioSharp.GUI
             // 
             this.statusStrip.BackColor = System.Drawing.Color.DodgerBlue;
             this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.statusLabel});
+            this.statusLabel,
+            this.driveSpaceLabel});
             this.statusStrip.Location = new System.Drawing.Point(0, 264);
             this.statusStrip.Name = "statusStrip";
             this.statusStrip.Size = new System.Drawing.Size(584, 22);
@@ -374,9 +377,24 @@ namespace AudioSharp.GUI
             // 
             this.statusLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.statusLabel.ForeColor = System.Drawing.Color.White;
+            this.statusLabel.Margin = new System.Windows.Forms.Padding(0, 3, 50, 2);
             this.statusLabel.Name = "statusLabel";
-            this.statusLabel.Size = new System.Drawing.Size(41, 17);
-            this.statusLabel.Text = "Ready";
+            this.statusLabel.Size = new System.Drawing.Size(82, 17);
+            this.statusLabel.Text = "Status: Ready";
+            // 
+            // driveSpaceLabel
+            // 
+            this.driveSpaceLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.driveSpaceLabel.ForeColor = System.Drawing.Color.White;
+            this.driveSpaceLabel.Name = "driveSpaceLabel";
+            this.driveSpaceLabel.Size = new System.Drawing.Size(82, 17);
+            this.driveSpaceLabel.Text = "Free space: ??";
+            // 
+            // timerSpaceCheck
+            // 
+            this.timerSpaceCheck.Enabled = true;
+            this.timerSpaceCheck.Interval = 60000;
+            this.timerSpaceCheck.Tick += new System.EventHandler(this.timerSpaceCheck_Tick);
             // 
             // FrmMain
             // 
@@ -444,6 +462,8 @@ namespace AudioSharp.GUI
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.StatusStrip statusStrip;
         private System.Windows.Forms.ToolStripStatusLabel statusLabel;
+        private System.Windows.Forms.ToolStripStatusLabel driveSpaceLabel;
+        private System.Windows.Forms.Timer timerSpaceCheck;
     }
 }
 

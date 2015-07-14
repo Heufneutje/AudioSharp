@@ -6,6 +6,7 @@ using System.IO;
 using System.Windows.Forms;
 using AudioSharp.Core;
 using AudioSharp.Translations;
+using AudioSharp.Utils;
 using Microsoft.VisualBasic.FileIO;
 
 namespace AudioSharp.GUI
@@ -174,20 +175,9 @@ namespace AudioSharp.GUI
 
                 _Recordings.Add(filePath);
                 string formattedDate = info.CreationTime.ToString("yyyy-MM-dd HH:mm");
-                ListViewItem item = new ListViewItem(new[] { Path.GetFileNameWithoutExtension(filePath), info.Extension, formattedDate, BytesTostring(info.Length) });
+                ListViewItem item = new ListViewItem(new[] { Path.GetFileNameWithoutExtension(filePath), info.Extension, formattedDate, DriveSpaceUtils.BytesTostring(info.Length) });
                 lvRecordings.Items.Add(item);
             }
-        }
-
-        private string BytesTostring(long byteCount)
-        {
-            string[] suf = { "B", "KB", "MB", "GB", "TB", "PB", "EB" };
-            if (byteCount == 0)
-                return "0 B";
-            long bytes = Math.Abs(byteCount);
-            int place = Convert.ToInt32(Math.Floor(Math.Log(bytes, 1024)));
-            double num = Math.Round(bytes / Math.Pow(1024, place), 1);
-            return string.Format("{0} {1}", Math.Sign(byteCount) * num, suf[place]);
         }
 
         private void PlaySelectedRecording()

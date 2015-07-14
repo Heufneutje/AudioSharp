@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using AudioSharp.Config;
 using AudioSharp.Core;
 using AudioSharp.Translations;
+using AudioSharp.Utils;
 using NAudio.CoreAudioApi;
 
 namespace AudioSharp.GUI
@@ -33,6 +34,7 @@ namespace AudioSharp.GUI
             _Config = ConfigHandler.ReadConfig();
             InitAudioDevices();
             InitTrayIcon();
+            timerSpaceCheck_Tick(null, null);
         }
         #endregion
 
@@ -114,6 +116,11 @@ namespace AudioSharp.GUI
         {
             _Timer = _Timer.Add(TimeSpan.FromSeconds(1));
             lblTimer.Text = _Timer.ToString();
+        }
+
+        private void timerSpaceCheck_Tick(object sender, EventArgs e)
+        {
+            driveSpaceLabel.Text = string.Format("Free space: {0}", DriveSpaceUtils.GetAvailableDriveSpace(_Config.RecordingsFolder));
         }
 
         private void cbInputDevices_SelectedIndexChanged(object sender, EventArgs e)
@@ -238,7 +245,7 @@ namespace AudioSharp.GUI
             Icon = recording ? Properties.Resources.icon_recording : Properties.Resources.icon_default;
             _TrayIcon.Icon = recording ? Properties.Resources.icon_recording : Properties.Resources.icon_default;
             statusStrip.BackColor = recording ? Color.Red : Color.DodgerBlue;
-            statusLabel.Text = recording ? "Recording in progress..." : "Ready";
+            statusLabel.Text = string.Format("Status: {0}", recording ? "Recording" : "Ready");
 
             if (recording)
                 _TrayIcon.Text += " [RECORDING IN PROGRESS]";
