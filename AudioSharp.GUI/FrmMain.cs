@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -25,6 +26,13 @@ namespace AudioSharp.GUI
                 return string.Format("{0}.{1}", Path.Combine(_Config.RecordingsFolder, _Config.RecordingPrefix + _Config.NextRecordingNumber.ToString("D4")), _Config.OutputFormat);
             }
         }
+        private bool IsRecording
+        {
+            get
+            {
+                return !btnRecord.Enabled;
+            }
+        }
         #endregion
 
         #region Constructors
@@ -34,6 +42,7 @@ namespace AudioSharp.GUI
             _Config = ConfigHandler.ReadConfig();
             InitAudioDevices();
             InitTrayIcon();
+            HotkeyUtils.RegisterAllHotkeys(Handle, _Config.GlobalHotkeys);
             timerSpaceCheck_Tick(null, null);
         }
         #endregion
@@ -46,7 +55,7 @@ namespace AudioSharp.GUI
 
         private void FrmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (!btnRecord.Enabled)
+            if (IsRecording)
             {
                 if (MessageBox.Show(Messages.GUIStopRecording, Messages.GUIStopRecordingTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
                 {
@@ -59,6 +68,7 @@ namespace AudioSharp.GUI
 
             _AudioRecorder.Dispose();
             _TrayIcon.Dispose();
+            HotkeyUtils.UnregisterAllHotkeys(Handle);
         }
 
         private void FrmMain_Resize(object sender, EventArgs e)
@@ -71,37 +81,12 @@ namespace AudioSharp.GUI
         #region Control Events
         private void btnRecord_Click(object sender, EventArgs e)
         {
-            if (cbInputDevices.SelectedItem == null)
-            {
-                MessageBox.Show(Messages.GUIErrorInputDevice, Messages.GUIErrorInputDeviceTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            if (File.Exists(txtOutputFile.Text))
-            {
-                if (MessageBox.Show(Messages.GUIQuestionOverwriteRecording, Messages.GUIQuestionOverwriteRecordingTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
-                    return;
-            }
-
-            try
-            {
-                _AudioRecorder.StartRecording(NextRecordingPath);
-                UpdateGUIState(true);
-                _Timer = new TimeSpan();
-                lblTimer.Text = _Timer.ToString();
-                timerClock.Start();
-            }
-            catch (ArgumentException)
-            {
-                MessageBox.Show(Messages.GUIErrorOutputFile, Messages.GUIErrorOutputFileTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            StartRecording();
         }
 
         private void btnStop_Click(object sender, EventArgs e)
         {
-            UpdateGUIState(false);
-            _AudioRecorder.StopRecording();
-            timerClock.Stop();
-            UpdateRecordingNumber();
+            StopRecording();
         }
 
         private void timerVAMeter_Tick(object sender, EventArgs e)
@@ -165,6 +150,7 @@ namespace AudioSharp.GUI
             using (FrmSettings settingsFrm = new FrmSettings(_Config))
             {
                 TopMost = false;
+                HotkeyUtils.UnregisterAllHotkeys(Handle);
                 if (settingsFrm.ShowDialog() == DialogResult.OK)
                 {
                     _Config = settingsFrm.Config;
@@ -172,6 +158,7 @@ namespace AudioSharp.GUI
                     if (oldOutputFormat != _Config.OutputFormat)
                         InitAudioDevices();
                 }
+                HotkeyUtils.RegisterAllHotkeys(Handle, _Config.GlobalHotkeys);
             }
         }
 
@@ -198,7 +185,75 @@ namespace AudioSharp.GUI
         }
         #endregion
 
+        #region Global Hotkeys
+        protected override void WndProc(ref Message m)
+        {
+            base.WndProc(ref m);
+
+            if (m.Msg != 0x0312)
+                return;
+            
+            Keys key = (Keys)(((int)m.LParam >> 16) & 0xFFFF);
+            int modifier = (int)m.LParam & 0xFFFF;
+            IEnumerable<HotkeyUtils.HotkeyType> matches = _Config.GlobalHotkeys.Where(x => x.Value.Item1 == key && x.Value.Item3 == modifier).Select(x => x.Key);
+
+            foreach (HotkeyUtils.HotkeyType hotkeyType in matches)
+            {
+                switch (hotkeyType)
+                {
+                    case HotkeyUtils.HotkeyType.StartRecording:
+                        StartRecording();
+                        break;
+                    case HotkeyUtils.HotkeyType.StopRecording:
+                        StopRecording();
+                        break;
+                }
+            }
+        }
+        #endregion
+
         #region Helper Functions
+        private void StartRecording()
+        {
+            if (IsRecording)
+                return;
+
+            if (cbInputDevices.SelectedItem == null)
+            {
+                MessageBox.Show(Messages.GUIErrorInputDevice, Messages.GUIErrorInputDeviceTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (File.Exists(txtOutputFile.Text))
+            {
+                if (MessageBox.Show(Messages.GUIQuestionOverwriteRecording, Messages.GUIQuestionOverwriteRecordingTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
+                    return;
+            }
+
+            try
+            {
+                _AudioRecorder.StartRecording(NextRecordingPath);
+                UpdateGUIState(true);
+                _Timer = new TimeSpan();
+                lblTimer.Text = _Timer.ToString();
+                timerClock.Start();
+            }
+            catch (ArgumentException)
+            {
+                MessageBox.Show(Messages.GUIErrorOutputFile, Messages.GUIErrorOutputFileTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void StopRecording()
+        {
+            if (!IsRecording)
+                return;
+
+            UpdateGUIState(false);
+            _AudioRecorder.StopRecording();
+            timerClock.Stop();
+            UpdateRecordingNumber();
+        }
+
         private void InitAudioDevices()
         {
             if (_AudioRecorder != null)

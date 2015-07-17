@@ -27,7 +27,7 @@ namespace AudioSharp.GUI
             cbOutputFormat.SelectedIndex = 0;
             configurationBindingSource.DataSource = currentConfig;
 
-            foreach (KeyValuePair<HotkeyUtils.HotkeyType, Tuple<Keys, Keys>> hotkey in currentConfig.GlobalHotkeys)
+            foreach (KeyValuePair<HotkeyUtils.HotkeyType, Tuple<Keys, Keys, int>> hotkey in currentConfig.GlobalHotkeys)
             {
                 FillHotkeyField(hotkey.Key, hotkey.Value.Item1, hotkey.Value.Item2);
             }
@@ -115,13 +115,27 @@ namespace AudioSharp.GUI
             else
             {
                 FillHotkeyField(hotkeyType, e.KeyCode, e.Modifiers);
-                config.GlobalHotkeys[hotkeyType] = new Tuple<Keys, Keys>(e.KeyCode, e.Modifiers);
+                config.GlobalHotkeys[hotkeyType] = new Tuple<Keys, Keys, int>(e.KeyCode, e.Modifiers, GetBitwiseModifier(e));
             }
+        }
+
+        private int GetBitwiseModifier(KeyEventArgs e)
+        {
+            int bitmask = 0;
+            if (e.Alt)
+                bitmask = bitmask | 1;
+            if (e.Control)
+                bitmask = bitmask | 2;
+            if (e.Shift)
+                bitmask = bitmask | 4;
+            return bitmask;
         }
 
         private void FillHotkeyField(HotkeyUtils.HotkeyType hotkeyType, Keys hotkey, Keys modifiers)
         {
-            if (modifiers == Keys.None)
+            if (hotkey == Keys.None)
+                GetHotkeyTextBox(hotkeyType).Text = string.Empty;
+            else if (modifiers == Keys.None)
                 GetHotkeyTextBox(hotkeyType).Text = hotkey.ToString();
             else
                 GetHotkeyTextBox(hotkeyType).Text = string.Format("{0} + {1}", modifiers, hotkey);
