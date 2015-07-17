@@ -29,7 +29,6 @@ namespace AudioSharp.GUI
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.configurationBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
@@ -54,7 +53,13 @@ namespace AudioSharp.GUI
             this.grpTray = new System.Windows.Forms.GroupBox();
             this.chkMinimizeToTray = new System.Windows.Forms.CheckBox();
             this.chkShowTrayIcon = new System.Windows.Forms.CheckBox();
-            ((System.ComponentModel.ISupportInitialize)(this.configurationBindingSource)).BeginInit();
+            this.tabPageHotkeys = new System.Windows.Forms.TabPage();
+            this.grpHotkeys = new System.Windows.Forms.GroupBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.txtHotkeyStop = new System.Windows.Forms.TextBox();
+            this.txtHotkeyRecord = new System.Windows.Forms.TextBox();
+            this.configurationBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.panel1.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.tabPageRecording.SuspendLayout();
@@ -63,12 +68,10 @@ namespace AudioSharp.GUI
             this.tabPageInterface.SuspendLayout();
             this.grpMainInterface.SuspendLayout();
             this.grpTray.SuspendLayout();
+            this.tabPageHotkeys.SuspendLayout();
+            this.grpHotkeys.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.configurationBindingSource)).BeginInit();
             this.SuspendLayout();
-            // 
-            // configurationBindingSource
-            // 
-            this.configurationBindingSource.DataSource = typeof(AudioSharp.Config.Configuration);
-            this.configurationBindingSource.CurrentItemChanged += new System.EventHandler(this.configurationBindingSource_CurrentItemChanged);
             // 
             // panel1
             // 
@@ -106,6 +109,7 @@ namespace AudioSharp.GUI
             // 
             this.tabControl.Controls.Add(this.tabPageRecording);
             this.tabControl.Controls.Add(this.tabPageInterface);
+            this.tabControl.Controls.Add(this.tabPageHotkeys);
             this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl.Location = new System.Drawing.Point(0, 0);
             this.tabControl.Name = "tabControl";
@@ -300,7 +304,7 @@ namespace AudioSharp.GUI
             this.grpMainInterface.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.grpMainInterface.Controls.Add(this.chkAlwaysOnTop);
-            this.grpMainInterface.Location = new System.Drawing.Point(7, 7);
+            this.grpMainInterface.Location = new System.Drawing.Point(8, 6);
             this.grpMainInterface.Name = "grpMainInterface";
             this.grpMainInterface.Size = new System.Drawing.Size(513, 46);
             this.grpMainInterface.TabIndex = 1;
@@ -325,9 +329,9 @@ namespace AudioSharp.GUI
             | System.Windows.Forms.AnchorStyles.Right)));
             this.grpTray.Controls.Add(this.chkMinimizeToTray);
             this.grpTray.Controls.Add(this.chkShowTrayIcon);
-            this.grpTray.Location = new System.Drawing.Point(8, 59);
+            this.grpTray.Location = new System.Drawing.Point(8, 58);
             this.grpTray.Name = "grpTray";
-            this.grpTray.Size = new System.Drawing.Size(512, 101);
+            this.grpTray.Size = new System.Drawing.Size(512, 102);
             this.grpTray.TabIndex = 0;
             this.grpTray.TabStop = false;
             this.grpTray.Text = "System tray";
@@ -354,6 +358,74 @@ namespace AudioSharp.GUI
             this.chkShowTrayIcon.TabIndex = 0;
             this.chkShowTrayIcon.Text = "Show tray icon";
             this.chkShowTrayIcon.UseVisualStyleBackColor = true;
+            this.chkShowTrayIcon.CheckedChanged += new System.EventHandler(this.chkShowTrayIcon_CheckedChanged);
+            // 
+            // tabPageHotkeys
+            // 
+            this.tabPageHotkeys.Controls.Add(this.grpHotkeys);
+            this.tabPageHotkeys.Location = new System.Drawing.Point(4, 22);
+            this.tabPageHotkeys.Name = "tabPageHotkeys";
+            this.tabPageHotkeys.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageHotkeys.Size = new System.Drawing.Size(526, 195);
+            this.tabPageHotkeys.TabIndex = 2;
+            this.tabPageHotkeys.Text = "Hotkeys";
+            this.tabPageHotkeys.UseVisualStyleBackColor = true;
+            // 
+            // grpHotkeys
+            // 
+            this.grpHotkeys.Controls.Add(this.label7);
+            this.grpHotkeys.Controls.Add(this.label6);
+            this.grpHotkeys.Controls.Add(this.txtHotkeyStop);
+            this.grpHotkeys.Controls.Add(this.txtHotkeyRecord);
+            this.grpHotkeys.Location = new System.Drawing.Point(8, 6);
+            this.grpHotkeys.Name = "grpHotkeys";
+            this.grpHotkeys.Size = new System.Drawing.Size(512, 154);
+            this.grpHotkeys.TabIndex = 0;
+            this.grpHotkeys.TabStop = false;
+            this.grpHotkeys.Text = "Global hotkeys";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(10, 48);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(79, 13);
+            this.label7.TabIndex = 3;
+            this.label7.Text = "Stop recording:";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(10, 22);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(79, 13);
+            this.label6.TabIndex = 2;
+            this.label6.Text = "Start recording:";
+            // 
+            // txtHotkeyStop
+            // 
+            this.txtHotkeyStop.Location = new System.Drawing.Point(94, 47);
+            this.txtHotkeyStop.Name = "txtHotkeyStop";
+            this.txtHotkeyStop.ReadOnly = true;
+            this.txtHotkeyStop.Size = new System.Drawing.Size(412, 20);
+            this.txtHotkeyStop.TabIndex = 1;
+            this.txtHotkeyStop.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtHotkeyStop_KeyDown);
+            // 
+            // txtHotkeyRecord
+            // 
+            this.txtHotkeyRecord.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtHotkeyRecord.Location = new System.Drawing.Point(94, 20);
+            this.txtHotkeyRecord.Name = "txtHotkeyRecord";
+            this.txtHotkeyRecord.ReadOnly = true;
+            this.txtHotkeyRecord.Size = new System.Drawing.Size(412, 20);
+            this.txtHotkeyRecord.TabIndex = 0;
+            this.txtHotkeyRecord.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtHotkeyRecord_KeyDown);
+            // 
+            // configurationBindingSource
+            // 
+            this.configurationBindingSource.DataSource = typeof(AudioSharp.Config.Configuration);
+            this.configurationBindingSource.CurrentItemChanged += new System.EventHandler(this.configurationBindingSource_CurrentItemChanged);
             // 
             // FrmSettings
             // 
@@ -368,7 +440,6 @@ namespace AudioSharp.GUI
             this.Name = "FrmSettings";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Settings";
-            ((System.ComponentModel.ISupportInitialize)(this.configurationBindingSource)).EndInit();
             this.panel1.ResumeLayout(false);
             this.tabControl.ResumeLayout(false);
             this.tabPageRecording.ResumeLayout(false);
@@ -380,6 +451,10 @@ namespace AudioSharp.GUI
             this.grpMainInterface.PerformLayout();
             this.grpTray.ResumeLayout(false);
             this.grpTray.PerformLayout();
+            this.tabPageHotkeys.ResumeLayout(false);
+            this.grpHotkeys.ResumeLayout(false);
+            this.grpHotkeys.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.configurationBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -411,5 +486,11 @@ namespace AudioSharp.GUI
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.CheckBox chkAlwaysOnTop;
         private System.Windows.Forms.GroupBox grpMainInterface;
+        private System.Windows.Forms.TabPage tabPageHotkeys;
+        private System.Windows.Forms.GroupBox grpHotkeys;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox txtHotkeyStop;
+        private System.Windows.Forms.TextBox txtHotkeyRecord;
     }
 }

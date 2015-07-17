@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Windows.Forms;
 using AudioSharp.Utils;
 using Newtonsoft.Json;
 
@@ -29,7 +31,8 @@ namespace AudioSharp.Config
                 NextRecordingNumber = 1,
                 AutoIncrementRecordingNumber = true,
                 OutputFormat = "wav",
-                ShowTrayIcon = true
+                ShowTrayIcon = true,
+                GlobalHotkeys = new Dictionary<HotkeyUtils.HotkeyType, Tuple<Keys, Keys>>()
             };
         }
     }
