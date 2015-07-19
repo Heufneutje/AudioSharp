@@ -71,6 +71,36 @@ namespace AudioSharp.GUI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon AudioSharp_default32x32 {
+            get {
+                object obj = ResourceManager.GetObject("AudioSharp_default32x32", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon AudioSharp_default48x48 {
+            get {
+                object obj = ResourceManager.GetObject("AudioSharp_default48x48", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon AudioSharp_recording32x32 {
+            get {
+                object obj = ResourceManager.GetObject("AudioSharp_recording32x32", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap Compile {
@@ -87,26 +117,6 @@ namespace AudioSharp.GUI.Properties {
             get {
                 object obj = ResourceManager.GetObject("Folder", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
-        /// </summary>
-        internal static System.Drawing.Icon icon_default {
-            get {
-                object obj = ResourceManager.GetObject("icon_default", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
-        /// </summary>
-        internal static System.Drawing.Icon icon_recording {
-            get {
-                object obj = ResourceManager.GetObject("icon_recording", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
             }
         }
         

@@ -33,7 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>icon_default.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\AudioSharp_default32x32.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.VisualBasic" />
@@ -174,11 +174,9 @@
     <None Include="Resources\play_16.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\icon_recording.ico" />
-    <None Include="Resources\icon_default.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="icon_default.ico" />
+    <None Include="Resources\AudioSharp_recording32x32.ico" />
+    <None Include="Resources\AudioSharp_default48x48.ico" />
+    <None Include="Resources\AudioSharp_default32x32.ico" />
     <None Include="Resources\Licenses.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

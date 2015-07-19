@@ -1,4 +1,4 @@
-﻿namespace AudioSharp.GUI
+namespace AudioSharp.GUI
 {
     partial class AudioSharpForm
     {
@@ -31,13 +31,13 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AudioSharpForm));
             this.SuspendLayout();
             // 
-            // HeufyAudioBaseForm
+            // AudioSharpForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 261);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "HeufyAudioBaseForm";
+            this.Name = "AudioSharpForm";
             this.Text = "HeufyAudioBaseForm";
             this.ResumeLayout(false);
 

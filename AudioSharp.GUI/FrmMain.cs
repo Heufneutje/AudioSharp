@@ -281,7 +281,7 @@ namespace AudioSharp.GUI
         {
             _TrayIcon = new NotifyIcon();
             _TrayIcon.Text = Text;
-            _TrayIcon.Icon = Properties.Resources.icon_default;
+            _TrayIcon.Icon = Properties.Resources.AudioSharp_default32x32;
             _TrayIcon.ContextMenuStrip = contextMenuStrip;
             _TrayIcon.MouseClick += _TrayIcon_MouseClick;
         }
@@ -297,8 +297,8 @@ namespace AudioSharp.GUI
             cbInputDevices.Enabled = !recording;
             menuButtonSettings.Enabled = !recording;
 
-            Icon = recording ? Properties.Resources.icon_recording : Properties.Resources.icon_default;
-            _TrayIcon.Icon = recording ? Properties.Resources.icon_recording : Properties.Resources.icon_default;
+            Icon = recording ? Properties.Resources.AudioSharp_recording32x32 : Properties.Resources.AudioSharp_default32x32;
+            _TrayIcon.Icon = recording ? Properties.Resources.AudioSharp_recording32x32 : Properties.Resources.AudioSharp_default32x32;
             statusStrip.BackColor = recording ? Color.Red : Color.DodgerBlue;
             statusLabel.Text = string.Format("Status: {0}", recording ? "Recording" : "Ready");
 
