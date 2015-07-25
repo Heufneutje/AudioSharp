@@ -141,6 +141,12 @@
   <data name="GUIErrorInputDeviceTitle" xml:space="preserve">
     <value>Input device</value>
   </data>
+  <data name="GUIErrorNoWriteAccess" xml:space="preserve">
+    <value>AudioSharp does not have permission to save a recording at that location.</value>
+  </data>
+  <data name="GUIErrorNoWriteAccessTitle" xml:space="preserve">
+    <value>No write access</value>
+  </data>
   <data name="GUIErrorOutputFile" xml:space="preserve">
     <value>The selected output file is invalid.</value>
   </data>
@@ -151,7 +157,7 @@
     <value>No file was selected.</value>
   </data>
   <data name="GUIQuestionOverwriteRecording" xml:space="preserve">
-    <value>A recording with this name already exists. Do you want to overwrite it?</value>
+    <value>A recording with this name already exists. Would you like to overwrite it?</value>
   </data>
   <data name="GUIQuestionOverwriteRecordingTitle" xml:space="preserve">
     <value>Recording exists</value>

@@ -150,9 +150,15 @@ namespace AudioSharp.GUI
 
             if (e.Error != null)
             {
-                string error = Messages.GUIConvertError + Environment.NewLine + e.Error.Message;
-                MessageBox.Show(error, Messages.GUIConvertTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                if (e.Error is UnauthorizedAccessException)
+                {
+                    MessageBox.Show(Messages.GUIErrorNoWriteAccess, Messages.GUIErrorNoWriteAccessTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    string error = Messages.GUIConvertError + Environment.NewLine + e.Error.Message;
+                    MessageBox.Show(error, Messages.GUIConvertTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
         #endregion

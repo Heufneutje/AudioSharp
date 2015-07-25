@@ -272,6 +272,10 @@ namespace AudioSharp.GUI
             {
                 MessageBox.Show(Messages.GUIErrorOutputFile, Messages.GUIErrorOutputFileTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            catch (UnauthorizedAccessException)
+            {
+                MessageBox.Show(Messages.GUIErrorNoWriteAccess, Messages.GUIErrorNoWriteAccessTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void StopRecording()

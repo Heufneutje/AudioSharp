@@ -133,6 +133,24 @@ namespace AudioSharp.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to AudioSharp does not have permission to save a recording at that location..
+        /// </summary>
+        public static string GUIErrorNoWriteAccess {
+            get {
+                return ResourceManager.GetString("GUIErrorNoWriteAccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No write access.
+        /// </summary>
+        public static string GUIErrorNoWriteAccessTitle {
+            get {
+                return ResourceManager.GetString("GUIErrorNoWriteAccessTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The selected output file is invalid..
         /// </summary>
         public static string GUIErrorOutputFile {
@@ -160,7 +178,7 @@ namespace AudioSharp.Translations {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A recording with this name already exists. Do you want to overwrite it?.
+        ///   Looks up a localized string similar to A recording with this name already exists. Would you like to overwrite it?.
         /// </summary>
         public static string GUIQuestionOverwriteRecording {
             get {
