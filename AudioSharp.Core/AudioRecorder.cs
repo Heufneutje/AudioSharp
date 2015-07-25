@@ -62,15 +62,9 @@ namespace AudioSharp.Core
         #endregion
 
         #region Virtual Functions
-        public virtual void StartRecording(string fileName)
-        {
-            
-        }
+        public abstract void StartRecording(string fileName);
 
-        public virtual void StopRecording()
-        {
-            
-        }
+        public abstract void StopRecording();
 
         public virtual void Dispose()
         {

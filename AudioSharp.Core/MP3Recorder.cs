@@ -1,4 +1,4 @@
-﻿using NAudio.Lame;
+using NAudio.Lame;
 using NAudio.Wave;
 
 namespace AudioSharp.Core
