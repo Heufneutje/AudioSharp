@@ -7,7 +7,8 @@ namespace AudioSharp.Config
 {
     public class Configuration
     {
-        // General
+        // Recording
+        public bool PromptForFileName { get; set; }
         public string RecordingsFolder { get; set; }
         public string RecordingPrefix { get; set; }
         public int NextRecordingNumber { get; set; }

@@ -23,7 +23,29 @@ namespace AudioSharp.GUI
         {
             get
             {
-                return string.Format("{0}.{1}", Path.Combine(_Config.RecordingsFolder, _Config.RecordingPrefix + _Config.NextRecordingNumber.ToString("D4")), _Config.OutputFormat);
+                if (_Config.PromptForFileName)
+                {
+                    using (SaveFileDialog sfd = new SaveFileDialog() { InitialDirectory = _Config.RecordingsFolder })
+                    {
+                        switch (_Config.OutputFormat)
+                        {
+                            case "wav":
+                                sfd.Filter = "Wave Files (*.wav)|*.wav";
+                                break;
+                            case "mp3":
+                                sfd.Filter = "MP3 Files (*.mp3)|*.mp3";
+                                break;
+                        }
+                        if (sfd.ShowDialog() == DialogResult.OK)
+                            return sfd.FileName;
+                        else
+                            return null;
+                    }
+                }
+                else
+                {
+                    return string.Format("{0}.{1}", Path.Combine(_Config.RecordingsFolder, _Config.RecordingPrefix + _Config.NextRecordingNumber.ToString("D4")), _Config.OutputFormat);
+                }
             }
         }
         private bool IsRecording
@@ -223,15 +245,24 @@ namespace AudioSharp.GUI
                 MessageBox.Show(Messages.GUIErrorInputDevice, Messages.GUIErrorInputDeviceTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            if (File.Exists(txtOutputFile.Text))
+
+            string recordingPath = NextRecordingPath;
+            if (recordingPath == null)
+                return;
+
+            if (!_Config.PromptForFileName && File.Exists(recordingPath))
             {
                 if (MessageBox.Show(Messages.GUIQuestionOverwriteRecording, Messages.GUIQuestionOverwriteRecordingTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
                     return;
             }
+            else if (_Config.PromptForFileName)
+            {
+                txtOutputFile.Text = recordingPath;
+            }
 
             try
             {
-                _AudioRecorder.StartRecording(NextRecordingPath);
+                _AudioRecorder.StartRecording(recordingPath);
                 UpdateGUIState(true);
                 _Timer = new TimeSpan();
                 lblTimer.Text = _Timer.ToString();
@@ -310,6 +341,12 @@ namespace AudioSharp.GUI
 
         private void UpdateRecordingNumber()
         {
+            if (_Config.PromptForFileName)
+            {
+                txtOutputFile.Text = string.Empty;
+                return;
+            }
+                
             if (!_Config.AutoIncrementRecordingNumber)
                 return;
 
@@ -324,7 +361,10 @@ namespace AudioSharp.GUI
 
         private void ApplySettings()
         {
-            txtOutputFile.Text = NextRecordingPath;
+            if (_Config.PromptForFileName)
+                txtOutputFile.Text = string.Empty;
+            else
+                txtOutputFile.Text = NextRecordingPath;
             _TrayIcon.Visible = _Config.ShowTrayIcon;
             TopMost = _Config.AlwaysOnTop;
         }

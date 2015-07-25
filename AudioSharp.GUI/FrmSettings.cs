@@ -26,6 +26,7 @@ namespace AudioSharp.GUI
             InitializeComponent();
             cbOutputFormat.SelectedIndex = 0;
             configurationBindingSource.DataSource = currentConfig;
+            rbPromptForFilename.Checked = currentConfig.PromptForFileName;
 
             foreach (KeyValuePair<HotkeyUtils.HotkeyType, Tuple<Keys, Keys, int>> hotkey in currentConfig.GlobalHotkeys)
             {
@@ -37,7 +38,8 @@ namespace AudioSharp.GUI
         #region Control Events
         private void btnOK_Click(object sender, EventArgs e)
         {
-            configurationBindingSource.EndEdit();
+            Configuration config = Config;
+            config.PromptForFileName = rbPromptForFilename.Checked;
             ConfigHandler.SaveConfig((Configuration)configurationBindingSource.Current);
             DialogResult = DialogResult.OK;
         }
@@ -74,6 +76,18 @@ namespace AudioSharp.GUI
                 chkMinimizeToTray.Checked = false;
                 configurationBindingSource.DataSource = config;
             }
+        }
+
+        private void rbGenerateAutomatically_CheckedChanged(object sender, EventArgs e)
+        {
+            bool isChecked = rbGenerateAutomatically.Checked;
+            txtRecordingPrefix.Enabled = isChecked;
+            spinNextRecording.Enabled = isChecked;
+            chkAutoIncrementRecording.Enabled = isChecked;
+            txtNextRecording.Enabled = isChecked;
+            lblRecordingPrefix.Enabled = isChecked;
+            lblNextRecordingNumber.Enabled = isChecked;
+            lblNextRecordingPreview.Enabled = isChecked;
         }
 
         private void txtHotkeyRecord_KeyDown(object sender, KeyEventArgs e)
