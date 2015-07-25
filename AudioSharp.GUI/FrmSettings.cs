@@ -4,6 +4,7 @@ using System.IO;
 using System.Windows.Forms;
 using AudioSharp.Config;
 using AudioSharp.Utils;
+using AudioSharp.Translations;
 
 namespace AudioSharp.GUI
 {
@@ -39,6 +40,13 @@ namespace AudioSharp.GUI
         private void btnOK_Click(object sender, EventArgs e)
         {
             Configuration config = Config;
+
+            if (!Directory.Exists(config.RecordingsFolder))
+            {
+                MessageBox.Show(Messages.GUIErrorRecordingsFolder, Messages.GUICommonError, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             config.PromptForFileName = rbPromptForFilename.Checked;
             ConfigHandler.SaveConfig((Configuration)configurationBindingSource.Current);
             DialogResult = DialogResult.OK;
@@ -105,7 +113,7 @@ namespace AudioSharp.GUI
         private void configurationBindingSource_CurrentItemChanged(object sender, EventArgs e)
         {
             Configuration config = (Configuration)configurationBindingSource.Current;
-            if (string.IsNullOrEmpty(config.RecordingsFolder) || string.IsNullOrEmpty(config.RecordingPrefix))
+            if (string.IsNullOrEmpty(config.RecordingsFolder) || config.RecordingPrefix == null)
                 txtNextRecording.Text = "<invalid path>";
             else
                 txtNextRecording.Text = string.Format("{0}.{1}", 

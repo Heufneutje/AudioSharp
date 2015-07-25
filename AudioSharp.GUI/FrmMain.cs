@@ -62,6 +62,13 @@ namespace AudioSharp.GUI
         {
             InitializeComponent();
             _Config = ConfigHandler.ReadConfig();
+
+            if (!Directory.Exists(_Config.RecordingsFolder))
+            {
+                _Config.RecordingsFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic);
+                ConfigHandler.SaveConfig(_Config);
+            }
+
             InitAudioDevices();
             InitTrayIcon();
             HotkeyUtils.RegisterAllHotkeys(Handle, _Config.GlobalHotkeys);

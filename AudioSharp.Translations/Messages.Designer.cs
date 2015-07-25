@@ -169,6 +169,15 @@ namespace AudioSharp.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The selected recordings folder is invalid..
+        /// </summary>
+        public static string GUIErrorRecordingsFolder {
+            get {
+                return ResourceManager.GetString("GUIErrorRecordingsFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No file was selected..
         /// </summary>
         public static string GUINoFileSelected {

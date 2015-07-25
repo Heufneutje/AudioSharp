@@ -153,6 +153,9 @@
   <data name="GUIErrorOutputFileTitle" xml:space="preserve">
     <value>Output file</value>
   </data>
+  <data name="GUIErrorRecordingsFolder" xml:space="preserve">
+    <value>The selected recordings folder is invalid.</value>
+  </data>
   <data name="GUINoFileSelected" xml:space="preserve">
     <value>No file was selected.</value>
   </data>
