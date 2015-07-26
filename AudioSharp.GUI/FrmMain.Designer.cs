@@ -377,7 +377,7 @@ namespace AudioSharp.GUI
             // 
             this.statusLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.statusLabel.ForeColor = System.Drawing.Color.White;
-            this.statusLabel.Margin = new System.Windows.Forms.Padding(0, 3, 50, 2);
+            this.statusLabel.Margin = new System.Windows.Forms.Padding(0, 3, 10, 2);
             this.statusLabel.Name = "statusLabel";
             this.statusLabel.Size = new System.Drawing.Size(82, 17);
             this.statusLabel.Text = "Status: Ready";
