@@ -15,19 +15,19 @@ namespace AudioSharp.GUI
     public partial class FrmMain : AudioSharpForm
     {
         #region Fields & Properties
-        private AudioRecorder _AudioRecorder;
-        private TimeSpan _Timer;
-        private Configuration _Config;
-        private NotifyIcon _TrayIcon;
+        private AudioRecorder _audioRecorder;
+        private TimeSpan _timer;
+        private Configuration _config;
+        private NotifyIcon _trayIcon;
         private string NextRecordingPath
         {
             get
             {
-                if (_Config.PromptForFileName)
+                if (_config.PromptForFileName)
                 {
-                    using (SaveFileDialog sfd = new SaveFileDialog() { InitialDirectory = _Config.RecordingsFolder })
+                    using (SaveFileDialog sfd = new SaveFileDialog() { InitialDirectory = _config.RecordingsFolder })
                     {
-                        switch (_Config.OutputFormat)
+                        switch (_config.OutputFormat)
                         {
                             case "wav":
                                 sfd.Filter = "Wave Files (*.wav)|*.wav";
@@ -44,7 +44,7 @@ namespace AudioSharp.GUI
                 }
                 else
                 {
-                    return string.Format("{0}.{1}", Path.Combine(_Config.RecordingsFolder, _Config.RecordingPrefix + _Config.NextRecordingNumber.ToString("D4")), _Config.OutputFormat);
+                    return string.Format("{0}.{1}", Path.Combine(_config.RecordingsFolder, _config.RecordingPrefix + _config.NextRecordingNumber.ToString("D4")), _config.OutputFormat);
                 }
             }
         }
@@ -61,17 +61,17 @@ namespace AudioSharp.GUI
         public FrmMain()
         {
             InitializeComponent();
-            _Config = ConfigHandler.ReadConfig();
+            _config = ConfigHandler.ReadConfig();
 
-            if (!Directory.Exists(_Config.RecordingsFolder))
+            if (!Directory.Exists(_config.RecordingsFolder))
             {
-                _Config.RecordingsFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic);
-                ConfigHandler.SaveConfig(_Config);
+                _config.RecordingsFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic);
+                ConfigHandler.SaveConfig(_config);
             }
 
             InitAudioDevices();
             InitTrayIcon();
-            HotkeyUtils.RegisterAllHotkeys(Handle, _Config.GlobalHotkeys);
+            HotkeyUtils.RegisterAllHotkeys(Handle, _config.GlobalHotkeys);
             timerSpaceCheck_Tick(null, null);
         }
         #endregion
@@ -95,14 +95,14 @@ namespace AudioSharp.GUI
                 UpdateRecordingNumber();
             }
 
-            _AudioRecorder.Dispose();
-            _TrayIcon.Dispose();
+            _audioRecorder.Dispose();
+            _trayIcon.Dispose();
             HotkeyUtils.UnregisterAllHotkeys(Handle);
         }
 
         private void FrmMain_Resize(object sender, EventArgs e)
         {
-            if (WindowState == FormWindowState.Minimized && _Config.MinimizeToTray)
+            if (WindowState == FormWindowState.Minimized && _config.MinimizeToTray)
                 Hide();
         }
         #endregion
@@ -121,37 +121,38 @@ namespace AudioSharp.GUI
         private void timerVAMeter_Tick(object sender, EventArgs e)
         {
             if (cbInputDevices.SelectedItem != null)
-            {
-                prbVolume.Value = (int)Math.Round(_AudioRecorder.SelectedDevice.AudioMeterInformation.MasterPeakValue * 100);
-            }
+                prbVolume.Value = (int)Math.Round(_audioRecorder.SelectedDevice.AudioMeterInformation.MasterPeakValue * 100);
         }
 
         private void timerClock_Tick(object sender, EventArgs e)
         {
-            _Timer = _Timer.Add(TimeSpan.FromSeconds(1));
-            lblTimer.Text = _Timer.ToString();
+            _timer = _timer.Add(TimeSpan.FromSeconds(1));
+            lblTimerValue.Text = _timer.ToString();
+
+            if (_timer.Seconds % 2 == 0)
+                lblFileSizeValue.Text = FileUtils.GetFileSize(txtOutputFile.Text);
         }
 
         private void timerSpaceCheck_Tick(object sender, EventArgs e)
         {
-            driveSpaceLabel.Text = string.Format("Free space: {0}", DriveSpaceUtils.GetAvailableDriveSpace(_Config.RecordingsFolder));
+            driveSpaceLabel.Text = string.Format("Free space: {0}", DriveSpaceUtils.GetAvailableDriveSpace(_config.RecordingsFolder));
         }
 
         private void cbInputDevices_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cbInputDevices.SelectedItem != null)
             {
-                _AudioRecorder.SelectedDevice = (MMDevice)cbInputDevices.SelectedItem;
+                _audioRecorder.SelectedDevice = (MMDevice)cbInputDevices.SelectedItem;
                 trckVolume.Enabled = true;
-                trckVolume.Value = Convert.ToInt32(_AudioRecorder.SelectedDevice.AudioEndpointVolume.MasterVolumeLevelScalar * 100 / 2);
+                trckVolume.Value = Convert.ToInt32(_audioRecorder.SelectedDevice.AudioEndpointVolume.MasterVolumeLevelScalar * 100 / 2);
             }
         }
 
         private void trckVolume_ValueChanged(object sender, EventArgs e)
         {
-            if (_AudioRecorder.SelectedDevice != null)
+            if (_audioRecorder.SelectedDevice != null)
             {
-                _AudioRecorder.SelectedDevice.AudioEndpointVolume.MasterVolumeLevelScalar = trckVolume.Value / 50.0f;
+                _audioRecorder.SelectedDevice.AudioEndpointVolume.MasterVolumeLevelScalar = trckVolume.Value / 50.0f;
                 lblVolumePercentage.Text = string.Format("{0} %", (float)trckVolume.Value / 50 * 100);
             }
         }
@@ -165,29 +166,29 @@ namespace AudioSharp.GUI
 
         private void menuButtonRecordings_Click(object sender, EventArgs e)
         {
-            using (FrmRecordingList recordingsForm = new FrmRecordingList(_Config.RecordingsFolder))
+            using (FrmRecordingList recordingsForm = new FrmRecordingList(_config.RecordingsFolder))
             {
                 TopMost = false;
                 recordingsForm.ShowDialog();
-                TopMost = _Config.AlwaysOnTop;
+                TopMost = _config.AlwaysOnTop;
             }
         }
 
         private void menuButtonSettings_Click(object sender, EventArgs e)
         {
-            string oldOutputFormat = _Config.OutputFormat;
-            using (FrmSettings settingsFrm = new FrmSettings(_Config))
+            string oldOutputFormat = _config.OutputFormat;
+            using (FrmSettings settingsFrm = new FrmSettings(_config))
             {
                 TopMost = false;
                 HotkeyUtils.UnregisterAllHotkeys(Handle);
                 if (settingsFrm.ShowDialog() == DialogResult.OK)
                 {
-                    _Config = settingsFrm.Config;
+                    _config = settingsFrm.Config;
                     ApplySettings();
-                    if (oldOutputFormat != _Config.OutputFormat)
+                    if (oldOutputFormat != _config.OutputFormat)
                         InitAudioDevices();
                 }
-                HotkeyUtils.RegisterAllHotkeys(Handle, _Config.GlobalHotkeys);
+                HotkeyUtils.RegisterAllHotkeys(Handle, _config.GlobalHotkeys);
             }
         }
 
@@ -197,7 +198,7 @@ namespace AudioSharp.GUI
             {
                 TopMost = false;
                 aboutFrm.ShowDialog();
-                TopMost = _Config.AlwaysOnTop;
+                TopMost = _config.AlwaysOnTop;
             }
         }
         #endregion
@@ -224,7 +225,7 @@ namespace AudioSharp.GUI
             
             Keys key = (Keys)(((int)m.LParam >> 16) & 0xFFFF);
             int modifier = (int)m.LParam & 0xFFFF;
-            IEnumerable<HotkeyUtils.HotkeyType> matches = _Config.GlobalHotkeys.Where(x => x.Value.Item1 == key && x.Value.Item3 == modifier).Select(x => x.Key);
+            IEnumerable<HotkeyUtils.HotkeyType> matches = _config.GlobalHotkeys.Where(x => x.Value.Item1 == key && x.Value.Item3 == modifier).Select(x => x.Key);
 
             foreach (HotkeyUtils.HotkeyType hotkeyType in matches)
             {
@@ -257,22 +258,22 @@ namespace AudioSharp.GUI
             if (recordingPath == null)
                 return;
 
-            if (!_Config.PromptForFileName && File.Exists(recordingPath))
+            if (!_config.PromptForFileName && File.Exists(recordingPath))
             {
                 if (MessageBox.Show(Messages.GUIQuestionOverwriteRecording, Messages.GUIQuestionOverwriteRecordingTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
                     return;
             }
-            else if (_Config.PromptForFileName)
+            else if (_config.PromptForFileName)
             {
                 txtOutputFile.Text = recordingPath;
             }
 
             try
             {
-                _AudioRecorder.StartRecording(recordingPath);
+                _audioRecorder.StartRecording(recordingPath);
                 UpdateGUIState(true);
-                _Timer = new TimeSpan();
-                lblTimer.Text = _Timer.ToString();
+                _timer = new TimeSpan();
+                lblTimerValue.Text = _timer.ToString();
                 timerClock.Start();
             }
             catch (ArgumentException)
@@ -291,41 +292,41 @@ namespace AudioSharp.GUI
                 return;
 
             UpdateGUIState(false);
-            _AudioRecorder.StopRecording();
+            _audioRecorder.StopRecording();
             timerClock.Stop();
             UpdateRecordingNumber();
         }
 
         private void InitAudioDevices()
         {
-            if (_AudioRecorder != null)
+            if (_audioRecorder != null)
             {
-                _AudioRecorder.Dispose();
-                _AudioRecorder = null;
+                _audioRecorder.Dispose();
+                _audioRecorder = null;
             }
 
-            switch (_Config.OutputFormat)
+            switch (_config.OutputFormat)
             {
                 case "wav":
-                    _AudioRecorder = new WaveRecorder();
+                    _audioRecorder = new WaveRecorder();
                     break;
                 case "mp3":
-                    _AudioRecorder = new MP3Recorder();
+                    _audioRecorder = new MP3Recorder();
                     break;
             }
 
             cbInputDevices.Items.Clear();
-            cbInputDevices.Items.AddRange(_AudioRecorder.Devices.ToArray());
-            cbInputDevices.SelectedIndex = _AudioRecorder.DefaultDeviceNumber;
+            cbInputDevices.Items.AddRange(_audioRecorder.Devices.ToArray());
+            cbInputDevices.SelectedIndex = _audioRecorder.DefaultDeviceNumber;
         }
 
         private void InitTrayIcon()
         {
-            _TrayIcon = new NotifyIcon();
-            _TrayIcon.Text = Text;
-            _TrayIcon.Icon = Properties.Resources.AudioSharp_default32x32;
-            _TrayIcon.ContextMenuStrip = contextMenuStrip;
-            _TrayIcon.MouseClick += _TrayIcon_MouseClick;
+            _trayIcon = new NotifyIcon();
+            _trayIcon.Text = Text;
+            _trayIcon.Icon = Properties.Resources.AudioSharp_default32x32;
+            _trayIcon.ContextMenuStrip = contextMenuStrip;
+            _trayIcon.MouseClick += _TrayIcon_MouseClick;
         }
 
         private void UpdateGUIState(bool recording)
@@ -339,45 +340,49 @@ namespace AudioSharp.GUI
             cbInputDevices.Enabled = !recording;
             menuButtonSettings.Enabled = !recording;
 
+            FontStyle fontStyle = recording ? FontStyle.Bold : FontStyle.Regular;
+            lblTimerValue.Font = new Font(lblTimerValue.Font, fontStyle);
+            lblFileSizeValue.Font = new Font(lblFileSizeValue.Font, fontStyle);
+
             Icon = recording ? Properties.Resources.AudioSharp_recording32x32 : Properties.Resources.AudioSharp_default32x32;
-            _TrayIcon.Icon = recording ? Properties.Resources.AudioSharp_recording32x32 : Properties.Resources.AudioSharp_default32x32;
+            _trayIcon.Icon = recording ? Properties.Resources.AudioSharp_recording32x32 : Properties.Resources.AudioSharp_default32x32;
             statusStrip.BackColor = recording ? Color.Red : Color.DodgerBlue;
             statusLabel.Text = string.Format("Status: {0}", recording ? "Recording" : "Ready");
 
             if (recording)
-                _TrayIcon.Text += " [RECORDING IN PROGRESS]";
+                _trayIcon.Text += " [RECORDING IN PROGRESS]";
             else
-                _TrayIcon.Text = "AudioSharp";
+                _trayIcon.Text = "AudioSharp";
         }
 
         private void UpdateRecordingNumber()
         {
-            if (_Config.PromptForFileName)
+            if (_config.PromptForFileName)
             {
                 txtOutputFile.Text = string.Empty;
                 return;
             }
                 
-            if (!_Config.AutoIncrementRecordingNumber)
+            if (!_config.AutoIncrementRecordingNumber)
                 return;
 
-            if (_Config.NextRecordingNumber < 9999)
-                _Config.NextRecordingNumber++;
+            if (_config.NextRecordingNumber < 9999)
+                _config.NextRecordingNumber++;
             else
-                _Config.NextRecordingNumber = 1;
+                _config.NextRecordingNumber = 1;
 
             txtOutputFile.Text = NextRecordingPath;
-            ConfigHandler.SaveConfig(_Config);
+            ConfigHandler.SaveConfig(_config);
         }
 
         private void ApplySettings()
         {
-            if (_Config.PromptForFileName)
+            if (_config.PromptForFileName)
                 txtOutputFile.Text = string.Empty;
             else
                 txtOutputFile.Text = NextRecordingPath;
-            _TrayIcon.Visible = _Config.ShowTrayIcon;
-            TopMost = _Config.AlwaysOnTop;
+            _trayIcon.Visible = _config.ShowTrayIcon;
+            TopMost = _config.AlwaysOnTop;
         }
         #endregion
     }

@@ -49,5 +49,11 @@ namespace AudioSharp.Utils
             SHGetFileInfo(path, 0, ref shinfo, Marshal.SizeOf(shinfo), SHGFI_ICON | SHGFI_LARGEICON);
             return Icon.FromHandle(shinfo.hIcon).ToBitmap();
         }
+
+        public static string GetFileSize(string path)
+        {
+            FileInfo info = new FileInfo(path);
+            return DriveSpaceUtils.BytesTostring(info.Length);
+        }
     }
 }

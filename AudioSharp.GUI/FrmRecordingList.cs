@@ -15,16 +15,16 @@ namespace AudioSharp.GUI
     public partial class FrmRecordingList : AudioSharpForm
     {
         #region Fields & Properties
-        private string _RecordingPath;
-        private List<string> _Recordings;
-        private FrmProgressDialog _ProgressDialog;
+        private string _recordingPath;
+        private List<string> _recordings;
+        private FrmProgressDialog _progressDialog;
         #endregion
 
         #region Constructor
         public FrmRecordingList(string recordingPath)
         {
             InitializeComponent();
-            _RecordingPath = recordingPath;
+            _recordingPath = recordingPath;
             fileSystemWatcher.Path = recordingPath;
             RefreshRecordings();
         }
@@ -48,7 +48,7 @@ namespace AudioSharp.GUI
 
         private void btnOpenFolder_Click(object sender, EventArgs e)
         {
-            Process.Start(_RecordingPath);
+            Process.Start(_recordingPath);
         }
 
         private void btnPlay_Click(object sender, EventArgs e)
@@ -83,7 +83,7 @@ namespace AudioSharp.GUI
             }
 
             ListViewItem selectedItem = lvRecordings.SelectedItems[0];
-            string filePath = _Recordings[selectedItem.Index];
+            string filePath = _recordings[selectedItem.Index];
 
             if (filePath.EndsWith(".mp3", StringComparison.OrdinalIgnoreCase))
             {
@@ -91,14 +91,14 @@ namespace AudioSharp.GUI
                 return;
             }
 
-            _ProgressDialog = new FrmProgressDialog()
+            _progressDialog = new FrmProgressDialog()
             {
                 Task = "Converting WAV file to MP3...",
                 Progress = 0,
                 CanCancel = false
             };
-            _ProgressDialog.Show();
-            backgroundWorker.RunWorkerAsync(_Recordings[selectedItem.Index]);
+            _progressDialog.Show();
+            backgroundWorker.RunWorkerAsync(_recordings[selectedItem.Index]);
         }
 
         private void convertor_ReportingProgress(object sender, ConvertorProgressEventArgs e)
@@ -139,12 +139,12 @@ namespace AudioSharp.GUI
 
         private void backgroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            _ProgressDialog.Progress = e.ProgressPercentage;
+            _progressDialog.Progress = e.ProgressPercentage;
         }
 
         private void backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            _ProgressDialog.Close();
+            _progressDialog.Close();
 
             if (e.Cancelled)
                 return;
@@ -169,9 +169,9 @@ namespace AudioSharp.GUI
         {
             lvRecordings.BeginUpdate();
 
-            _Recordings = new List<string>();
+            _recordings = new List<string>();
             lvRecordings.Items.Clear();
-            string[] files = Directory.GetFiles(_RecordingPath);
+            string[] files = Directory.GetFiles(_recordingPath);
             ImageList iconList = new ImageList();
             lvRecordings.SmallImageList = iconList;
 
@@ -184,7 +184,7 @@ namespace AudioSharp.GUI
                 if (info.Extension.ToLower() != ".wav" && info.Extension.ToLower() != ".mp3")
                     continue;
 
-                _Recordings.Add(filePath);
+                _recordings.Add(filePath);
                 string formattedDate = info.CreationTime.ToString("yyyy-MM-dd HH:mm");
                 ListViewItem item = new ListViewItem(new[] { Path.GetFileNameWithoutExtension(filePath), info.Extension, formattedDate, DriveSpaceUtils.BytesTostring(info.Length) });
 
@@ -205,16 +205,16 @@ namespace AudioSharp.GUI
         {
             ListViewItem selectedItem = lvRecordings.SelectedItems[0];
 
-            if (File.Exists(_Recordings[selectedItem.Index]))
-                Process.Start(_Recordings[selectedItem.Index]);
+            if (File.Exists(_recordings[selectedItem.Index]))
+                Process.Start(_recordings[selectedItem.Index]);
         }
 
         private void DeleteSelectedRecording()
         {
             ListViewItem selectedItem = lvRecordings.SelectedItems[0];
 
-            if (File.Exists(_Recordings[selectedItem.Index]))
-                FileSystem.DeleteFile(_Recordings[selectedItem.Index], UIOption.OnlyErrorDialogs, RecycleOption.SendToRecycleBin, UICancelOption.DoNothing);
+            if (File.Exists(_recordings[selectedItem.Index]))
+                FileSystem.DeleteFile(_recordings[selectedItem.Index], UIOption.OnlyErrorDialogs, RecycleOption.SendToRecycleBin, UICancelOption.DoNothing);
         }
         #endregion
     }

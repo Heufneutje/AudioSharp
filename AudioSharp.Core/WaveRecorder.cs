@@ -5,31 +5,31 @@ namespace AudioSharp.Core
     public class WaveRecorder : AudioRecorder
     {
         #region Properties & Fields
-        private WaveFileWriter _OutWriter;
+        private WaveFileWriter _outWriter;
         #endregion
 
         #region Overrides
         public override void StartRecording(string fileName)
         {
-            _OutWriter = new WaveFileWriter(fileName, _CaptureStream.WaveFormat);
-            _CaptureStream.DataAvailable += CaptureStream_DataAvailable;
+            _outWriter = new WaveFileWriter(fileName, _captureStream.WaveFormat);
+            _captureStream.DataAvailable += CaptureStream_DataAvailable;
         }
 
         public override void StopRecording()
         {
-            _CaptureStream.DataAvailable -= CaptureStream_DataAvailable;
-            _OutWriter.Dispose();
-            _OutWriter = null;
+            _captureStream.DataAvailable -= CaptureStream_DataAvailable;
+            _outWriter.Dispose();
+            _outWriter = null;
         }
 
         public override void Dispose()
         {
             base.Dispose();
 
-            if (_OutWriter != null)
+            if (_outWriter != null)
             {
-                _OutWriter.Dispose();
-                _OutWriter = null;
+                _outWriter.Dispose();
+                _outWriter = null;
             }
         }
         #endregion
@@ -37,11 +37,11 @@ namespace AudioSharp.Core
         #region Events
         private void CaptureStream_DataAvailable(object sender, WaveInEventArgs e)
         {
-            if (_OutWriter == null)
+            if (_outWriter == null)
                 return;
 
-            _OutWriter.Write(e.Buffer, 0, e.BytesRecorded);
-            _OutWriter.Flush();
+            _outWriter.Write(e.Buffer, 0, e.BytesRecorded);
+            _outWriter.Flush();
         }
         #endregion
     }

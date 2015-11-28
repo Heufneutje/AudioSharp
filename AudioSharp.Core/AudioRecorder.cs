@@ -7,27 +7,27 @@ namespace AudioSharp.Core
     public abstract class AudioRecorder : IDisposable
     {
         #region Fields & Properties
-        private MMDevice _SelectedDevice;
-        protected WasapiCapture _CaptureStream;
+        private MMDevice _selectedDevice;
+        protected WasapiCapture _captureStream;
         
         public MMDeviceCollection Devices { get; private set; }
         public MMDevice SelectedDevice
         {
             get
             {
-                return _SelectedDevice;
+                return _selectedDevice;
             }
             set
             {
-                _SelectedDevice = value;
-                if (_CaptureStream != null)
+                _selectedDevice = value;
+                if (_captureStream != null)
                 {
-                    _CaptureStream.StopRecording();
-                    _CaptureStream.Dispose();
+                    _captureStream.StopRecording();
+                    _captureStream.Dispose();
                 }
-                _CaptureStream = new WasapiCapture(value);
+                _captureStream = new WasapiCapture(value);
                 // _CaptureStream.WaveFormat = new WaveFormat(44100, _SelectedDevice.AudioEndpointVolume.Channels.Count);
-                _CaptureStream.StartRecording();
+                _captureStream.StartRecording();
             }
         }
         public MMDevice DefaultDevice
@@ -68,11 +68,11 @@ namespace AudioSharp.Core
 
         public virtual void Dispose()
         {
-            if (_CaptureStream != null)
+            if (_captureStream != null)
             {
-                _CaptureStream.StopRecording();
-                _CaptureStream.Dispose();
-                _CaptureStream = null;
+                _captureStream.StopRecording();
+                _captureStream.Dispose();
+                _captureStream = null;
             }
         }
         #endregion
