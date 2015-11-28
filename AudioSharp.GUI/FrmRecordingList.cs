@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using AudioSharp.Core;
@@ -166,9 +167,13 @@ namespace AudioSharp.GUI
         #region Helper Functions
         private void RefreshRecordings()
         {
+            lvRecordings.BeginUpdate();
+
             _Recordings = new List<string>();
             lvRecordings.Items.Clear();
             string[] files = Directory.GetFiles(_RecordingPath);
+            ImageList iconList = new ImageList();
+            lvRecordings.SmallImageList = iconList;
 
             foreach (string filePath in files)
             {
@@ -182,8 +187,18 @@ namespace AudioSharp.GUI
                 _Recordings.Add(filePath);
                 string formattedDate = info.CreationTime.ToString("yyyy-MM-dd HH:mm");
                 ListViewItem item = new ListViewItem(new[] { Path.GetFileNameWithoutExtension(filePath), info.Extension, formattedDate, DriveSpaceUtils.BytesTostring(info.Length) });
+
+                if (!iconList.Images.ContainsKey(info.Extension))
+                {
+                    Bitmap iconForFile = SystemIcons.WinLogo.ToBitmap();
+                    iconForFile = FileUtils.GetSmallIcon(info.FullName);
+                    iconList.Images.Add(info.Extension, iconForFile);
+                }
+                item.ImageKey = info.Extension;
                 lvRecordings.Items.Add(item);
             }
+
+            lvRecordings.EndUpdate();
         }
 
         private void PlaySelectedRecording()
