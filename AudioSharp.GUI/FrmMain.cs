@@ -274,6 +274,7 @@ namespace AudioSharp.GUI
                 UpdateGUIState(true);
                 _timer = new TimeSpan();
                 lblTimerValue.Text = _timer.ToString();
+                lblFileSizeValue.Text = "0 bytes";
                 timerClock.Start();
             }
             catch (ArgumentException)
