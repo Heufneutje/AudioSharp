@@ -35,9 +35,9 @@ namespace AudioSharp.GUI
             this.lblVolumePercentage = new System.Windows.Forms.Label();
             this.lblVolume = new System.Windows.Forms.Label();
             this.trckVolume = new System.Windows.Forms.TrackBar();
+            this.lblInputDevice = new System.Windows.Forms.Label();
             this.txtOutputFile = new System.Windows.Forms.TextBox();
             this.lblOutputFile = new System.Windows.Forms.Label();
-            this.lblInputDevice = new System.Windows.Forms.Label();
             this.btnRecord = new System.Windows.Forms.Button();
             this.btnStop = new System.Windows.Forms.Button();
             this.gbRecording = new System.Windows.Forms.GroupBox();
@@ -81,9 +81,9 @@ namespace AudioSharp.GUI
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cbInputDevices.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbInputDevices.FormattingEnabled = true;
-            this.cbInputDevices.Location = new System.Drawing.Point(139, 19);
+            this.cbInputDevices.Location = new System.Drawing.Point(112, 19);
             this.cbInputDevices.Name = "cbInputDevices";
-            this.cbInputDevices.Size = new System.Drawing.Size(415, 21);
+            this.cbInputDevices.Size = new System.Drawing.Size(442, 21);
             this.cbInputDevices.TabIndex = 1;
             this.cbInputDevices.SelectedIndexChanged += new System.EventHandler(this.cbInputDevices_SelectedIndexChanged);
             // 
@@ -128,21 +128,30 @@ namespace AudioSharp.GUI
             | System.Windows.Forms.AnchorStyles.Right)));
             this.trckVolume.AutoSize = false;
             this.trckVolume.Enabled = false;
-            this.trckVolume.Location = new System.Drawing.Point(139, 46);
+            this.trckVolume.Location = new System.Drawing.Point(112, 46);
             this.trckVolume.Maximum = 50;
             this.trckVolume.Name = "trckVolume";
-            this.trckVolume.Size = new System.Drawing.Size(373, 23);
+            this.trckVolume.Size = new System.Drawing.Size(400, 23);
             this.trckVolume.TabIndex = 6;
             this.trckVolume.ValueChanged += new System.EventHandler(this.trckVolume_ValueChanged);
+            // 
+            // lblInputDevice
+            // 
+            this.lblInputDevice.AutoSize = true;
+            this.lblInputDevice.Location = new System.Drawing.Point(15, 22);
+            this.lblInputDevice.Name = "lblInputDevice";
+            this.lblInputDevice.Size = new System.Drawing.Size(71, 13);
+            this.lblInputDevice.TabIndex = 2;
+            this.lblInputDevice.Text = "Input Device:";
             // 
             // txtOutputFile
             // 
             this.txtOutputFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtOutputFile.Location = new System.Drawing.Point(139, 19);
+            this.txtOutputFile.Location = new System.Drawing.Point(112, 19);
             this.txtOutputFile.Name = "txtOutputFile";
             this.txtOutputFile.ReadOnly = true;
-            this.txtOutputFile.Size = new System.Drawing.Size(415, 20);
+            this.txtOutputFile.Size = new System.Drawing.Size(442, 20);
             this.txtOutputFile.TabIndex = 4;
             // 
             // lblOutputFile
@@ -153,15 +162,6 @@ namespace AudioSharp.GUI
             this.lblOutputFile.Size = new System.Drawing.Size(61, 13);
             this.lblOutputFile.TabIndex = 3;
             this.lblOutputFile.Text = "Output File:";
-            // 
-            // lblInputDevice
-            // 
-            this.lblInputDevice.AutoSize = true;
-            this.lblInputDevice.Location = new System.Drawing.Point(15, 22);
-            this.lblInputDevice.Name = "lblInputDevice";
-            this.lblInputDevice.Size = new System.Drawing.Size(71, 13);
-            this.lblInputDevice.TabIndex = 2;
-            this.lblInputDevice.Text = "Input Device:";
             // 
             // btnRecord
             // 
@@ -211,7 +211,7 @@ namespace AudioSharp.GUI
             // lblFileSizeValue
             // 
             this.lblFileSizeValue.AutoSize = true;
-            this.lblFileSizeValue.Location = new System.Drawing.Point(137, 71);
+            this.lblFileSizeValue.Location = new System.Drawing.Point(110, 71);
             this.lblFileSizeValue.Name = "lblFileSizeValue";
             this.lblFileSizeValue.Size = new System.Drawing.Size(41, 13);
             this.lblFileSizeValue.TabIndex = 5;
@@ -220,7 +220,7 @@ namespace AudioSharp.GUI
             // lblTimerValue
             // 
             this.lblTimerValue.AutoSize = true;
-            this.lblTimerValue.Location = new System.Drawing.Point(137, 46);
+            this.lblTimerValue.Location = new System.Drawing.Point(110, 46);
             this.lblTimerValue.Name = "lblTimerValue";
             this.lblTimerValue.Size = new System.Drawing.Size(49, 13);
             this.lblTimerValue.TabIndex = 4;
