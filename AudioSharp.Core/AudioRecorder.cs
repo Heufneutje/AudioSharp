@@ -10,6 +10,7 @@ namespace AudioSharp.Core
         private MMDevice _selectedDevice;
         protected WasapiCapture _captureStream;
         
+        public bool IsPaused { get; private set; }
         public MMDeviceCollection Devices { get; private set; }
         public MMDevice SelectedDevice
         {
@@ -26,7 +27,6 @@ namespace AudioSharp.Core
                     _captureStream.Dispose();
                 }
                 _captureStream = new WasapiCapture(value);
-                // _CaptureStream.WaveFormat = new WaveFormat(44100, _SelectedDevice.AudioEndpointVolume.Channels.Count);
                 _captureStream.StartRecording();
             }
         }
@@ -63,6 +63,16 @@ namespace AudioSharp.Core
 
         #region Virtual Functions
         public abstract void StartRecording(string fileName);
+
+        public virtual void PauseRecording()
+        {
+            if (IsPaused)
+                _captureStream.StartRecording();
+            else
+                _captureStream.StopRecording();
+
+            IsPaused = !IsPaused;
+        }
 
         public abstract void StopRecording();
 

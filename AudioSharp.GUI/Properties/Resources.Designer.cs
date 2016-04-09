@@ -93,6 +93,16 @@ namespace AudioSharp.GUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
+        internal static System.Drawing.Icon AudioSharp_paused32x32 {
+            get {
+                object obj = ResourceManager.GetObject("AudioSharp_paused32x32", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
         internal static System.Drawing.Icon AudioSharp_recording32x32 {
             get {
                 object obj = ResourceManager.GetObject("AudioSharp_recording32x32", resourceCulture);
@@ -148,6 +158,16 @@ namespace AudioSharp.GUI.Properties {
         internal static string Licenses {
             get {
                 return ResourceManager.GetString("Licenses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap pause {
+            get {
+                object obj = ResourceManager.GetObject("pause", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         

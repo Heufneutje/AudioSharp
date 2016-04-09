@@ -48,7 +48,7 @@ namespace AudioSharp.GUI
                 }
             }
         }
-        private bool IsRecording
+        private bool _IsRecording
         {
             get
             {
@@ -84,7 +84,7 @@ namespace AudioSharp.GUI
 
         private void FrmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (IsRecording)
+            if (_IsRecording)
             {
                 if (MessageBox.Show(Messages.GUIStopRecording, Messages.GUIStopRecordingTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
                 {
@@ -111,6 +111,11 @@ namespace AudioSharp.GUI
         private void btnRecord_Click(object sender, EventArgs e)
         {
             StartRecording();
+        }
+
+        private void btnPause_Click(object sender, EventArgs e)
+        {
+            PauseRecording();
         }
 
         private void btnStop_Click(object sender, EventArgs e)
@@ -245,7 +250,7 @@ namespace AudioSharp.GUI
         #region Helper Functions
         private void StartRecording()
         {
-            if (IsRecording)
+            if (_IsRecording)
                 return;
 
             if (cbInputDevices.SelectedItem == null)
@@ -271,7 +276,7 @@ namespace AudioSharp.GUI
             try
             {
                 _audioRecorder.StartRecording(recordingPath);
-                UpdateGUIState(true);
+                UpdateGUIState(RecordingState.Started);
                 _timer = new TimeSpan();
                 lblTimerValue.Text = _timer.ToString();
                 lblFileSizeValue.Text = "0 bytes";
@@ -287,12 +292,31 @@ namespace AudioSharp.GUI
             }
         }
 
-        private void StopRecording()
+        private void PauseRecording()
         {
-            if (!IsRecording)
+            if (!_IsRecording)
                 return;
 
-            UpdateGUIState(false);
+            if (_audioRecorder.IsPaused)
+            {
+                UpdateGUIState(RecordingState.Started);
+                timerClock.Start();
+            }
+            else
+            {
+                UpdateGUIState(RecordingState.Paused);
+                timerClock.Stop();
+            }
+
+            _audioRecorder.PauseRecording();
+        }
+
+        private void StopRecording()
+        {
+            if (!_IsRecording)
+                return;
+
+            UpdateGUIState(RecordingState.Stopped);
             _audioRecorder.StopRecording();
             timerClock.Stop();
             UpdateRecordingNumber();
@@ -330,30 +354,50 @@ namespace AudioSharp.GUI
             _trayIcon.MouseClick += _TrayIcon_MouseClick;
         }
 
-        private void UpdateGUIState(bool recording)
+        private void UpdateGUIState(RecordingState status)
         {
-            btnRecord.Enabled = !recording;
-            contextButtonRecord.Enabled = !recording;
-            menuButtonRecord.Enabled = !recording;
-            btnStop.Enabled = recording;
-            contextButtonStop.Enabled = recording;
-            menuButtonStop.Enabled = recording;
-            cbInputDevices.Enabled = !recording;
-            menuButtonSettings.Enabled = !recording;
+            btnRecord.Enabled = status == RecordingState.Stopped;
+            contextButtonRecord.Enabled = status == RecordingState.Stopped;
+            menuButtonRecord.Enabled = status == RecordingState.Stopped;
+            btnStop.Enabled = status != RecordingState.Stopped;
+            contextButtonStop.Enabled = status != RecordingState.Stopped;
+            menuButtonStop.Enabled = status != RecordingState.Stopped;
+            cbInputDevices.Enabled = status == RecordingState.Stopped;
+            menuButtonSettings.Enabled = status == RecordingState.Stopped;
+            btnPause.Enabled = status != RecordingState.Stopped;
+            contextButtonPause.Enabled = status != RecordingState.Stopped;
+            menuButtonPause.Enabled = status != RecordingState.Stopped;
 
-            FontStyle fontStyle = recording ? FontStyle.Bold : FontStyle.Regular;
+            FontStyle fontStyle = status != RecordingState.Stopped ? FontStyle.Bold : FontStyle.Regular;
             lblTimerValue.Font = new Font(lblTimerValue.Font, fontStyle);
             lblFileSizeValue.Font = new Font(lblFileSizeValue.Font, fontStyle);
 
-            Icon = recording ? Properties.Resources.AudioSharp_recording32x32 : Properties.Resources.AudioSharp_default32x32;
-            _trayIcon.Icon = recording ? Properties.Resources.AudioSharp_recording32x32 : Properties.Resources.AudioSharp_default32x32;
-            statusStrip.BackColor = recording ? Color.Red : Color.DodgerBlue;
-            statusLabel.Text = string.Format("Status: {0}", recording ? "Recording" : "Ready");
+            switch (status)
+            {
+                case RecordingState.Started:
+                    Icon = Properties.Resources.AudioSharp_recording32x32;
+                    _trayIcon.Icon = Properties.Resources.AudioSharp_recording32x32;
+                    statusStrip.BackColor = Color.Red;
+                    statusLabel.Text = "Status: Recording";
+                    break;
+                case RecordingState.Paused:
+                    Icon = Properties.Resources.AudioSharp_paused32x32;
+                    _trayIcon.Icon = Properties.Resources.AudioSharp_paused32x32;
+                    statusStrip.BackColor = Color.Orange;
+                    statusLabel.Text = "Status: Paused";
+                    break;
+                case RecordingState.Stopped:
+                    Icon = Properties.Resources.AudioSharp_default32x32;
+                    _trayIcon.Icon = Properties.Resources.AudioSharp_default32x32;
+                    statusStrip.BackColor = Color.DodgerBlue;
+                    statusLabel.Text = "Status: Ready";
+                    break;
+            }
 
-            if (recording)
-                _trayIcon.Text += " [RECORDING IN PROGRESS]";
-            else
+            if (status == RecordingState.Stopped)
                 _trayIcon.Text = "AudioSharp";
+            else if (!_trayIcon.Text.Contains("[RECORDING IN PROGRESS]"))
+                _trayIcon.Text += " [RECORDING IN PROGRESS]";
         }
 
         private void UpdateRecordingNumber()

@@ -157,4 +157,10 @@
   <data name="AudioSharp_recording32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\AudioSharp_recording32x32.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="AudioSharp_paused32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\AudioSharp_paused32x32.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pause" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pause.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

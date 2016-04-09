@@ -67,6 +67,9 @@ namespace AudioSharp.GUI
             this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.driveSpaceLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.timerSpaceCheck = new System.Windows.Forms.Timer(this.components);
+            this.btnPause = new System.Windows.Forms.Button();
+            this.menuButtonPause = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextButtonPause = new System.Windows.Forms.ToolStripMenuItem();
             this.gbRecordingSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trckVolume)).BeginInit();
             this.gbRecording.SuspendLayout();
@@ -84,7 +87,7 @@ namespace AudioSharp.GUI
             this.cbInputDevices.Location = new System.Drawing.Point(112, 19);
             this.cbInputDevices.Name = "cbInputDevices";
             this.cbInputDevices.Size = new System.Drawing.Size(442, 21);
-            this.cbInputDevices.TabIndex = 1;
+            this.cbInputDevices.TabIndex = 0;
             this.cbInputDevices.SelectedIndexChanged += new System.EventHandler(this.cbInputDevices_SelectedIndexChanged);
             // 
             // gbRecordingSettings
@@ -99,7 +102,7 @@ namespace AudioSharp.GUI
             this.gbRecordingSettings.Location = new System.Drawing.Point(12, 27);
             this.gbRecordingSettings.Name = "gbRecordingSettings";
             this.gbRecordingSettings.Size = new System.Drawing.Size(560, 85);
-            this.gbRecordingSettings.TabIndex = 2;
+            this.gbRecordingSettings.TabIndex = 1;
             this.gbRecordingSettings.TabStop = false;
             this.gbRecordingSettings.Text = "Recording Settings";
             // 
@@ -132,7 +135,7 @@ namespace AudioSharp.GUI
             this.trckVolume.Maximum = 50;
             this.trckVolume.Name = "trckVolume";
             this.trckVolume.Size = new System.Drawing.Size(400, 23);
-            this.trckVolume.TabIndex = 6;
+            this.trckVolume.TabIndex = 1;
             this.trckVolume.ValueChanged += new System.EventHandler(this.trckVolume_ValueChanged);
             // 
             // lblInputDevice
@@ -152,7 +155,7 @@ namespace AudioSharp.GUI
             this.txtOutputFile.Name = "txtOutputFile";
             this.txtOutputFile.ReadOnly = true;
             this.txtOutputFile.Size = new System.Drawing.Size(442, 20);
-            this.txtOutputFile.TabIndex = 4;
+            this.txtOutputFile.TabIndex = 0;
             // 
             // lblOutputFile
             // 
@@ -168,10 +171,10 @@ namespace AudioSharp.GUI
             this.btnRecord.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnRecord.Image = global::AudioSharp.GUI.Properties.Resources.record;
             this.btnRecord.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnRecord.Location = new System.Drawing.Point(366, 256);
+            this.btnRecord.Location = new System.Drawing.Point(260, 256);
             this.btnRecord.Name = "btnRecord";
             this.btnRecord.Size = new System.Drawing.Size(100, 25);
-            this.btnRecord.TabIndex = 4;
+            this.btnRecord.TabIndex = 3;
             this.btnRecord.Text = "&Record";
             this.btnRecord.UseVisualStyleBackColor = true;
             this.btnRecord.Click += new System.EventHandler(this.btnRecord_Click);
@@ -204,7 +207,7 @@ namespace AudioSharp.GUI
             this.gbRecording.Location = new System.Drawing.Point(12, 118);
             this.gbRecording.Name = "gbRecording";
             this.gbRecording.Size = new System.Drawing.Size(560, 132);
-            this.gbRecording.TabIndex = 6;
+            this.gbRecording.TabIndex = 2;
             this.gbRecording.TabStop = false;
             this.gbRecording.Text = "Recording";
             // 
@@ -251,7 +254,7 @@ namespace AudioSharp.GUI
             this.prbVolume.Location = new System.Drawing.Point(6, 96);
             this.prbVolume.Name = "prbVolume";
             this.prbVolume.Size = new System.Drawing.Size(548, 23);
-            this.prbVolume.TabIndex = 0;
+            this.prbVolume.TabIndex = 1;
             // 
             // timerVAMeter
             // 
@@ -273,13 +276,14 @@ namespace AudioSharp.GUI
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
             this.menuStrip.Size = new System.Drawing.Size(584, 24);
-            this.menuStrip.TabIndex = 7;
+            this.menuStrip.TabIndex = 0;
             this.menuStrip.Text = "menuStrip1";
             // 
             // menuFile
             // 
             this.menuFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuButtonRecord,
+            this.menuButtonPause,
             this.menuButtonStop,
             this.toolStripSeparator1,
             this.menuButtonExit});
@@ -291,7 +295,7 @@ namespace AudioSharp.GUI
             // 
             this.menuButtonRecord.Image = global::AudioSharp.GUI.Properties.Resources.record;
             this.menuButtonRecord.Name = "menuButtonRecord";
-            this.menuButtonRecord.Size = new System.Drawing.Size(134, 22);
+            this.menuButtonRecord.Size = new System.Drawing.Size(152, 22);
             this.menuButtonRecord.Text = "Record";
             this.menuButtonRecord.Click += new System.EventHandler(this.btnRecord_Click);
             // 
@@ -300,21 +304,21 @@ namespace AudioSharp.GUI
             this.menuButtonStop.Enabled = false;
             this.menuButtonStop.Image = global::AudioSharp.GUI.Properties.Resources.stop;
             this.menuButtonStop.Name = "menuButtonStop";
-            this.menuButtonStop.Size = new System.Drawing.Size(134, 22);
+            this.menuButtonStop.Size = new System.Drawing.Size(152, 22);
             this.menuButtonStop.Text = "Stop";
             this.menuButtonStop.Click += new System.EventHandler(this.btnStop_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(131, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
             // 
             // menuButtonExit
             // 
             this.menuButtonExit.Image = ((System.Drawing.Image)(resources.GetObject("menuButtonExit.Image")));
             this.menuButtonExit.Name = "menuButtonExit";
             this.menuButtonExit.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
-            this.menuButtonExit.Size = new System.Drawing.Size(134, 22);
+            this.menuButtonExit.Size = new System.Drawing.Size(152, 22);
             this.menuButtonExit.Text = "Exit";
             this.menuButtonExit.Click += new System.EventHandler(this.menuButtonExit_Click);
             // 
@@ -331,7 +335,7 @@ namespace AudioSharp.GUI
             // 
             this.menuButtonRecordings.Image = global::AudioSharp.GUI.Properties.Resources.Folder;
             this.menuButtonRecordings.Name = "menuButtonRecordings";
-            this.menuButtonRecordings.Size = new System.Drawing.Size(142, 22);
+            this.menuButtonRecordings.Size = new System.Drawing.Size(152, 22);
             this.menuButtonRecordings.Text = "Recordings...";
             this.menuButtonRecordings.Click += new System.EventHandler(this.menuButtonRecordings_Click);
             // 
@@ -339,7 +343,7 @@ namespace AudioSharp.GUI
             // 
             this.menuButtonSettings.Image = global::AudioSharp.GUI.Properties.Resources.Compile;
             this.menuButtonSettings.Name = "menuButtonSettings";
-            this.menuButtonSettings.Size = new System.Drawing.Size(142, 22);
+            this.menuButtonSettings.Size = new System.Drawing.Size(152, 22);
             this.menuButtonSettings.Text = "Settings...";
             this.menuButtonSettings.Click += new System.EventHandler(this.menuButtonSettings_Click);
             // 
@@ -355,7 +359,7 @@ namespace AudioSharp.GUI
             // 
             this.menuButtonAbout.Image = global::AudioSharp.GUI.Properties.Resources.Info;
             this.menuButtonAbout.Name = "menuButtonAbout";
-            this.menuButtonAbout.Size = new System.Drawing.Size(116, 22);
+            this.menuButtonAbout.Size = new System.Drawing.Size(152, 22);
             this.menuButtonAbout.Text = "About...";
             this.menuButtonAbout.Click += new System.EventHandler(this.menuButtonAbout_Click);
             // 
@@ -363,10 +367,11 @@ namespace AudioSharp.GUI
             // 
             this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.contextButtonRecord,
+            this.contextButtonPause,
             this.contextButtonStop,
             this.contextButtonExit});
             this.contextMenuStrip.Name = "contextMenuStrip";
-            this.contextMenuStrip.Size = new System.Drawing.Size(112, 70);
+            this.contextMenuStrip.Size = new System.Drawing.Size(153, 114);
             // 
             // contextButtonRecord
             // 
@@ -402,7 +407,7 @@ namespace AudioSharp.GUI
             this.statusStrip.Location = new System.Drawing.Point(0, 289);
             this.statusStrip.Name = "statusStrip";
             this.statusStrip.Size = new System.Drawing.Size(584, 22);
-            this.statusStrip.TabIndex = 8;
+            this.statusStrip.TabIndex = 6;
             this.statusStrip.Text = "statusStrip1";
             // 
             // statusLabel
@@ -428,11 +433,42 @@ namespace AudioSharp.GUI
             this.timerSpaceCheck.Interval = 60000;
             this.timerSpaceCheck.Tick += new System.EventHandler(this.timerSpaceCheck_Tick);
             // 
+            // btnPause
+            // 
+            this.btnPause.Enabled = false;
+            this.btnPause.Image = global::AudioSharp.GUI.Properties.Resources.pause;
+            this.btnPause.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnPause.Location = new System.Drawing.Point(366, 256);
+            this.btnPause.Name = "btnPause";
+            this.btnPause.Size = new System.Drawing.Size(100, 25);
+            this.btnPause.TabIndex = 4;
+            this.btnPause.Text = "&Pause";
+            this.btnPause.UseVisualStyleBackColor = true;
+            this.btnPause.Click += new System.EventHandler(this.btnPause_Click);
+            // 
+            // menuButtonPause
+            // 
+            this.menuButtonPause.Enabled = false;
+            this.menuButtonPause.Image = global::AudioSharp.GUI.Properties.Resources.pause;
+            this.menuButtonPause.Name = "menuButtonPause";
+            this.menuButtonPause.Size = new System.Drawing.Size(152, 22);
+            this.menuButtonPause.Text = "Pause";
+            this.menuButtonPause.Click += new System.EventHandler(this.btnPause_Click);
+            // 
+            // contextButtonPause
+            // 
+            this.contextButtonPause.Image = global::AudioSharp.GUI.Properties.Resources.pause;
+            this.contextButtonPause.Name = "contextButtonPause";
+            this.contextButtonPause.Size = new System.Drawing.Size(152, 22);
+            this.contextButtonPause.Text = "Pause";
+            this.contextButtonPause.Click += new System.EventHandler(this.btnPause_Click);
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(584, 311);
+            this.Controls.Add(this.btnPause);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.gbRecording);
             this.Controls.Add(this.btnStop);
@@ -500,6 +536,9 @@ namespace AudioSharp.GUI
         private System.Windows.Forms.Label lblTimerValue;
         private System.Windows.Forms.Label lblFileSize;
         private System.Windows.Forms.Label lblTimer;
+        private System.Windows.Forms.Button btnPause;
+        private System.Windows.Forms.ToolStripMenuItem menuButtonPause;
+        private System.Windows.Forms.ToolStripMenuItem contextButtonPause;
     }
 }
 
