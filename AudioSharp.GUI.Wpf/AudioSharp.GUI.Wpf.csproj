@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>AudioSharp.GUI.Wpf</RootNamespace>
-    <AssemblyName>AudioSharp.GUI.Wpf</AssemblyName>
+    <AssemblyName>AudioSharp</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -40,9 +40,17 @@
     <ApplicationIcon>Resources\AudioSharp_default32x32.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Hardcodet.Wpf.TaskbarNotification, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Hardcodet.NotifyIcon.Wpf.1.0.8\lib\net451\Hardcodet.Wpf.TaskbarNotification.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NAudio">
+      <HintPath>..\packages\NAudio.1.7.3\lib\net35\NAudio.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -61,6 +69,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="SettingsWindow.xaml.cs">
+      <DependentUpon>SettingsWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -72,10 +83,15 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="AutoGreyableImage.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="SettingsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -95,6 +111,8 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\DataSources\AudioSharp.Config.Configuration.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -142,6 +160,24 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\AudioSharp_recording32x32.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AudioSharp.Config\AudioSharp.Config.csproj">
+      <Project>{FDE08A0C-243D-47F2-8AB7-9B4DD73ED97F}</Project>
+      <Name>AudioSharp.Config</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AudioSharp.Core\AudioSharp.Core.csproj">
+      <Project>{DF0D4F9C-26ED-416F-8859-582495A23599}</Project>
+      <Name>AudioSharp.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AudioSharp.Translations\AudioSharp.Translations.csproj">
+      <Project>{0E5BEF57-5D0F-414C-8B3D-B8A3924BDE71}</Project>
+      <Name>AudioSharp.Translations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AudioSharp.Utils\AudioSharp.Utils.csproj">
+      <Project>{65EB8D41-2BEF-4627-B1B6-CD295563DB29}</Project>
+      <Name>AudioSharp.Utils</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

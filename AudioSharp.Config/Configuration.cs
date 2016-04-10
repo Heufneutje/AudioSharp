@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
+using System.Windows.Input;
 using AudioSharp.Utils;
 
 namespace AudioSharp.Config
@@ -21,6 +21,6 @@ namespace AudioSharp.Config
         public bool AlwaysOnTop { get; set; }
 
         // Hotkeys
-        public Dictionary<HotkeyUtils.HotkeyType, Tuple<Keys, Keys, int>> GlobalHotkeys { get; set; }
+        public Dictionary<HotkeyUtils.HotkeyType, Tuple<Key, Key, int>> GlobalHotkeys { get; set; }
     }
 }

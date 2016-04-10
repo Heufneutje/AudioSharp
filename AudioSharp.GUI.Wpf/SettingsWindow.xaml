@@ -1,0 +1,30 @@
+﻿<Window x:Class="AudioSharp.GUI.Wpf.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AudioSharp.GUI.Wpf"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        mc:Ignorable="d"
+        Title="SettingsWindow" Height="300" Width="700" MinWidth="3" ResizeMode="CanMinimize" Icon="Resources/AudioSharp_default32x32.ico">
+    <DockPanel LastChildFill="True">
+        <TabControl x:Name="tabControl">
+            <TabItem Header="Recording">
+                <Grid Background="#FFE5E5E5">
+                    <GroupBox x:Name="groupBox" Header="GroupBox" VerticalAlignment="Top" Height="74">
+                        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="141,0,0,0" VerticalAlignment="Top" Width="44" SelectedValue="{Binding Config.OutputFormat}" SelectionChanged="comboBox_SelectionChanged">
+                            <sys:String>wav</sys:String>
+                            <sys:String>mp3</sys:String>
+                        </ComboBox>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Interface">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+            <TabItem Header="Hotkeys" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="54">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+        </TabControl>
+    </DockPanel>
+</Window>

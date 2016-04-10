@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using System.Windows.Forms;
+using System.Windows.Input;
 
 namespace AudioSharp.Utils
 {
@@ -19,21 +19,18 @@ namespace AudioSharp.Utils
             StartRecording, StopRecording
         }
 
-        public static readonly List<Keys> IllegalHotkeys = new List<Keys>
+        public static readonly List<Key> IllegalHotkeys = new List<Key>
         {
-            Keys.ControlKey,
-            Keys.ShiftKey,
-            Keys.Menu,
-            Keys.Enter,
-            Keys.NumLock,
-            Keys.Capital,
-            Keys.Scroll
+            Key.Enter,
+            Key.NumLock,
+            Key.Capital,
+            Key.Scroll
         };
 
-        public static void RegisterAllHotkeys(IntPtr handle, Dictionary<HotkeyType, Tuple<Keys, Keys, int>> globalHotkeys)
+        public static void RegisterAllHotkeys(IntPtr handle, Dictionary<HotkeyType, Tuple<Key, Key, int>> globalHotkeys)
         {
             _HotkeyCount = 1;
-            foreach (Tuple<Keys, Keys, int> globalHotkey in globalHotkeys.Values)
+            foreach (Tuple<Key, Key, int> globalHotkey in globalHotkeys.Values)
             {
                 // TODO: Handle hotkey register failures.
                 RegisterHotKey(handle, _HotkeyCount, globalHotkey.Item3, (int)globalHotkey.Item1);

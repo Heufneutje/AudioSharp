@@ -4,63 +4,129 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AudioSharp.GUI.Wpf"
+        xmlns:tb="http://www.hardcodet.net/taskbar"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525" Icon="Resources/AudioSharp_default32x32.ico">
+        Title="AudioSharp" Height="315" Width="600" Icon="{DynamicResource defaultIcon}" MinHeight="315" MinWidth="600" Loaded="Window_Loaded" Closing="Window_Closing" SizeChanged="Window_SizeChanged">
     <Window.Resources>
-        <BitmapImage x:Key="RecordIcon" UriSource="Resources/record.png"></BitmapImage>
-        <BitmapImage x:Key="PauseIcon" UriSource="Resources/pause.png"></BitmapImage>
-        <BitmapImage x:Key="StopIcon" UriSource="Resources/stop.png"></BitmapImage>
+        <BitmapImage x:Key="recordImage" UriSource="Resources/record.png"></BitmapImage>
+        <BitmapImage x:Key="pauseImage" UriSource="Resources/pause.png"></BitmapImage>
+        <BitmapImage x:Key="stopImage" UriSource="Resources/stop.png"></BitmapImage>
+        <BitmapImage x:Key="exitImage" UriSource="Resources/Application-cancel.png"></BitmapImage>
+        <BitmapImage x:Key="recordIcon" UriSource="Resources/AudioSharp_recording32x32.ico"></BitmapImage>
+        <BitmapImage x:Key="pauseIcon" UriSource="Resources/AudioSharp_paused32x32.ico"></BitmapImage>
+        <BitmapImage x:Key="defaultIcon" UriSource="Resources/AudioSharp_default32x32.ico"></BitmapImage>
+        <ContextMenu x:Key="contextMenu" x:Name="contextMenu">
+            <MenuItem x:Name="recordContextMenuItem" Header="Record" Click="recordButton_Click">
+                <MenuItem.Icon>
+                    <local:AutoGreyableImage Source="{StaticResource recordImage}"/>
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem x:Name="pauseContextMenuItem" Header="Pause" Click="pauseButton_Click" IsEnabled="False">
+                <MenuItem.Icon>
+                    <local:AutoGreyableImage Source="{StaticResource pauseImage}"/>
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem x:Name="stopContextMenuItem" Header="Stop" Click="stopButton_Click" IsEnabled="False">
+                <MenuItem.Icon>
+                    <local:AutoGreyableImage Source="{StaticResource stopImage}"/>
+                </MenuItem.Icon>
+            </MenuItem>
+            <Separator HorizontalAlignment="Left" Width="122"/>
+            <MenuItem x:Name="exitContextMenuItem" Header="Exit" Click="exitMenuItem_Click" InputGestureText="Alt+F4">
+                <MenuItem.Icon>
+                    <local:AutoGreyableImage Source="{StaticResource exitImage}"/>
+                </MenuItem.Icon>
+            </MenuItem>
+        </ContextMenu>
     </Window.Resources>
     <Grid>
         <Menu x:Name="menu" VerticalAlignment="Top">
             <MenuItem Header="File">
-                <MenuItem x:Name="recordMenuItem" Header="Record">
+                <MenuItem x:Name="recordMenuItem" Header="Record" Click="recordButton_Click">
                     <MenuItem.Icon>
-                        <Image Source="{StaticResource RecordIcon}"/>
+                        <local:AutoGreyableImage Source="{StaticResource recordImage}"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem x:Name="pauseMenuItem" Header="Pause">
+                <MenuItem x:Name="pauseMenuItem" Header="Pause" Click="pauseButton_Click" IsEnabled="False">
                     <MenuItem.Icon>
-                        <Image Source="{StaticResource PauseIcon}"/>
+                        <local:AutoGreyableImage Source="{StaticResource pauseImage}"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem x:Name="stopMenuItem" Header="Stop">
+                <MenuItem x:Name="stopMenuItem" Header="Stop" Click="stopButton_Click" IsEnabled="False">
                     <MenuItem.Icon>
-                        <Image Source="{StaticResource StopIcon}"/>
+                        <local:AutoGreyableImage Source="{StaticResource stopImage}"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <Separator HorizontalAlignment="Left" Width="122"/>
+                <MenuItem x:Name="exitMenuItem" Header="Exit" Click="exitMenuItem_Click" InputGestureText="Alt+F4">
+                    <MenuItem.Icon>
+                        <local:AutoGreyableImage Source="{StaticResource exitImage}"/>
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
             <MenuItem Header="Tools">
                 <MenuItem x:Name="recordingsMenuItem" Header="Recordings...">
                     <MenuItem.Icon>
-                        <Image Source="Resources/Folder.png"/>
+                        <local:AutoGreyableImage Source="Resources/Folder.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem x:Name="settingsMenuItem" Header="Settings...">
+                <MenuItem x:Name="settingsMenuItem" Header="Settings..." Click="settingsMenuItem_Click">
                     <MenuItem.Icon>
-                        <Image Source="Resources/Compile.png"/>
+                        <local:AutoGreyableImage Source="Resources/Compile.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
             <MenuItem Header="Help">
                 <MenuItem x:Name="aboutMenuItem" Header="About...">
                     <MenuItem.Icon>
-                        <Image Source="Resources/Info.png"/>
+                        <local:AutoGreyableImage Source="Resources/Info.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
         </Menu>
-        <GroupBox x:Name="recordingSettingsGroupBox" Header="Recording Settings" Margin="10,23,10,0" VerticalAlignment="Top" Height="73" Grid.ColumnSpan="2">
+        <GroupBox Header="Recording Settings" Margin="10,23,10,0" VerticalAlignment="Top" Height="73" Grid.ColumnSpan="2">
             <Grid>
-                <ComboBox x:Name="devicesComboBox" Margin="107,0,0,0" VerticalAlignment="Top"/>
-                <Slider x:Name="slider" HorizontalAlignment="Left" Margin="107,27,0,0" VerticalAlignment="Top" Width="323" ToolTip="Test" TickPlacement="BottomRight" Maximum="50"/>
-                <Label x:Name="label" Content="0 %" Margin="430,22,0,0" VerticalAlignment="Top" Background="Transparent"/>
+                <ComboBox x:Name="devicesComboBox" Margin="107,0,0,0" VerticalAlignment="Top" SelectionChanged="devicesComboBox_SelectionChanged"/>
+                <Slider x:Name="inputVolumeSlider" Margin="107,27,55,0" VerticalAlignment="Top" TickPlacement="BottomRight" Maximum="50" ValueChanged="inputVolumeSlider_ValueChanged"/>
+                <Label x:Name="inputVolumePercLabel" Content="0 %" Margin="0,22,0,0" VerticalAlignment="Top" Background="Transparent" HorizontalAlignment="Right" Width="50"/>
+                <Label Content="Input Device:" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <Label Content="Input Volume:" HorizontalAlignment="Left" Margin="0,22,0,0" VerticalAlignment="Top"/>
             </Grid>
         </GroupBox>
-        <StatusBar VerticalAlignment="Bottom" Background="DodgerBlue">
-            <StatusBarItem Content="Status: Ready" VerticalAlignment="Top" Foreground="White" FontWeight="Bold"/>
+        <GroupBox Header="Recording" Margin="10,101,10,52">
+            <Grid>
+                <TextBox x:Name="outputFileTextBox" Height="23" Margin="107,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" IsReadOnly="True"/>
+                <Label x:Name="timerLabel" Content="00:00:00" Margin="103,23,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.079,0.462"/>
+                <Label x:Name="fileSizeLabel" Content="0 bytes" Margin="103,46,0,0" VerticalAlignment="Top"/>
+                <ProgressBar x:Name="inputVolumeProgressBar" Margin="0,77,0,0" VerticalAlignment="Top" Height="23"/>
+                <Label Content="Output File:" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <Label Content="Length:" HorizontalAlignment="Left" Margin="0,23,0,0" VerticalAlignment="Top"/>
+                <Label Content="File Size:" HorizontalAlignment="Left" Margin="0,46,0,0" VerticalAlignment="Top"/>
+            </Grid>
+        </GroupBox>
+        <Button x:Name="recordButton" Margin="0,0,170,27" HorizontalAlignment="Right" Width="75" Height="20" VerticalAlignment="Bottom" HorizontalContentAlignment="Left" Click="recordButton_Click">
+            <StackPanel Orientation="Horizontal">
+                <local:AutoGreyableImage Source="{StaticResource recordImage}" Width="16" Height="16"/>
+                <TextBlock Padding="5,0,0,0">Record</TextBlock>
+            </StackPanel>
+        </Button>
+        <Button x:Name="pauseButton" Margin="0,0,90,27" HorizontalAlignment="Right" Width="75" Height="20" VerticalAlignment="Bottom" HorizontalContentAlignment="Left" Click="pauseButton_Click" IsEnabled="False">
+            <StackPanel Orientation="Horizontal">
+                <local:AutoGreyableImage Source="{StaticResource pauseImage}" Width="16" Height="16"/>
+                <TextBlock Padding="5,0,0,0">Pause</TextBlock>
+            </StackPanel>
+        </Button>
+        <Button x:Name="stopButton" Margin="0,0,10,27" Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75" HorizontalContentAlignment="Left" Click="stopButton_Click" IsEnabled="False">
+            <StackPanel Orientation="Horizontal">
+                <local:AutoGreyableImage Source="{StaticResource stopImage}" Width="16" Height="16"/>
+                <TextBlock Padding="5,0,0,0">Stop</TextBlock>
+            </StackPanel>
+        </Button>
+        <StatusBar x:Name="statusBar" VerticalAlignment="Bottom" Background="DodgerBlue">
+            <StatusBarItem x:Name="recordingStatusBarItem" Content="Status: Ready" VerticalAlignment="Top" Foreground="White" FontWeight="Bold"/>
             <Separator Background="White"/>
-            <StatusBarItem Content="Free space: ??" VerticalAlignment="Top" Foreground="White" FontWeight="Bold"/>
+            <StatusBarItem x:Name="driveSpaceBarItem" Content="Free space: ??" VerticalAlignment="Top" Foreground="White" FontWeight="Bold"/>
         </StatusBar>
+        <tb:TaskbarIcon x:Name="taskbarIcon" IconSource="Resources/AudioSharp_default32x32.ico" MouseDown="taskbarIcon_MouseDown" ContextMenu="{DynamicResource contextMenu}" ToolTipText="AudioSharp"/>
     </Grid>
 </Window>
