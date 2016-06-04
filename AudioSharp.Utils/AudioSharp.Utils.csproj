@@ -55,6 +55,7 @@
     <Compile Include="FileUtils.cs" />
     <Compile Include="HotkeyUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RecordingItem.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

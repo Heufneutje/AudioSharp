@@ -111,7 +111,7 @@ namespace AudioSharp.GUI.Wpf
         }
         #endregion
 
-        #region Custom Functions
+        #region Helper Methods
         private void SetPreview()
         {
             if (string.IsNullOrEmpty(Config.RecordingsFolder) || Config.RecordingPrefix == null)

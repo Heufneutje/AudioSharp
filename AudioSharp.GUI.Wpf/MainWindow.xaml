@@ -65,7 +65,7 @@
                 </MenuItem>
             </MenuItem>
             <MenuItem Header="Tools">
-                <MenuItem x:Name="recordingsMenuItem" Header="Recordings...">
+                <MenuItem x:Name="recordingsMenuItem" Header="Recordings..." Click="recordingsMenuItem_Click">
                     <MenuItem.Icon>
                         <local:AutoGreyableImage Source="Resources/Folder.png"/>
                     </MenuItem.Icon>

@@ -193,14 +193,12 @@ namespace AudioSharp.GUI.Wpf
             Close();
         }
 
-        private void menuButtonRecordings_Click(object sender, EventArgs e)
+        private void recordingsMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            //using (FrmRecordingList recordingsForm = new FrmRecordingList(_config.RecordingsFolder))
-            //{
-            //    TopMost = false;
-            //    recordingsForm.ShowDialog();
-            //    TopMost = _config.AlwaysOnTop;
-            //}
+            RecordingsWindow recordingsForm = new RecordingsWindow(_config.RecordingsFolder);
+            Topmost = false;
+            recordingsForm.ShowDialog();
+            Topmost = _config.AlwaysOnTop;
         }
 
         private void settingsMenuItem_Click(object sender, RoutedEventArgs e)

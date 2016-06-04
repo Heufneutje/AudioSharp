@@ -7,7 +7,7 @@
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:Config="clr-namespace:AudioSharp.Config;assembly=AudioSharp.Config" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="AudioSharp.GUI.Wpf.SettingsWindow"
         mc:Ignorable="d"
-        Title="SettingsWindow" Height="373" Width="700" MinWidth="3" ResizeMode="CanMinimize" Icon="Resources/AudioSharp_default32x32.ico">
+        Title="Settings" Height="373" Width="700" MinWidth="3" ResizeMode="CanMinimize" Icon="Resources/AudioSharp_default32x32.ico">
     <Window.DataContext>
         <Config:Configuration/>
     </Window.DataContext>
