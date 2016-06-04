@@ -108,6 +108,7 @@ namespace AudioSharp.GUI.Wpf
 
             IntPtr windowHandle = new WindowInteropHelper(this).Handle;
             HotkeyUtils.UnregisterAllHotkeys(windowHandle);
+            HotkeyUtils.GlobalHoykeyPressed -= HotkeyUtils_GlobalHoykeyPressed;
         }
 
         private void Window_StateChanged(object sender, EventArgs e)
