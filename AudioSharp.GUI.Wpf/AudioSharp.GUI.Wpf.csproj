@@ -53,7 +53,6 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
@@ -123,7 +122,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="AutoGreyableImage.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -215,6 +213,10 @@
     <ProjectReference Include="..\AudioSharp.Core\AudioSharp.Core.csproj">
       <Project>{DF0D4F9C-26ED-416F-8859-582495A23599}</Project>
       <Name>AudioSharp.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AudioSharp.GUI.CustomControls\AudioSharp.GUI.CustomControls.csproj">
+      <Project>{c69ac190-6081-4a36-b140-6a7cbccce990}</Project>
+      <Name>AudioSharp.GUI.CustomControls</Name>
     </ProjectReference>
     <ProjectReference Include="..\AudioSharp.Translations\AudioSharp.Translations.csproj">
       <Project>{0E5BEF57-5D0F-414C-8B3D-B8A3924BDE71}</Project>

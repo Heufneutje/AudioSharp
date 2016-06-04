@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AudioSharp.GUI.Wpf"
+        xmlns:customcontrols="clr-namespace:AudioSharp.GUI.CustomControls;assembly=AudioSharp.GUI.CustomControls"
         xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid" xmlns:Utils="clr-namespace:AudioSharp.Utils;assembly=AudioSharp.Utils" x:Name="recordingsWindow" x:Class="AudioSharp.GUI.Wpf.RecordingsWindow"
         mc:Ignorable="d"
         Title="Recordings" Height="330" Width="620" Icon="{DynamicResource defaultIcon}" MinHeight="185" MinWidth="620">
@@ -29,22 +30,22 @@
         </xcdg:DataGridControl>
         <Button x:Name="playButton" HorizontalAlignment="Left" Margin="6,6,0,0" VerticalAlignment="Top" Width="25" Height="25" ToolTip="Play" Click="playButton_Click">
             <Button.Content>
-                <Image Source="{StaticResource playImage}" Height="16" Width="16"/>
+                <customcontrols:AutoGreyableImage Source="{StaticResource playImage}" Height="16" Width="16"/>
             </Button.Content>
         </Button>
         <Button x:Name="deleteButton" HorizontalAlignment="Left" Margin="6,36,0,0" VerticalAlignment="Top" Width="25" Height="25" ToolTip="Delete" Click="deleteButton_Click">
             <Button.Content>
-                <Image Source="{StaticResource deleteImage}" Height="16" Width="16"/>
+                <customcontrols:AutoGreyableImage Source="{StaticResource deleteImage}" Height="16" Width="16"/>
             </Button.Content>
         </Button>
         <Button x:Name="convertButton" HorizontalAlignment="Left" Margin="6,66,0,0" VerticalAlignment="Top" Width="25" Height="25" ToolTip="Convert to MP3" Click="convertButton_Click">
             <Button.Content>
-                <Image Source="{StaticResource convertImage}" Height="16" Width="16"/>
+                <customcontrols:AutoGreyableImage Source="{StaticResource convertImage}" Height="16" Width="16"/>
             </Button.Content>
         </Button>
         <Button x:Name="openFolderButton" HorizontalAlignment="Left" Margin="6,96,0,0" VerticalAlignment="Top" Width="25" Height="25" ToolTip="Open recordings folder" Click="openFolderButton_Click">
             <Button.Content>
-                <Image Source="{StaticResource openFolderImage}" Height="16" Width="16"/>
+                <customcontrols:AutoGreyableImage Source="{StaticResource openFolderImage}" Height="16" Width="16"/>
             </Button.Content>
         </Button>
         <StatusBar x:Name="statusBar" VerticalAlignment="Bottom" Background="DodgerBlue" Height="22">

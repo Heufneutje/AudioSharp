@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AudioSharp.GUI.Wpf"
+        xmlns:customcontrols="clr-namespace:AudioSharp.GUI.CustomControls;assembly=AudioSharp.GUI.CustomControls"
         xmlns:tb="http://www.hardcodet.net/taskbar"
         mc:Ignorable="d"
         Title="AudioSharp" Height="315" Width="600" Icon="{DynamicResource defaultIcon}" MinHeight="315" MinWidth="600" Loaded="Window_Loaded" Closing="Window_Closing" StateChanged="Window_StateChanged">
@@ -18,23 +19,23 @@
         <ContextMenu x:Key="contextMenu" x:Name="contextMenu">
             <MenuItem x:Name="recordContextMenuItem" Header="Record" Click="recordButton_Click">
                 <MenuItem.Icon>
-                    <local:AutoGreyableImage Source="{StaticResource recordImage}"/>
+                    <customcontrols:AutoGreyableImage Source="{StaticResource recordImage}"/>
                 </MenuItem.Icon>
             </MenuItem>
             <MenuItem x:Name="pauseContextMenuItem" Header="Pause" Click="pauseButton_Click" IsEnabled="False">
                 <MenuItem.Icon>
-                    <local:AutoGreyableImage Source="{StaticResource pauseImage}"/>
+                    <customcontrols:AutoGreyableImage Source="{StaticResource pauseImage}"/>
                 </MenuItem.Icon>
             </MenuItem>
             <MenuItem x:Name="stopContextMenuItem" Header="Stop" Click="stopButton_Click" IsEnabled="False">
                 <MenuItem.Icon>
-                    <local:AutoGreyableImage Source="{StaticResource stopImage}"/>
+                    <customcontrols:AutoGreyableImage Source="{StaticResource stopImage}"/>
                 </MenuItem.Icon>
             </MenuItem>
             <Separator HorizontalAlignment="Left" Width="122"/>
             <MenuItem x:Name="exitContextMenuItem" Header="Exit" Click="exitMenuItem_Click" InputGestureText="Alt+F4">
                 <MenuItem.Icon>
-                    <local:AutoGreyableImage Source="{StaticResource exitImage}"/>
+                    <customcontrols:AutoGreyableImage Source="{StaticResource exitImage}"/>
                 </MenuItem.Icon>
             </MenuItem>
         </ContextMenu>
@@ -44,42 +45,42 @@
             <MenuItem Header="File">
                 <MenuItem x:Name="recordMenuItem" Header="Record" Click="recordButton_Click">
                     <MenuItem.Icon>
-                        <local:AutoGreyableImage Source="{StaticResource recordImage}"/>
+                        <customcontrols:AutoGreyableImage Source="{StaticResource recordImage}"/>
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem x:Name="pauseMenuItem" Header="Pause" Click="pauseButton_Click" IsEnabled="False">
                     <MenuItem.Icon>
-                        <local:AutoGreyableImage Source="{StaticResource pauseImage}"/>
+                        <customcontrols:AutoGreyableImage Source="{StaticResource pauseImage}"/>
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem x:Name="stopMenuItem" Header="Stop" Click="stopButton_Click" IsEnabled="False">
                     <MenuItem.Icon>
-                        <local:AutoGreyableImage Source="{StaticResource stopImage}"/>
+                        <customcontrols:AutoGreyableImage Source="{StaticResource stopImage}"/>
                     </MenuItem.Icon>
                 </MenuItem>
                 <Separator HorizontalAlignment="Left" Width="122"/>
                 <MenuItem x:Name="exitMenuItem" Header="Exit" Click="exitMenuItem_Click" InputGestureText="Alt+F4">
                     <MenuItem.Icon>
-                        <local:AutoGreyableImage Source="{StaticResource exitImage}"/>
+                        <customcontrols:AutoGreyableImage Source="{StaticResource exitImage}"/>
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
             <MenuItem Header="Tools">
                 <MenuItem x:Name="recordingsMenuItem" Header="Recordings..." Click="recordingsMenuItem_Click">
                     <MenuItem.Icon>
-                        <local:AutoGreyableImage Source="Resources/Folder.png"/>
+                        <customcontrols:AutoGreyableImage Source="Resources/Folder.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem x:Name="settingsMenuItem" Header="Settings..." Click="settingsMenuItem_Click">
                     <MenuItem.Icon>
-                        <local:AutoGreyableImage Source="Resources/Compile.png"/>
+                        <customcontrols:AutoGreyableImage Source="Resources/Compile.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
             <MenuItem Header="Help">
                 <MenuItem x:Name="aboutMenuItem" Header="About..." Click="aboutMenuItem_Click">
                     <MenuItem.Icon>
-                        <local:AutoGreyableImage Source="Resources/Info.png"/>
+                        <customcontrols:AutoGreyableImage Source="Resources/Info.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
@@ -106,19 +107,19 @@
         </GroupBox>
         <Button x:Name="recordButton" Margin="0,0,170,27" HorizontalAlignment="Right" Width="75" Height="20" VerticalAlignment="Bottom" HorizontalContentAlignment="Left" Click="recordButton_Click">
             <StackPanel Orientation="Horizontal">
-                <local:AutoGreyableImage Source="{StaticResource recordImage}" Width="16" Height="16"/>
+                <customcontrols:AutoGreyableImage Source="{StaticResource recordImage}" Width="16" Height="16"/>
                 <TextBlock Padding="5,0,0,0">Record</TextBlock>
             </StackPanel>
         </Button>
         <Button x:Name="pauseButton" Margin="0,0,90,27" HorizontalAlignment="Right" Width="75" Height="20" VerticalAlignment="Bottom" HorizontalContentAlignment="Left" Click="pauseButton_Click" IsEnabled="False">
             <StackPanel Orientation="Horizontal">
-                <local:AutoGreyableImage Source="{StaticResource pauseImage}" Width="16" Height="16"/>
+                <customcontrols:AutoGreyableImage Source="{StaticResource pauseImage}" Width="16" Height="16"/>
                 <TextBlock Padding="5,0,0,0">Pause</TextBlock>
             </StackPanel>
         </Button>
         <Button x:Name="stopButton" Margin="0,0,10,27" Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75" HorizontalContentAlignment="Left" Click="stopButton_Click" IsEnabled="False">
             <StackPanel Orientation="Horizontal">
-                <local:AutoGreyableImage Source="{StaticResource stopImage}" Width="16" Height="16"/>
+                <customcontrols:AutoGreyableImage Source="{StaticResource stopImage}" Width="16" Height="16"/>
                 <TextBlock Padding="5,0,0,0">Stop</TextBlock>
             </StackPanel>
         </Button>
