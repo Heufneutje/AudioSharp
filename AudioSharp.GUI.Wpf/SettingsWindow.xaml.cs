@@ -42,7 +42,7 @@ namespace AudioSharp.GUI.Wpf
         #endregion
 
         #region Control Events
-        private void browseButton_Click(object sender, RoutedEventArgs e)
+        private void recordingFolderTextBox_ButtonClick(object sender, RoutedEventArgs e)
         {
             using (System.Windows.Forms.FolderBrowserDialog fbd = new System.Windows.Forms.FolderBrowserDialog())
             {
@@ -109,6 +109,16 @@ namespace AudioSharp.GUI.Wpf
         {
             HandleHotkey(HotkeyUtils.HotkeyType.StopRecording, e);
         }
+
+        private void hotkeyRecordTextBox_ButtonClick(object sender, RoutedEventArgs e)
+        {
+            ClearHotkey(HotkeyUtils.HotkeyType.StartRecording);
+        }
+
+        private void hotkeyStopTextBox_ButtonClick(object sender, RoutedEventArgs e)
+        {
+            ClearHotkey(HotkeyUtils.HotkeyType.StopRecording);
+        }
         #endregion
 
         #region Helper Methods
@@ -129,18 +139,22 @@ namespace AudioSharp.GUI.Wpf
             if (HotkeyUtils.IllegalHotkeys.Contains(key))
                 return;
 
-            Configuration config = Config;
             if (key == Key.Escape)
             {
-                FillHotkeyField(hotkeyType, Key.None, ModifierKeys.None);
-                if (config.GlobalHotkeys.ContainsKey(hotkeyType))
-                    config.GlobalHotkeys.Remove(hotkeyType);
+                ClearHotkey(hotkeyType);
             }
             else
             {
                 FillHotkeyField(hotkeyType, key, Keyboard.Modifiers);
-                config.GlobalHotkeys[hotkeyType] = new Tuple<Key, ModifierKeys>(key, Keyboard.Modifiers);
+                Config.GlobalHotkeys[hotkeyType] = new Tuple<Key, ModifierKeys>(key, Keyboard.Modifiers);
             }
+        }
+
+        private void ClearHotkey(HotkeyUtils.HotkeyType hotkeyType)
+        {
+            FillHotkeyField(hotkeyType, Key.None, ModifierKeys.None);
+            if (Config.GlobalHotkeys.ContainsKey(hotkeyType))
+                Config.GlobalHotkeys.Remove(hotkeyType);
         }
 
         private void FillHotkeyField(HotkeyUtils.HotkeyType hotkeyType, Key hotkey, ModifierKeys modifiers)

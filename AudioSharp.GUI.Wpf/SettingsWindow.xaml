@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AudioSharp.GUI.Wpf"
+        xmlns:customcontrols="clr-namespace:AudioSharp.GUI.CustomControls;assembly=AudioSharp.GUI.CustomControls"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:Config="clr-namespace:AudioSharp.Config;assembly=AudioSharp.Config" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="AudioSharp.GUI.Wpf.SettingsWindow"
         mc:Ignorable="d"
@@ -11,6 +12,10 @@
     <Window.DataContext>
         <Config:Configuration/>
     </Window.DataContext>
+    <Window.Resources>
+        <BitmapImage x:Key="openFolderImage" UriSource="Resources/Folder.png"></BitmapImage>
+        <BitmapImage x:Key="deleteImage" UriSource="Resources/Delete.png"></BitmapImage>
+    </Window.Resources>
     <Grid>
         <TabControl x:Name="tabControl" Height="295" VerticalAlignment="Top">
             <TabItem Header="Recording">
@@ -26,9 +31,8 @@
                     </GroupBox>
                     <GroupBox Header="Default file destination" Margin="10,53,10,0" VerticalAlignment="Top" Height="49">
                         <Grid>
-                            <TextBox x:Name="recordingFolderTextBox" Height="23" Margin="159,1,90,0" TextWrapping="Wrap" Text="{Binding RecordingsFolder}" VerticalAlignment="Top"/>
+                            <customcontrols:ButtonTextBox x:Name="recordingFolderTextBox" Height="23" Margin="159,1,10,0" TextWrapping="Wrap" Text="{Binding RecordingsFolder}" VerticalAlignment="Top" ButtonImage="{DynamicResource openFolderImage}" ButtonClick="recordingFolderTextBox_ButtonClick" ButtonToolTip="Browse..."/>
                             <Label Content="Recordings folder" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-2,0,0,0"/>
-                            <Button x:Name="browseButton" Content="Browse..." HorizontalAlignment="Right" Margin="0,3,10,0" VerticalAlignment="Top" Width="75" Click="browseButton_Click"/>
                         </Grid>
                     </GroupBox>
                     <GroupBox Header="File name" HorizontalAlignment="Left" Margin="10,107,0,36" Width="668">
@@ -62,8 +66,8 @@
             <TabItem Header="Hotkeys" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="54">
                 <GroupBox Header="Global hotkeys" Margin="10,0" VerticalAlignment="Top" Height="78">
                     <Grid>
-                        <TextBox x:Name="hotkeyRecordTextBox" Height="23" Margin="159,0,10,0" TextWrapping="Wrap" VerticalAlignment="Top" IsReadOnly="True" KeyDown="hotkeyRecordTextBox_KeyDown"/>
-                        <TextBox x:Name="hotkeyStopTextBox" Height="23" Margin="159,28,10,0" TextWrapping="Wrap" VerticalAlignment="Top" IsReadOnly="True" KeyDown="hotkeyStopTextBox_KeyDown"/>
+                        <customcontrols:ButtonTextBox x:Name="hotkeyRecordTextBox" Height="23" Margin="159,0,10,0" TextWrapping="Wrap" VerticalAlignment="Top" IsReadOnly="True" KeyDown="hotkeyRecordTextBox_KeyDown" ButtonImage="{DynamicResource deleteImage}" ButtonToolTip="Remove" ButtonClick="hotkeyRecordTextBox_ButtonClick"/>
+                        <customcontrols:ButtonTextBox x:Name="hotkeyStopTextBox" Height="23" Margin="159,28,10,0" TextWrapping="Wrap" VerticalAlignment="Top" IsReadOnly="True" KeyDown="hotkeyStopTextBox_KeyDown" ButtonImage="{DynamicResource deleteImage}" ButtonToolTip="Remove" ButtonClick="hotkeyStopTextBox_ButtonClick"/>
                         <Label Content="Start recording" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                         <Label Content="Stop recording" HorizontalAlignment="Left" Margin="0,24,0,0" VerticalAlignment="Top"/>
                     </Grid>
