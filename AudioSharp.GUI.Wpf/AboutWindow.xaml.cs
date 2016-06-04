@@ -15,7 +15,12 @@ namespace AudioSharp.GUI.Wpf
         {
             InitializeComponent();
             Paragraph paragraph = new Paragraph();
-            paragraph.Inlines.Add(File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Licenses.txt")));
+
+            string licenseFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Licenses.txt");
+            if (File.Exists(licenseFilePath))
+                paragraph.Inlines.Add(File.ReadAllText(licenseFilePath));
+            else
+                paragraph.Inlines.Add("Licenses file is missing.");
             FlowDocument document = new FlowDocument(paragraph);
             richTextBox.Document = document;
 
