@@ -58,7 +58,7 @@ namespace AudioSharp.GUI.Wpf
         {
             if (!Directory.Exists(Config.RecordingsFolder))
             {
-                MessageBox.Show(Messages.GUIErrorRecordingsFolder, Messages.GUICommonError, MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show(Messages.GUIErrorRecordingsFolder, Messages.GUIErrorCommon, MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
@@ -122,11 +122,15 @@ namespace AudioSharp.GUI.Wpf
 
         private void HandleHotkey(HotkeyUtils.HotkeyType hotkeyType, KeyEventArgs e)
         {
-            if (HotkeyUtils.IllegalHotkeys.Contains(e.Key))
+            Key key = e.Key;
+            if (key == Key.System)
+                key = e.SystemKey;
+
+            if (HotkeyUtils.IllegalHotkeys.Contains(key))
                 return;
 
             Configuration config = Config;
-            if (e.Key == Key.Escape || e.Key == Key.Delete)
+            if (key == Key.Escape)
             {
                 FillHotkeyField(hotkeyType, Key.None, ModifierKeys.None);
                 if (config.GlobalHotkeys.ContainsKey(hotkeyType))
@@ -134,8 +138,8 @@ namespace AudioSharp.GUI.Wpf
             }
             else
             {
-                FillHotkeyField(hotkeyType, e.Key, Keyboard.Modifiers);
-                config.GlobalHotkeys[hotkeyType] = new Tuple<Key, ModifierKeys>(e.Key, Keyboard.Modifiers);
+                FillHotkeyField(hotkeyType, key, Keyboard.Modifiers);
+                config.GlobalHotkeys[hotkeyType] = new Tuple<Key, ModifierKeys>(key, Keyboard.Modifiers);
             }
         }
 

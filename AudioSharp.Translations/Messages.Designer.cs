@@ -61,15 +61,6 @@ namespace AudioSharp.Translations {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error.
-        /// </summary>
-        public static string GUICommonError {
-            get {
-                return ResourceManager.GetString("GUICommonError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to This recording is already an MP3 file..
         /// </summary>
         public static string GUIConvertAlreadyMP3 {
@@ -111,6 +102,24 @@ namespace AudioSharp.Translations {
         public static string GUIDefaultDeleteTitle {
             get {
                 return ResourceManager.GetString("GUIDefaultDeleteTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string GUIErrorCommon {
+            get {
+                return ResourceManager.GetString("GUIErrorCommon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred while registering global hotkeys..
+        /// </summary>
+        public static string GUIErrorHotkeys {
+            get {
+                return ResourceManager.GetString("GUIErrorHotkeys", resourceCulture);
             }
         }
         

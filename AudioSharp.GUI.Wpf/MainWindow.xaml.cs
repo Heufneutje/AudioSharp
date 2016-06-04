@@ -79,8 +79,7 @@ namespace AudioSharp.GUI.Wpf
             InitAudioDevices();
             InitTimers();
 
-            IntPtr windowHandle = new WindowInteropHelper(this).Handle;
-            HotkeyUtils.RegisterAllHotkeys(windowHandle, _config.GlobalHotkeys);
+            RegisterHotkeys();
             HotkeyUtils.GlobalHoykeyPressed += HotkeyUtils_GlobalHoykeyPressed;
         }
         #endregion
@@ -421,6 +420,13 @@ namespace AudioSharp.GUI.Wpf
                 outputFileTextBox.Text = NextRecordingPath;
             taskbarIcon.Visibility = _config.ShowTrayIcon ? Visibility.Visible : Visibility.Hidden;
             Topmost = _config.AlwaysOnTop;
+        }
+
+        private void RegisterHotkeys()
+        {
+            IntPtr windowHandle = new WindowInteropHelper(this).Handle;
+            if (!HotkeyUtils.RegisterAllHotkeys(windowHandle, _config.GlobalHotkeys))
+                MessageBox.Show(Messages.GUIErrorHotkeys, Messages.GUIErrorCommon, MessageBoxButton.OK, MessageBoxImage.Error);
         }
         #endregion
     }

@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="GUICommonError" xml:space="preserve">
-    <value>Error</value>
-  </data>
   <data name="GUIConvertAlreadyMP3" xml:space="preserve">
     <value>This recording is already an MP3 file.</value>
   </data>
@@ -134,6 +131,12 @@
   </data>
   <data name="GUIDefaultDeleteTitle" xml:space="preserve">
     <value>Delete</value>
+  </data>
+  <data name="GUIErrorCommon" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="GUIErrorHotkeys" xml:space="preserve">
+    <value>An error occurred while registering global hotkeys.</value>
   </data>
   <data name="GUIErrorInputDevice" xml:space="preserve">
     <value>There's no input device selected to record from.</value>

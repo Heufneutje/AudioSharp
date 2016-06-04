@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Windows.Input;
 using GlobalHotKey;
 
@@ -32,15 +33,25 @@ namespace AudioSharp.Utils
         public delegate void GlobalHotkeyPressedDelegate(HotkeyType hotkey);
         public static event GlobalHotkeyPressedDelegate GlobalHoykeyPressed;
 
-        public static void RegisterAllHotkeys(IntPtr handle, Dictionary<HotkeyType, Tuple<Key, ModifierKeys>> globalHotkeys)
+        public static bool RegisterAllHotkeys(IntPtr handle, Dictionary<HotkeyType, Tuple<Key, ModifierKeys>> globalHotkeys)
         {
+            bool isSuccess = true;
             _hotKeyManager.KeyPressed += HotKeyManager_KeyPressed;
 
             foreach (KeyValuePair<HotkeyType, Tuple<Key, ModifierKeys>> globalHotkey in globalHotkeys)
             {
-                HotKey hotkey = _hotKeyManager.Register(globalHotkey.Value.Item1, globalHotkey.Value.Item2);
-                _hotkeys.Add(hotkey, globalHotkey.Key);
+                try
+                {
+                    HotKey hotkey = _hotKeyManager.Register(globalHotkey.Value.Item1, globalHotkey.Value.Item2);
+                    _hotkeys.Add(hotkey, globalHotkey.Key);
+                }
+                catch (Win32Exception)
+                {
+                    isSuccess = false;
+                }
             }
+
+            return isSuccess;
         }
 
         public static void UnregisterAllHotkeys(IntPtr handle)

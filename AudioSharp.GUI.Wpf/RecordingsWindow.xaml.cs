@@ -190,7 +190,7 @@ namespace AudioSharp.GUI.Wpf
         {
             if (recordingsDataGrid.SelectedItem == null)
             {
-                MessageBox.Show(Messages.GUINoFileSelected, Messages.GUICommonError, MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show(Messages.GUINoFileSelected, Messages.GUIErrorCommon, MessageBoxButton.OK, MessageBoxImage.Warning);
                 return false;
             }
 
