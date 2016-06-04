@@ -1,0 +1,26 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AudioSharp.GUI.Wpf"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Name="aboutWindow" x:Class="AudioSharp.GUI.Wpf.AboutWindow"
+        mc:Ignorable="d"
+        Title="About AudioSharp" Height="450" Width="680" Icon="{DynamicResource defaultIcon}" MinHeight="450" MinWidth="680">
+    <Window.Resources>
+        <BitmapImage x:Key="defaultIcon" UriSource="Resources/AudioSharp_default32x32.ico"></BitmapImage>
+    </Window.Resources>
+    <Grid>
+        <GroupBox Header="Information" Margin="10,0" VerticalAlignment="Top" RenderTransformOrigin="0.499,-0.052" Height="73">
+            <Grid>
+                <Label x:Name="versionLabel" Content="AudioSharp" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-1,0,0,0"/>
+                <Label Content="Just a simple audio recorder that does simple things." HorizontalAlignment="Left" Margin="0,20,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.018,0.45"/>
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="License" Margin="10,78,10,35">
+            <RichTextBox x:Name="richTextBox" Margin="0,10,-2,-2" FontFamily="Courier New"/>
+        </GroupBox>
+        <Button x:Name="closeButton" Content="Close" Margin="0,0,10,10" HorizontalAlignment="Right" Width="75" Height="20" VerticalAlignment="Bottom" Click="closeButton_Click"/>
+
+    </Grid>
+</Window>

@@ -219,14 +219,12 @@ namespace AudioSharp.GUI.Wpf
             HotkeyUtils.RegisterAllHotkeys(windowHandle, _config.GlobalHotkeys);
         }
 
-        private void menuButtonAbout_Click(object sender, EventArgs e)
+        private void aboutMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            //using (FrmAbout aboutFrm = new FrmAbout())
-            //{
-            //    TopMost = false;
-            //    aboutFrm.ShowDialog();
-            //    TopMost = _config.AlwaysOnTop;
-            //}
+            AboutWindow aboutWindow = new AboutWindow();
+            Topmost = false;
+            aboutWindow.ShowDialog();
+            Topmost = _config.AlwaysOnTop;
         }
         #endregion
 

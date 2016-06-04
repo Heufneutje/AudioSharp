@@ -77,7 +77,7 @@
                 </MenuItem>
             </MenuItem>
             <MenuItem Header="Help">
-                <MenuItem x:Name="aboutMenuItem" Header="About...">
+                <MenuItem x:Name="aboutMenuItem" Header="About..." Click="aboutMenuItem_Click">
                     <MenuItem.Icon>
                         <local:AutoGreyableImage Source="Resources/Info.png"/>
                     </MenuItem.Icon>

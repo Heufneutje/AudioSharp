@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:AudioSharp.GUI.Wpf"
         xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid" xmlns:Utils="clr-namespace:AudioSharp.Utils;assembly=AudioSharp.Utils" x:Name="recordingsWindow" x:Class="AudioSharp.GUI.Wpf.RecordingsWindow"
         mc:Ignorable="d"
-        Title="Recordings" Height="331.534" Width="615.198" Icon="{DynamicResource defaultIcon}">
+        Title="Recordings" Height="330" Width="620" Icon="{DynamicResource defaultIcon}" MinHeight="185" MinWidth="620">
     <Window.DataContext>
         <Utils:RecordingItem/>
     </Window.DataContext>
