@@ -32,7 +32,7 @@ namespace AudioSharp.Config
                 AutoIncrementRecordingNumber = true,
                 OutputFormat = "wav",
                 ShowTrayIcon = true,
-                GlobalHotkeys = new Dictionary<HotkeyUtils.HotkeyType, Tuple<Key, Key, int>>()
+                GlobalHotkeys = new Dictionary<HotkeyUtils.HotkeyType, Tuple<Key, ModifierKeys>>()
             };
         }
     }

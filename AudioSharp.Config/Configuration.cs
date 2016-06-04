@@ -21,6 +21,6 @@ namespace AudioSharp.Config
         public bool AlwaysOnTop { get; set; }
 
         // Hotkeys
-        public Dictionary<HotkeyUtils.HotkeyType, Tuple<Key, Key, int>> GlobalHotkeys { get; set; }
+        public Dictionary<HotkeyUtils.HotkeyType, Tuple<Key, ModifierKeys>> GlobalHotkeys { get; set; }
     }
 }

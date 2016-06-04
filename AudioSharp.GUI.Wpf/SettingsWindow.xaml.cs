@@ -1,17 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using AudioSharp.Config;
+using AudioSharp.Translations;
+using AudioSharp.Utils;
 
 namespace AudioSharp.GUI.Wpf
 {
@@ -20,19 +16,151 @@ namespace AudioSharp.GUI.Wpf
     /// </summary>
     public partial class SettingsWindow : Window
     {
-        public Configuration Config { get; set; }
-        public string Test { get; set; }
+        #region Fields & Properties
+        public Configuration Config { get; private set; }
+        #endregion
 
-        public SettingsWindow()
+        #region Constructor
+        public SettingsWindow(Configuration currentConfig)
         {
+            Config = currentConfig;
             InitializeComponent();
-            Config = new Configuration();
-            Config.OutputFormat = "mp3";
+            DataContext = Config;
+
+            if (currentConfig.PromptForFileName)
+                promptFileNameRadioButton.IsChecked = true;
+            else
+                generateFileNameRadioButton.IsChecked = true;
+
+            foreach (KeyValuePair<HotkeyUtils.HotkeyType, Tuple<Key, ModifierKeys>> hotkey in currentConfig.GlobalHotkeys)
+            {
+                FillHotkeyField(hotkey.Key, hotkey.Value.Item1, hotkey.Value.Item2);
+            }
+
+            SetPreview();
+        }
+        #endregion
+
+        #region Control Events
+        private void browseButton_Click(object sender, RoutedEventArgs e)
+        {
+            using (System.Windows.Forms.FolderBrowserDialog fbd = new System.Windows.Forms.FolderBrowserDialog())
+            {
+                if (fbd.ShowDialog() != System.Windows.Forms.DialogResult.OK)
+                    return;
+
+                Config.RecordingsFolder = fbd.SelectedPath;
+                GuiHelper.UpdateTextBoxBindingTarget(recordingFolderTextBox);
+            }
         }
 
-        private void comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void okButton_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(Test);
+            if (!Directory.Exists(Config.RecordingsFolder))
+            {
+                MessageBox.Show(Messages.GUIErrorRecordingsFolder, Messages.GUICommonError, MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            Config.PromptForFileName = promptFileNameRadioButton.IsChecked ?? false;
+            ConfigHandler.SaveConfig(Config);
+            DialogResult = true;
         }
+
+        private void cancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            DialogResult = false;
+        }
+
+        private void control_SourceUpdated(object sender, DataTransferEventArgs e)
+        {
+            SetPreview();
+        }
+        
+        private void generateFileNameRadioButton_CheckedChanged(object sender, RoutedEventArgs e)
+        {
+            bool isChecked = generateFileNameRadioButton.IsChecked ?? false;
+            recordingPrefixTextBox.IsEnabled = isChecked;
+            recordingNumberIntegerUpDown.IsEnabled = isChecked;
+            autoIncrementCheckBox.IsEnabled = isChecked;
+            nextRecordingPreviewTextBox.IsEnabled = isChecked;
+            recordingPrefixLabel.IsEnabled = isChecked;
+            nextRecordingNumberLabel.IsEnabled = isChecked;
+            nextRecordingPreviewLabel.IsEnabled = isChecked;
+        }
+
+        private void showTrayIconCheckBox_CheckedChanged(object sender, RoutedEventArgs e)
+        {
+            bool isChecked = showTrayIconCheckBox.IsChecked ?? false;
+            minimizeToTrayCheckBox.IsEnabled = isChecked;
+            if (!isChecked)
+            {
+                Config.MinimizeToTray = false;
+                GuiHelper.UpdateToggleButtonBindingTarget(minimizeToTrayCheckBox);
+            }
+        }
+
+        private void hotkeyRecordTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            HandleHotkey(HotkeyUtils.HotkeyType.StartRecording, e);
+        }
+
+        private void hotkeyStopTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            HandleHotkey(HotkeyUtils.HotkeyType.StopRecording, e);
+        }
+        #endregion
+
+        #region Custom Functions
+        private void SetPreview()
+        {
+            if (string.IsNullOrEmpty(Config.RecordingsFolder) || Config.RecordingPrefix == null)
+                nextRecordingPreviewTextBox.Text = "<invalid path>";
+            else
+                nextRecordingPreviewTextBox.Text = $"{Path.Combine(Config.RecordingsFolder, Config.RecordingPrefix + Config.NextRecordingNumber.ToString("D4"))}.{Config.OutputFormat}";
+        }
+
+        private void HandleHotkey(HotkeyUtils.HotkeyType hotkeyType, KeyEventArgs e)
+        {
+            if (HotkeyUtils.IllegalHotkeys.Contains(e.Key))
+                return;
+
+            Configuration config = Config;
+            if (e.Key == Key.Escape || e.Key == Key.Delete)
+            {
+                FillHotkeyField(hotkeyType, Key.None, ModifierKeys.None);
+                if (config.GlobalHotkeys.ContainsKey(hotkeyType))
+                    config.GlobalHotkeys.Remove(hotkeyType);
+            }
+            else
+            {
+                FillHotkeyField(hotkeyType, e.Key, Keyboard.Modifiers);
+                config.GlobalHotkeys[hotkeyType] = new Tuple<Key, ModifierKeys>(e.Key, Keyboard.Modifiers);
+            }
+        }
+
+        private void FillHotkeyField(HotkeyUtils.HotkeyType hotkeyType, Key hotkey, ModifierKeys modifiers)
+        {
+            if (hotkey == Key.None || HotkeyUtils.IllegalHotkeys.Contains(hotkey))
+                GetHotkeyTextBox(hotkeyType).Text = string.Empty;
+            else if (modifiers == ModifierKeys.None)
+                GetHotkeyTextBox(hotkeyType).Text = hotkey.ToString();
+            else
+                GetHotkeyTextBox(hotkeyType).Text = string.Format("{0} + {1}", modifiers, hotkey);
+        }
+
+        private TextBox GetHotkeyTextBox(HotkeyUtils.HotkeyType hotkeyType)
+        {
+            switch (hotkeyType)
+            {
+                case HotkeyUtils.HotkeyType.StartRecording:
+                    return hotkeyRecordTextBox;
+                case HotkeyUtils.HotkeyType.StopRecording:
+                    return hotkeyStopTextBox;
+                default:
+                    return null;
+            }
+        }
+        #endregion
     }
 }

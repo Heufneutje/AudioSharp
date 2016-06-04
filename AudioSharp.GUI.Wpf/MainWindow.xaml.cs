@@ -3,7 +3,6 @@ using System.ComponentModel;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Threading;
@@ -82,6 +81,7 @@ namespace AudioSharp.GUI.Wpf
 
             IntPtr windowHandle = new WindowInteropHelper(this).Handle;
             HotkeyUtils.RegisterAllHotkeys(windowHandle, _config.GlobalHotkeys);
+            HotkeyUtils.GlobalHoykeyPressed += HotkeyUtils_GlobalHoykeyPressed;
         }
         #endregion
 
@@ -110,7 +110,7 @@ namespace AudioSharp.GUI.Wpf
             HotkeyUtils.UnregisterAllHotkeys(windowHandle);
         }
 
-        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+        private void Window_StateChanged(object sender, EventArgs e)
         {
             if (WindowState == WindowState.Minimized && _config.MinimizeToTray)
                 Hide();
@@ -171,6 +171,19 @@ namespace AudioSharp.GUI.Wpf
                 inputVolumePercLabel.Content = $"{(float)inputVolumeSlider.Value / 50 * 100} %";
             }
         }
+
+        private void HotkeyUtils_GlobalHoykeyPressed(HotkeyUtils.HotkeyType hotkey)
+        {
+            switch (hotkey)
+            {
+                case HotkeyUtils.HotkeyType.StartRecording:
+                    StartRecording();
+                    break;
+                case HotkeyUtils.HotkeyType.StopRecording:
+                    StopRecording();
+                    break;
+            }
+        }
         #endregion
 
         #region Menu Events
@@ -191,23 +204,20 @@ namespace AudioSharp.GUI.Wpf
 
         private void settingsMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            SettingsWindow settingsWindow = new SettingsWindow();
-            settingsWindow.Show();
+            SettingsWindow settingsWindow = new SettingsWindow(_config);
+            string oldOutputFormat = _config.OutputFormat;
+            Topmost = false;
 
-            //string oldOutputFormat = _config.OutputFormat;
-            //using (FrmSettings settingsFrm = new FrmSettings(_config))
-            //{
-            //    TopMost = false;
-            //    HotkeyUtils.UnregisterAllHotkeys(Handle);
-            //    if (settingsFrm.ShowDialog() == DialogResult.OK)
-            //    {
-            //        _config = settingsFrm.Config;
-            //        ApplySettings();
-            //        if (oldOutputFormat != _config.OutputFormat)
-            //            InitAudioDevices();
-            //    }
-            //    HotkeyUtils.RegisterAllHotkeys(Handle, _config.GlobalHotkeys);
-            //}
+            IntPtr windowHandle = new WindowInteropHelper(this).Handle;
+            HotkeyUtils.UnregisterAllHotkeys(windowHandle);
+            if (settingsWindow.ShowDialog() == true)
+            {
+                _config = settingsWindow.Config;
+                ApplySettings();
+                if (oldOutputFormat != _config.OutputFormat)
+                    InitAudioDevices();
+            }
+            HotkeyUtils.RegisterAllHotkeys(windowHandle, _config.GlobalHotkeys);
         }
 
         private void menuButtonAbout_Click(object sender, EventArgs e)
@@ -222,14 +232,12 @@ namespace AudioSharp.GUI.Wpf
         #endregion
 
         #region Context Menu Events
-        private void taskbarIcon_MouseDown(object sender, MouseButtonEventArgs e)
+        private void taskbarIcon_TrayLeftMouseDown(object sender, RoutedEventArgs e)
         {
-            if (e.LeftButton == MouseButtonState.Pressed)
-            {
-                Show();
-                if (WindowState == WindowState.Minimized)
-                    WindowState = WindowState.Normal;
-            }
+            Show();
+            if (WindowState == WindowState.Minimized)
+                WindowState = WindowState.Normal;
+            Activate();
         }
         #endregion
 
@@ -380,7 +388,7 @@ namespace AudioSharp.GUI.Wpf
                     recordingStatusBarItem.Content = "Status: Paused";
                     break;
                 case RecordingState.Stopped:
-                    Icon = (ImageSource)FindResource("recordIcon");
+                    Icon = (ImageSource)FindResource("defaultIcon");
                     taskbarIcon.IconSource = (ImageSource)FindResource("defaultIcon");
                     statusBar.Background = Brushes.DodgerBlue;
                     recordingStatusBarItem.Content = "Status: Ready";

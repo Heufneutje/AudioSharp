@@ -1,18 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
 using System.Windows.Input;
+using GlobalHotKey;
 
 namespace AudioSharp.Utils
 {
     public class HotkeyUtils
     {
-        private static int _HotkeyCount;
-
-        [DllImport("user32.dll")]
-        private static extern bool RegisterHotKey(IntPtr hWnd, int id, int fsModifiers, int vk);
-        [DllImport("user32.dll")]
-        private static extern bool UnregisterHotKey(IntPtr hWnd, int id);
+        private static readonly HotKeyManager _hotKeyManager = new HotKeyManager();
+        private static Dictionary<HotKey, HotkeyType> _hotkeys = new Dictionary<HotKey, HotkeyType>();
 
         public enum HotkeyType
         {
@@ -24,26 +20,42 @@ namespace AudioSharp.Utils
             Key.Enter,
             Key.NumLock,
             Key.Capital,
-            Key.Scroll
+            Key.Scroll,
+            Key.LeftAlt,
+            Key.LeftCtrl,
+            Key.LeftShift,
+            Key.RightAlt,
+            Key.RightCtrl,
+            Key.RightShift
         };
 
-        public static void RegisterAllHotkeys(IntPtr handle, Dictionary<HotkeyType, Tuple<Key, Key, int>> globalHotkeys)
+        public delegate void GlobalHotkeyPressedDelegate(HotkeyType hotkey);
+        public static event GlobalHotkeyPressedDelegate GlobalHoykeyPressed;
+
+        public static void RegisterAllHotkeys(IntPtr handle, Dictionary<HotkeyType, Tuple<Key, ModifierKeys>> globalHotkeys)
         {
-            _HotkeyCount = 1;
-            foreach (Tuple<Key, Key, int> globalHotkey in globalHotkeys.Values)
+            _hotKeyManager.KeyPressed += HotKeyManager_KeyPressed;
+
+            foreach (KeyValuePair<HotkeyType, Tuple<Key, ModifierKeys>> globalHotkey in globalHotkeys)
             {
-                // TODO: Handle hotkey register failures.
-                RegisterHotKey(handle, _HotkeyCount, globalHotkey.Item3, (int)globalHotkey.Item1);
-                _HotkeyCount++;
+                HotKey hotkey = _hotKeyManager.Register(globalHotkey.Value.Item1, globalHotkey.Value.Item2);
+                _hotkeys.Add(hotkey, globalHotkey.Key);
             }
         }
 
         public static void UnregisterAllHotkeys(IntPtr handle)
         {
-            for (int i = 1; i <= _HotkeyCount; i++)
-            {
-                UnregisterHotKey(handle, i);
-            }
+            _hotKeyManager.KeyPressed -= HotKeyManager_KeyPressed;
+
+            foreach (HotKey hotkey in _hotkeys.Keys)
+                _hotKeyManager.Unregister(hotkey);
+
+            _hotkeys.Clear();
+        }
+
+        private static void HotKeyManager_KeyPressed(object sender, KeyPressedEventArgs e)
+        {
+            GlobalHoykeyPressed?.Invoke(_hotkeys[e.HotKey]);
         }
     }
 }

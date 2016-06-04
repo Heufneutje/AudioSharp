@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:AudioSharp.GUI.Wpf"
         xmlns:tb="http://www.hardcodet.net/taskbar"
         mc:Ignorable="d"
-        Title="AudioSharp" Height="315" Width="600" Icon="{DynamicResource defaultIcon}" MinHeight="315" MinWidth="600" Loaded="Window_Loaded" Closing="Window_Closing" SizeChanged="Window_SizeChanged">
+        Title="AudioSharp" Height="315" Width="600" Icon="{DynamicResource defaultIcon}" MinHeight="315" MinWidth="600" Loaded="Window_Loaded" Closing="Window_Closing" StateChanged="Window_StateChanged">
     <Window.Resources>
         <BitmapImage x:Key="recordImage" UriSource="Resources/record.png"></BitmapImage>
         <BitmapImage x:Key="pauseImage" UriSource="Resources/pause.png"></BitmapImage>
@@ -127,6 +127,6 @@
             <Separator Background="White"/>
             <StatusBarItem x:Name="driveSpaceBarItem" Content="Free space: ??" VerticalAlignment="Top" Foreground="White" FontWeight="Bold"/>
         </StatusBar>
-        <tb:TaskbarIcon x:Name="taskbarIcon" IconSource="Resources/AudioSharp_default32x32.ico" MouseDown="taskbarIcon_MouseDown" ContextMenu="{DynamicResource contextMenu}" ToolTipText="AudioSharp"/>
+        <tb:TaskbarIcon x:Name="taskbarIcon" IconSource="Resources/AudioSharp_default32x32.ico" ContextMenu="{DynamicResource contextMenu}" ToolTipText="AudioSharp" TrayLeftMouseDown="taskbarIcon_TrayLeftMouseDown"/>
     </Grid>
 </Window>
