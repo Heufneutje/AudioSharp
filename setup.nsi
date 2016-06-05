@@ -3,7 +3,7 @@
 !define APP_NAME "AudioSharp"
 !define COMP_NAME "Stefan 'Heufneutje' Frijters"
 !define WEB_SITE "https://github.com/Heufneutje/AudioSharp"
-!define VERSION "1.2.1.0"
+!define VERSION "1.2.2.0"
 !define DESCRIPTION "AudioSharp"
 !define LICENSE_TXT "AudioSharp.GUI.Wpf\Licenses.txt"
 !define INSTALLER_NAME "Release\AudioSharp Setup.exe"
