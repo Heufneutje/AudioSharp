@@ -19,6 +19,7 @@ namespace AudioSharp.Config
         public bool ShowTrayIcon { get; set; }
         public bool MinimizeToTray { get; set; }
         public bool AlwaysOnTop { get; set; }
+        public bool StartMinimized { get; set; }
 
         // Hotkeys
         public Dictionary<HotkeyUtils.HotkeyType, Tuple<Key, ModifierKeys>> GlobalHotkeys { get; set; }

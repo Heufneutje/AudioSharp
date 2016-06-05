@@ -70,6 +70,9 @@ namespace AudioSharp.GUI.Wpf
             InitializeComponent();
             _config = ConfigHandler.ReadConfig();
 
+            if (_config.StartMinimized)
+                Hide();
+
             if (!Directory.Exists(_config.RecordingsFolder))
             {
                 _config.RecordingsFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic);

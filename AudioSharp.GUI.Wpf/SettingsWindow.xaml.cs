@@ -100,6 +100,17 @@ namespace AudioSharp.GUI.Wpf
             }
         }
 
+        private void minimizeToTrayCheckBox_CheckedChanged(object sender, RoutedEventArgs e)
+        {
+            bool isChecked = minimizeToTrayCheckBox.IsChecked ?? false;
+            startMinimizedCheckBox.IsEnabled = isChecked;
+            if (!isChecked)
+            {
+                Config.StartMinimized = false;
+                GuiHelper.UpdateToggleButtonBindingTarget(startMinimizedCheckBox);
+            }
+        }
+
         private void hotkeyRecordTextBox_KeyDown(object sender, KeyEventArgs e)
         {
             HandleHotkey(HotkeyUtils.HotkeyType.StartRecording, e);
