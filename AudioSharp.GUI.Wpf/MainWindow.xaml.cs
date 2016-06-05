@@ -71,7 +71,11 @@ namespace AudioSharp.GUI.Wpf
             _config = ConfigHandler.ReadConfig();
 
             if (_config.StartMinimized)
-                Hide();
+            {
+                WindowState = WindowState.Minimized;
+                if (_config.MinimizeToTray)
+                    Hide();
+            }
 
             if (!Directory.Exists(_config.RecordingsFolder))
             {
