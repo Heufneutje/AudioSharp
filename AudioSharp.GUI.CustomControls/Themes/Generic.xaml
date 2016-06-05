@@ -22,7 +22,7 @@
                             <ScrollViewer x:Name="PART_ContentHost" Grid.Column="0" />
                             <Button x:Name="PART_TextBoxButton"
                                 Grid.Column="2"
-                                Width="25"
+                                Width="18"
                                 Visibility="Visible"
                                 BorderBrush="Transparent"
                                 Background="Transparent"
