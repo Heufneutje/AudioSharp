@@ -16,7 +16,7 @@ namespace AudioSharp.GUI.Wpf
             InitializeComponent();
             Paragraph paragraph = new Paragraph();
 
-            string licenseFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Licenses.txt");
+            string licenseFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "LICENSE.txt");
             if (File.Exists(licenseFilePath))
                 paragraph.Inlines.Add(File.ReadAllText(licenseFilePath));
             else
