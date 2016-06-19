@@ -175,7 +175,7 @@ namespace AudioSharp.GUI.Wpf
             if (_audioRecorder.SelectedDevice != null)
             {
                 _audioRecorder.SelectedDevice.AudioEndpointVolume.MasterVolumeLevelScalar = (float)inputVolumeSlider.Value / 50.0f;
-                inputVolumePercLabel.Content = $"{(float)inputVolumeSlider.Value / 50 * 100} %";
+                inputVolumePercLabel.Content = $"{(int)((float)inputVolumeSlider.Value / 50 * 100)} %";
             }
         }
 
