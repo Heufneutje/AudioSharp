@@ -83,13 +83,13 @@
                                             <TextBlock FontWeight="Bold" Text="{}{d}" Grid.Row="8"/>
                                             <TextBlock Text="Number of the current day of the month in 2 digits." Grid.Row="8" Grid.Column="1"/>
                                             <TextBlock FontWeight="Bold" Text="{}{H}" Grid.Row="9"/>
-                                            <TextBlock Text="Current hour of the day (24-hour format)." Grid.Row="9" Grid.Column="1"/>
+                                            <TextBlock Text="Current hour of the day in 2 digits (24-hour format)." Grid.Row="9" Grid.Column="1"/>
                                             <TextBlock FontWeight="Bold" Text="{}{h}" Grid.Row="10"/>
-                                            <TextBlock Text="Current hour of the day (12-hour format)." Grid.Row="10" Grid.Column="1"/>
+                                            <TextBlock Text="Current hour of the day in 2 digits (12-hour format)." Grid.Row="10" Grid.Column="1"/>
                                             <TextBlock FontWeight="Bold" Text="{}{m}" Grid.Row="11"/>
-                                            <TextBlock Text="Current minute of the day." Grid.Row="11" Grid.Column="1"/>
+                                            <TextBlock Text="Current minute of the day in 2 digits." Grid.Row="11" Grid.Column="1"/>
                                             <TextBlock FontWeight="Bold" Text="{}{s}" Grid.Row="12"/>
-                                            <TextBlock Text="Current second of the day." Grid.Row="12" Grid.Column="1"/>
+                                            <TextBlock Text="Current second of the day in 2 digits." Grid.Row="12" Grid.Column="1"/>
                                             <TextBlock FontWeight="Bold" Text="{}{t}" Grid.Row="13"/>
                                             <TextBlock Text="AM/PM designation of the current time." Grid.Row="13" Grid.Column="1"/>
                                         </Grid>
