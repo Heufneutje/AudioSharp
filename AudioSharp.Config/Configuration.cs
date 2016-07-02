@@ -29,28 +29,28 @@ namespace AudioSharp.Config
         public bool RecordingOutputPanelVisible { get; set; }
 
         // Window
-        public Dictionary<string, Tuple<double, double>> _windowSizes { get; set; }
+        public Dictionary<string, Tuple<double, double>> WindowSizes { get; set; }
 
         public Configuration()
         {
-            _windowSizes = new Dictionary<string, Tuple<double, double>>();
-            _windowSizes.Add("mainWindow", new Tuple<double, double>(600, 315));
+            WindowSizes = new Dictionary<string, Tuple<double, double>>();
+            WindowSizes.Add("mainWindow", new Tuple<double, double>(600, 315));
         }
 
         public Tuple<double, double> GetWindowSize(string windowName)
         {
-            if (!_windowSizes.ContainsKey(windowName))
+            if (!WindowSizes.ContainsKey(windowName))
                 return null;
 
-            return _windowSizes[windowName];
+            return WindowSizes[windowName];
         }
 
         public void SetWindowSize(string windowName, double width, double height)
         {
-            if (!_windowSizes.ContainsKey(windowName))
-                _windowSizes.Add(windowName, new Tuple<double, double>(width, height));
+            if (!WindowSizes.ContainsKey(windowName))
+                WindowSizes.Add(windowName, new Tuple<double, double>(width, height));
             else
-                _windowSizes[windowName] = new Tuple<double, double>(width, height);
+                WindowSizes[windowName] = new Tuple<double, double>(width, height);
         }
     }
 }
