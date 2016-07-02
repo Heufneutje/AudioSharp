@@ -27,7 +27,7 @@ namespace AudioSharp.Config
             return new Configuration()
             {
                 RecordingsFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic),
-                RecordingPrefix = "Recording",
+                RecordingPrefix = "Recording{n}",
                 NextRecordingNumber = 1,
                 AutoIncrementRecordingNumber = true,
                 OutputFormat = "wav",
