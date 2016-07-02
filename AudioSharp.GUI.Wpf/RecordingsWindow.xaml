@@ -28,25 +28,49 @@
                 <xcdg:Column FieldName="Size" Title="Size"></xcdg:Column>
             </xcdg:DataGridControl.Columns>
         </xcdg:DataGridControl>
-        <Button x:Name="playButton" HorizontalAlignment="Left" Margin="6,6,0,0" VerticalAlignment="Top" Width="25" Height="25" ToolTip="Play" Click="playButton_Click">
+        <Button x:Name="playButton" HorizontalAlignment="Left" Margin="6,6,0,0" VerticalAlignment="Top" Width="25" Height="25" Click="playButton_Click">
             <Button.Content>
                 <customcontrols:AutoGreyableImage Source="{StaticResource playImage}" Height="16" Width="16"/>
             </Button.Content>
+            <Button.ToolTip>
+                <StackPanel>
+                    <TextBlock FontWeight="Bold" Text="Play"/>
+                    <TextBlock Text="Play the selected recording." Padding="5,5,5,0"/>
+                </StackPanel>
+            </Button.ToolTip>
         </Button>
-        <Button x:Name="deleteButton" HorizontalAlignment="Left" Margin="6,36,0,0" VerticalAlignment="Top" Width="25" Height="25" ToolTip="Delete" Click="deleteButton_Click">
+        <Button x:Name="deleteButton" HorizontalAlignment="Left" Margin="6,36,0,0" VerticalAlignment="Top" Width="25" Height="25" Click="deleteButton_Click">
             <Button.Content>
                 <customcontrols:AutoGreyableImage Source="{StaticResource deleteImage}" Height="16" Width="16"/>
             </Button.Content>
+            <Button.ToolTip>
+                <StackPanel>
+                    <TextBlock FontWeight="Bold" Text="Delete"/>
+                    <TextBlock Text="Delete the selected recording." Padding="5,5,5,0"/>
+                </StackPanel>
+            </Button.ToolTip>
         </Button>
-        <Button x:Name="convertButton" HorizontalAlignment="Left" Margin="6,66,0,0" VerticalAlignment="Top" Width="25" Height="25" ToolTip="Convert to MP3" Click="convertButton_Click">
+        <Button x:Name="convertButton" HorizontalAlignment="Left" Margin="6,66,0,0" VerticalAlignment="Top" Width="25" Height="25" Click="convertButton_Click">
             <Button.Content>
                 <customcontrols:AutoGreyableImage Source="{StaticResource convertImage}" Height="16" Width="16"/>
             </Button.Content>
+            <Button.ToolTip>
+                <StackPanel>
+                    <TextBlock FontWeight="Bold" Text="Convert"/>
+                    <TextBlock Text="Convert the selected recording to MP3." Padding="5,5,5,0"/>
+                </StackPanel>
+            </Button.ToolTip>
         </Button>
-        <Button x:Name="openFolderButton" HorizontalAlignment="Left" Margin="6,96,0,0" VerticalAlignment="Top" Width="25" Height="25" ToolTip="Open recordings folder" Click="openFolderButton_Click">
+        <Button x:Name="openFolderButton" HorizontalAlignment="Left" Margin="6,96,0,0" VerticalAlignment="Top" Width="25" Height="25" Click="openFolderButton_Click">
             <Button.Content>
                 <customcontrols:AutoGreyableImage Source="{StaticResource openFolderImage}" Height="16" Width="16"/>
             </Button.Content>
+            <Button.ToolTip>
+                <StackPanel>
+                    <TextBlock FontWeight="Bold" Text="Open folder"/>
+                    <TextBlock Text="Open the recordings folder." Padding="5,5,5,0"/>
+                </StackPanel>
+            </Button.ToolTip>
         </Button>
         <StatusBar x:Name="statusBar" VerticalAlignment="Bottom" Background="DodgerBlue" Height="22">
             <StatusBarItem Name="progressLabel" Content="Converting file:" Foreground="White" FontWeight="Bold" Visibility="Hidden"></StatusBarItem>
