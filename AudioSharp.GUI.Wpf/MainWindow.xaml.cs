@@ -23,6 +23,9 @@ namespace AudioSharp.GUI.Wpf
         #region Fields & Properties
         private bool _isSizeChanged;
         private bool _isLoading;
+        private bool _initialRecordingSettingsVisibilityState;
+        private bool _initialRecordingOutputVisibilityState;
+
         private AudioRecorder _audioRecorder;
         private TimeSpan _timer;
         private Configuration _config;
@@ -86,6 +89,9 @@ namespace AudioSharp.GUI.Wpf
                 ConfigHandler.SaveConfig(_config);
             }
 
+            _initialRecordingSettingsVisibilityState = _config.RecordingSettingsPanelVisible;
+            _initialRecordingOutputVisibilityState = _config.RecordingOutputPanelVisible;
+
             InitAudioDevices();
             InitTimers();
             UpdateGroupVisibility();
@@ -119,10 +125,10 @@ namespace AudioSharp.GUI.Wpf
             _audioRecorder.Dispose();
 
             if (_isSizeChanged)
-            {
                 _config.SetWindowSize(Name, Width, Height);
+                
+            if (_isSizeChanged || _initialRecordingSettingsVisibilityState != _config.RecordingSettingsPanelVisible || _initialRecordingOutputVisibilityState != _config.RecordingOutputPanelVisible)
                 ConfigHandler.SaveConfig(_config);
-            }
 
             IntPtr windowHandle = new WindowInteropHelper(this).Handle;
             HotkeyUtils.UnregisterAllHotkeys(windowHandle);
@@ -220,21 +226,13 @@ namespace AudioSharp.GUI.Wpf
         private void viewRecordingSettingPanelMenuItem_CheckedChanged(object sender, RoutedEventArgs e)
         {
             UpdateGroupVisibility();
-            if (!_isLoading)
-            {
-                _config.RecordingSettingsPanelVisible = viewRecordingSettingPanelMenuItem.IsChecked;
-                ConfigHandler.SaveConfig(_config);
-            }
+            _config.RecordingSettingsPanelVisible = viewRecordingSettingPanelMenuItem.IsChecked;
         }
 
         private void viewRecordingOutputPanelMenuItem_CheckedChanged(object sender, RoutedEventArgs e)
         {
             UpdateGroupVisibility();
-            if (!_isLoading)
-            {
-                _config.RecordingOutputPanelVisible = viewRecordingOutputPanelMenuItem.IsChecked;
-                ConfigHandler.SaveConfig(_config);
-            }
+            _config.RecordingOutputPanelVisible = viewRecordingOutputPanelMenuItem.IsChecked;
         }
 
         private void recordingsMenuItem_Click(object sender, RoutedEventArgs e)
@@ -499,17 +497,15 @@ namespace AudioSharp.GUI.Wpf
                     recordingOutputGroup.Margin = new Thickness(10, 23, 10, -1);
                     MinHeight = 240;
                 }
+                else if (recordingSettingsGroup.Visibility == Visibility.Visible && recordingOutputGroup.Visibility == Visibility.Hidden)
+                {
+                    MinHeight = 190;
+                }
                 else if (recordingSettingsGroup.Visibility == Visibility.Visible && recordingOutputGroup.Visibility == Visibility.Visible)
                 {
+                    recordingOutputGroup.Margin = new Thickness(10, 101, 10, -1);
                     MinWidth = 600;
                     MinHeight = 315;
-                }
-                else
-                {
-                    if (recordingSettingsGroup.Visibility == Visibility.Visible && recordingOutputGroup.Visibility == Visibility.Hidden)
-                        MinHeight = 190;
-
-                    recordingOutputGroup.Margin = new Thickness(10, 101, 10, -1);
                 }
             }
         }
