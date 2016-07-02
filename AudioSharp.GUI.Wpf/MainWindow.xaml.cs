@@ -21,6 +21,8 @@ namespace AudioSharp.GUI.Wpf
     public partial class MainWindow : Window
     {
         #region Fields & Properties
+        private bool _isSizeChanged;
+        private bool _isLoading;
         private AudioRecorder _audioRecorder;
         private TimeSpan _timer;
         private Configuration _config;
@@ -67,6 +69,7 @@ namespace AudioSharp.GUI.Wpf
         #region Constructors
         public MainWindow()
         {
+            _isLoading = true;
             InitializeComponent();
             _config = ConfigHandler.ReadConfig();
 
@@ -85,6 +88,7 @@ namespace AudioSharp.GUI.Wpf
 
             InitAudioDevices();
             InitTimers();
+            UpdateGroupVisibility();
 
             RegisterHotkeys();
             HotkeyUtils.GlobalHoykeyPressed += HotkeyUtils_GlobalHoykeyPressed;
@@ -95,6 +99,8 @@ namespace AudioSharp.GUI.Wpf
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             ApplySettings();
+            _isLoading = false;
+            _isSizeChanged = false;
         }
 
         private void Window_Closing(object sender, CancelEventArgs e)
@@ -112,6 +118,12 @@ namespace AudioSharp.GUI.Wpf
 
             _audioRecorder.Dispose();
 
+            if (_isSizeChanged)
+            {
+                _config.SetWindowSize(Name, Width, Height);
+                ConfigHandler.SaveConfig(_config);
+            }
+
             IntPtr windowHandle = new WindowInteropHelper(this).Handle;
             HotkeyUtils.UnregisterAllHotkeys(windowHandle);
             HotkeyUtils.GlobalHoykeyPressed -= HotkeyUtils_GlobalHoykeyPressed;
@@ -121,6 +133,12 @@ namespace AudioSharp.GUI.Wpf
         {
             if (WindowState == WindowState.Minimized && _config.MinimizeToTray)
                 Hide();
+        }
+
+        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (!_isLoading)
+                _isSizeChanged = true;
         }
         #endregion
 
@@ -197,6 +215,26 @@ namespace AudioSharp.GUI.Wpf
         private void exitMenuItem_Click(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void viewRecordingSettingPanelMenuItem_CheckedChanged(object sender, RoutedEventArgs e)
+        {
+            UpdateGroupVisibility();
+            if (!_isLoading)
+            {
+                _config.RecordingSettingsPanelVisible = viewRecordingSettingPanelMenuItem.IsChecked;
+                ConfigHandler.SaveConfig(_config);
+            }
+        }
+
+        private void viewRecordingOutputPanelMenuItem_CheckedChanged(object sender, RoutedEventArgs e)
+        {
+            UpdateGroupVisibility();
+            if (!_isLoading)
+            {
+                _config.RecordingOutputPanelVisible = viewRecordingOutputPanelMenuItem.IsChecked;
+                ConfigHandler.SaveConfig(_config);
+            }
         }
 
         private void recordingsMenuItem_Click(object sender, RoutedEventArgs e)
@@ -427,6 +465,13 @@ namespace AudioSharp.GUI.Wpf
                 outputFileTextBox.Text = NextRecordingPath;
             taskbarIcon.Visibility = _config.ShowTrayIcon ? Visibility.Visible : Visibility.Hidden;
             Topmost = _config.AlwaysOnTop;
+
+            Tuple<double, double> windowSize = _config.GetWindowSize(Name);
+            Width = windowSize.Item1;
+            Height = windowSize.Item2;
+
+            viewRecordingSettingPanelMenuItem.IsChecked = _config.RecordingSettingsPanelVisible;
+            viewRecordingOutputPanelMenuItem.IsChecked = _config.RecordingOutputPanelVisible;
         }
 
         private void RegisterHotkeys()
@@ -434,6 +479,39 @@ namespace AudioSharp.GUI.Wpf
             IntPtr windowHandle = new WindowInteropHelper(this).Handle;
             if (!HotkeyUtils.RegisterAllHotkeys(windowHandle, _config.GlobalHotkeys))
                 MessageBox.Show(Messages.GUIErrorHotkeys, Messages.GUIErrorCommon, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+
+        private void UpdateGroupVisibility()
+        {
+            recordingSettingsGroup.Visibility = viewRecordingSettingPanelMenuItem.IsChecked ? Visibility.Visible : Visibility.Hidden;
+            recordingOutputGroup.Visibility = viewRecordingOutputPanelMenuItem.IsChecked ? Visibility.Visible : Visibility.Hidden;
+
+            if (recordingSettingsGroup.Visibility == Visibility.Hidden && recordingOutputGroup.Visibility == Visibility.Hidden)
+            {
+                MinWidth = 270;
+                MinHeight = 110;
+            }
+            else
+            {
+                MinWidth = 600;
+                if (recordingSettingsGroup.Visibility == Visibility.Hidden && recordingOutputGroup.Visibility == Visibility.Visible)
+                {
+                    recordingOutputGroup.Margin = new Thickness(10, 23, 10, -1);
+                    MinHeight = 240;
+                }
+                else if (recordingSettingsGroup.Visibility == Visibility.Visible && recordingOutputGroup.Visibility == Visibility.Visible)
+                {
+                    MinWidth = 600;
+                    MinHeight = 315;
+                }
+                else
+                {
+                    if (recordingSettingsGroup.Visibility == Visibility.Visible && recordingOutputGroup.Visibility == Visibility.Hidden)
+                        MinHeight = 190;
+
+                    recordingOutputGroup.Margin = new Thickness(10, 101, 10, -1);
+                }
+            }
         }
         #endregion
     }
