@@ -56,7 +56,7 @@ namespace AudioSharp.GUI.Wpf
                 }
                 else
                 {
-                    return $"{Path.Combine(_config.RecordingsFolder, _config.RecordingPrefix + _config.NextRecordingNumber.ToString("D4"))}.{_config.OutputFormat}";
+                    return $"{Path.Combine(_config.RecordingsFolder, FormattingUtils.FormatString(_config.RecordingPrefix, _config.NextRecordingNumber))}.{_config.OutputFormat}";
                 }
             }
         }

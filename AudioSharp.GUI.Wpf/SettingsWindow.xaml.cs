@@ -124,10 +124,10 @@ namespace AudioSharp.GUI.Wpf
         #region Helper Methods
         private void SetPreview()
         {
-            if (string.IsNullOrEmpty(Config.RecordingsFolder) || Config.RecordingPrefix == null)
+            if (string.IsNullOrEmpty(Config.RecordingsFolder) || Config.RecordingPrefix == null || Config.RecordingPrefix.IndexOfAny(Path.GetInvalidFileNameChars()) > -1)
                 nextRecordingPreviewTextBox.Text = "<invalid path>";
             else
-                nextRecordingPreviewTextBox.Text = $"{Path.Combine(Config.RecordingsFolder, Config.RecordingPrefix + Config.NextRecordingNumber.ToString("D4"))}.{Config.OutputFormat}";
+                nextRecordingPreviewTextBox.Text = $"{Path.Combine(Config.RecordingsFolder, FormattingUtils.FormatString(Config.RecordingPrefix, Config.NextRecordingNumber))}.{Config.OutputFormat}";
         }
 
         private void HandleHotkey(HotkeyUtils.HotkeyType hotkeyType, KeyEventArgs e)
