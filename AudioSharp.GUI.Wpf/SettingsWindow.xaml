@@ -39,7 +39,7 @@
                         <Grid>
                             <RadioButton x:Name="promptFileNameRadioButton" Content="Prompt for a file name every time." HorizontalAlignment="Left" Margin="4,5,0,0" VerticalAlignment="Top"/>
                             <RadioButton x:Name="generateFileNameRadioButton" Content="Automatically generate a file name." HorizontalAlignment="Left" Margin="4,25,0,0" VerticalAlignment="Top" Checked="generateFileNameRadioButton_CheckedChanged" Unchecked="generateFileNameRadioButton_CheckedChanged"/>
-                            <TextBox x:Name="recordingPrefixTextBox" Height="23" Margin="159,45,10,0" TextWrapping="Wrap" Text="{Binding RecordingPrefix, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" SourceUpdated="control_SourceUpdated" IsEnabled="False">
+                            <TextBox x:Name="recordingPrefixTextBox" Height="23" Margin="159,45,10,0" TextWrapping="Wrap" Text="{Binding RecordingPrefix, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" SourceUpdated="control_SourceUpdated" IsEnabled="False" ToolTipService.ShowDuration="2147483647">
                                 <TextBox.ToolTip>
                                     <StackPanel>
                                         <TextBlock Text="Recording format" FontWeight="Bold"/>
