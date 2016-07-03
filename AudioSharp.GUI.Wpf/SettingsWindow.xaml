@@ -42,7 +42,7 @@
                             <TextBox x:Name="recordingPrefixTextBox" Height="23" Margin="159,45,10,0" TextWrapping="Wrap" Text="{Binding RecordingPrefix, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" SourceUpdated="control_SourceUpdated" IsEnabled="False" ToolTipService.ShowDuration="2147483647">
                                 <TextBox.ToolTip>
                                     <StackPanel>
-                                        <TextBlock Text="Recording format" FontWeight="Bold"/>
+                                        <TextBlock Text="File name format" FontWeight="Bold"/>
                                         <Grid Margin="5,5,5,0">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition/>
