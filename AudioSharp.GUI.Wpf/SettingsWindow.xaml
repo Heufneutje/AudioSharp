@@ -98,9 +98,9 @@
                             </TextBox>
                             <TextBox x:Name="nextRecordingPreviewTextBox" Height="23" Margin="159,98,10,0" TextWrapping="Wrap" VerticalAlignment="Top" IsReadOnly="True" SourceUpdated="control_SourceUpdated" IsEnabled="False"/>
                             <xctk:IntegerUpDown x:Name="recordingNumberIntegerUpDown" HorizontalAlignment="Left" Margin="159,73,0,0" VerticalAlignment="Top" Width="62" Maximum="9999" Minimum="-3" Value="{Binding NextRecordingNumber, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" SourceUpdated="control_SourceUpdated" IsEnabled="False"/>
-                            <Label x:Name="recordingPrefixLabel" Content="Recording format:" HorizontalAlignment="Left" Margin="18,45,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.079,0.692" IsEnabled="False"/>
+                            <Label x:Name="recordingPrefixLabel" Content="File name format:" HorizontalAlignment="Left" Margin="18,45,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.079,0.692" IsEnabled="False"/>
                             <Label x:Name="nextRecordingNumberLabel" Content="Next recording number:" HorizontalAlignment="Left" Margin="18,71,0,0" VerticalAlignment="Top" IsEnabled="False"/>
-                            <Label x:Name="nextRecordingPreviewLabel" Content="Next recording preview:" HorizontalAlignment="Left" Margin="18,97,0,0" VerticalAlignment="Top" IsEnabled="False"/>
+                            <Label x:Name="nextRecordingPreviewLabel" Content="Next file name preview:" HorizontalAlignment="Left" Margin="18,97,0,0" VerticalAlignment="Top" IsEnabled="False"/>
                             <CheckBox x:Name="autoIncrementCheckBox" Content="Auto-increment" HorizontalAlignment="Left" Margin="226,77,0,0" VerticalAlignment="Top" IsChecked="{Binding AutoIncrementRecordingNumber}" IsEnabled="False"/>
                         </Grid>
                     </GroupBox>
