@@ -35,7 +35,7 @@
                             <Label Content="Recordings folder:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-2,0,0,0"/>
                         </Grid>
                     </GroupBox>
-                    <GroupBox Header="File Name" HorizontalAlignment="Left" Margin="10,107,0,36" Width="668">
+                    <GroupBox Header="File Name" Margin="10,107,10,36">
                         <Grid>
                             <RadioButton x:Name="promptFileNameRadioButton" Content="Prompt for a file name every time." HorizontalAlignment="Left" Margin="4,5,0,0" VerticalAlignment="Top"/>
                             <RadioButton x:Name="generateFileNameRadioButton" Content="Automatically generate a file name." HorizontalAlignment="Left" Margin="4,25,0,0" VerticalAlignment="Top" Checked="generateFileNameRadioButton_CheckedChanged" Unchecked="generateFileNameRadioButton_CheckedChanged"/>
