@@ -87,6 +87,7 @@ namespace AudioSharp.GUI.Wpf
             recordingPrefixLabel.IsEnabled = isChecked;
             nextRecordingNumberLabel.IsEnabled = isChecked;
             nextRecordingPreviewLabel.IsEnabled = isChecked;
+            formatInfoImage.IsEnabled = isChecked;
         }
 
         private void showTrayIconCheckBox_CheckedChanged(object sender, RoutedEventArgs e)

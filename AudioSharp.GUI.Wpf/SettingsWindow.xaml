@@ -22,7 +22,7 @@
                 <Grid Margin="0,0,0,-25">
                     <GroupBox Header="Format" VerticalAlignment="Top" Height="48" Margin="10,0">
                         <Grid>
-                            <ComboBox HorizontalAlignment="Left" Margin="159,0,0,0" VerticalAlignment="Top" Width="66" SelectedValue="{Binding OutputFormat, NotifyOnSourceUpdated=True}" SourceUpdated="control_SourceUpdated">
+                            <ComboBox HorizontalAlignment="Left" Margin="159,2,0,0" VerticalAlignment="Top" Width="66" SelectedValue="{Binding OutputFormat, NotifyOnSourceUpdated=True}" SourceUpdated="control_SourceUpdated">
                                 <sys:String>wav</sys:String>
                                 <sys:String>mp3</sys:String>
                             </ComboBox>
@@ -39,8 +39,15 @@
                         <Grid>
                             <RadioButton x:Name="promptFileNameRadioButton" Content="Prompt for a file name every time." HorizontalAlignment="Left" Margin="4,5,0,0" VerticalAlignment="Top"/>
                             <RadioButton x:Name="generateFileNameRadioButton" Content="Automatically generate a file name." HorizontalAlignment="Left" Margin="4,25,0,0" VerticalAlignment="Top" Checked="generateFileNameRadioButton_CheckedChanged" Unchecked="generateFileNameRadioButton_CheckedChanged"/>
-                            <TextBox x:Name="recordingPrefixTextBox" Height="23" Margin="159,45,10,0" TextWrapping="Wrap" Text="{Binding RecordingPrefix, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" SourceUpdated="control_SourceUpdated" IsEnabled="False" ToolTipService.ShowDuration="2147483647">
-                                <TextBox.ToolTip>
+                            <TextBox x:Name="recordingPrefixTextBox" Height="23" Margin="159,45,10,0" TextWrapping="Wrap" Text="{Binding RecordingPrefix, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" SourceUpdated="control_SourceUpdated" IsEnabled="False" ToolTipService.ShowDuration="2147483647"/>
+                            <TextBox x:Name="nextRecordingPreviewTextBox" Height="24" Margin="159,96,10,0" TextWrapping="Wrap" VerticalAlignment="Top" IsReadOnly="True" SourceUpdated="control_SourceUpdated" IsEnabled="False"/>
+                            <xctk:IntegerUpDown x:Name="recordingNumberIntegerUpDown" HorizontalAlignment="Left" Margin="159,72,0,0" VerticalAlignment="Top" Width="62" Maximum="9999" Minimum="-3" Value="{Binding NextRecordingNumber, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" SourceUpdated="control_SourceUpdated" IsEnabled="False"/>
+                            <Label x:Name="recordingPrefixLabel" Content="File name format:" HorizontalAlignment="Left" Margin="18,44,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.079,0.692" IsEnabled="False"/>
+                            <Label x:Name="nextRecordingNumberLabel" Content="Next recording number:" HorizontalAlignment="Left" Margin="18,69,0,0" VerticalAlignment="Top" IsEnabled="False"/>
+                            <Label x:Name="nextRecordingPreviewLabel" Content="Next file name preview:" HorizontalAlignment="Left" Margin="18,95,0,0" VerticalAlignment="Top" IsEnabled="False"/>
+                            <CheckBox x:Name="autoIncrementCheckBox" Content="Auto-increment" HorizontalAlignment="Left" Margin="226,74,0,0" VerticalAlignment="Top" IsChecked="{Binding AutoIncrementRecordingNumber}" IsEnabled="False"/>
+                            <customcontrols:AutoGreyableImage x:Name="formatInfoImage" Height="16" Margin="121,50,0,0" VerticalAlignment="Top" Source="Resources/Info.png" HorizontalAlignment="Left" Width="16" IsEnabled="False">
+                                <customcontrols:AutoGreyableImage.ToolTip>
                                     <StackPanel>
                                         <TextBlock Text="File name format" FontWeight="Bold"/>
                                         <Grid Margin="5,5,5,0">
@@ -94,14 +101,8 @@
                                             <TextBlock Text="AM/PM designation of the current time." Grid.Row="13" Grid.Column="1"/>
                                         </Grid>
                                     </StackPanel>
-                                </TextBox.ToolTip>
-                            </TextBox>
-                            <TextBox x:Name="nextRecordingPreviewTextBox" Height="23" Margin="159,98,10,0" TextWrapping="Wrap" VerticalAlignment="Top" IsReadOnly="True" SourceUpdated="control_SourceUpdated" IsEnabled="False"/>
-                            <xctk:IntegerUpDown x:Name="recordingNumberIntegerUpDown" HorizontalAlignment="Left" Margin="159,73,0,0" VerticalAlignment="Top" Width="62" Maximum="9999" Minimum="-3" Value="{Binding NextRecordingNumber, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" SourceUpdated="control_SourceUpdated" IsEnabled="False"/>
-                            <Label x:Name="recordingPrefixLabel" Content="File name format:" HorizontalAlignment="Left" Margin="18,45,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.079,0.692" IsEnabled="False"/>
-                            <Label x:Name="nextRecordingNumberLabel" Content="Next recording number:" HorizontalAlignment="Left" Margin="18,71,0,0" VerticalAlignment="Top" IsEnabled="False"/>
-                            <Label x:Name="nextRecordingPreviewLabel" Content="Next file name preview:" HorizontalAlignment="Left" Margin="18,97,0,0" VerticalAlignment="Top" IsEnabled="False"/>
-                            <CheckBox x:Name="autoIncrementCheckBox" Content="Auto-increment" HorizontalAlignment="Left" Margin="226,77,0,0" VerticalAlignment="Top" IsChecked="{Binding AutoIncrementRecordingNumber}" IsEnabled="False"/>
+                                </customcontrols:AutoGreyableImage.ToolTip>
+                            </customcontrols:AutoGreyableImage>
                         </Grid>
                     </GroupBox>
                 </Grid>
