@@ -15,11 +15,12 @@ namespace AudioSharp.Config
         public bool AutoIncrementRecordingNumber { get; set; }
         public string OutputFormat { get; set; }
 
-        // Interface
+        // General Settings
         public bool ShowTrayIcon { get; set; }
         public bool MinimizeToTray { get; set; }
         public bool AlwaysOnTop { get; set; }
         public bool StartMinimized { get; set; }
+        public bool CheckForUpdates { get; set; }
 
         // Hotkeys
         public Dictionary<HotkeyUtils.HotkeyType, Tuple<Key, ModifierKeys>> GlobalHotkeys { get; set; }

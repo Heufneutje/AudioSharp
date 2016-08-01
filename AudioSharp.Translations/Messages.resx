@@ -174,4 +174,7 @@
   <data name="GUIStopRecordingTitle" xml:space="preserve">
     <value>Recording in progress</value>
   </data>
+  <data name="GUIUpdateAvailable" xml:space="preserve">
+    <value>Update available</value>
+  </data>
 </root>

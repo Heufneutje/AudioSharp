@@ -1,6 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Interop;
@@ -107,6 +109,9 @@ namespace AudioSharp.GUI.Wpf
             ApplySettings();
             _isLoading = false;
             _isSizeChanged = false;
+
+            if (_config.CheckForUpdates)
+                CheckForUpdate();
         }
 
         private void Window_Closing(object sender, CancelEventArgs e)
@@ -508,6 +513,26 @@ namespace AudioSharp.GUI.Wpf
                     MinHeight = 315;
                 }
             }
+        }
+
+        private void CheckForUpdate()
+        {
+            FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location);
+            BackgroundWorker updateChecker = new BackgroundWorker();
+            updateChecker.DoWork += (sender, args) =>
+            {
+                args.Result = UpdateUtils.CheckForUpdate(fvi.FileMajorPart, fvi.FileMinorPart, fvi.FileBuildPart);
+            };
+            updateChecker.RunWorkerCompleted += (sender, args) =>
+            {
+                if (args.Result == null)
+                    return;
+
+                string message = string.Format("Current version: {0}{1}Latest version: {2}{1}{1}Would you like to download this version now?", string.Join(".", new int[3] { fvi.FileMajorPart, fvi.FileMinorPart, fvi.FileBuildPart }), Environment.NewLine, args.Result);
+                if (MessageBox.Show(message, Messages.GUIUpdateAvailable, MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                    Process.Start("https://github.com/Heufneutje/AudioSharp/releases");
+            };
+            updateChecker.RunWorkerAsync();
         }
         #endregion
     }

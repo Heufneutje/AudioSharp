@@ -230,5 +230,14 @@ namespace AudioSharp.Translations {
                 return ResourceManager.GetString("GUIStopRecordingTitle", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update available.
+        /// </summary>
+        public static string GUIUpdateAvailable {
+            get {
+                return ResourceManager.GetString("GUIUpdateAvailable", resourceCulture);
+            }
+        }
     }
 }
