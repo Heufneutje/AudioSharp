@@ -51,7 +51,7 @@
                 </MenuItem.ToolTip>
             </MenuItem>
             <Separator HorizontalAlignment="Left" Width="122"/>
-            <MenuItem x:Name="exitContextMenuItem" Header="Exit" Click="exitMenuItem_Click" InputGestureText="Alt+F4">
+            <MenuItem x:Name="exitContextMenuItem" Header="Exit" Click="exitMenuItem_Click">
                 <MenuItem.Icon>
                     <customcontrols:AutoGreyableImage Source="{StaticResource exitImage}"/>
                 </MenuItem.Icon>
