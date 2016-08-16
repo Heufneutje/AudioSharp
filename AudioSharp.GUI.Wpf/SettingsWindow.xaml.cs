@@ -38,6 +38,8 @@ namespace AudioSharp.GUI.Wpf
             }
 
             SetPreview();
+
+            SourceInitialized += delegate { this.HideMinimizeAndMaximizeButtons(); };
         }
         #endregion
 
