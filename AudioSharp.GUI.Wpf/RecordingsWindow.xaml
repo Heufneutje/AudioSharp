@@ -14,12 +14,12 @@
     <Window.Resources>
         <BitmapImage x:Key="playImage" UriSource="Resources/play_16.png"></BitmapImage>
         <BitmapImage x:Key="deleteImage" UriSource="Resources/Trash.png"></BitmapImage>
-        <BitmapImage x:Key="convertImage" UriSource="Resources/Right.png"></BitmapImage>
+        <BitmapImage x:Key="convertImage" UriSource="Resources/mime_mp3.png"></BitmapImage>
         <BitmapImage x:Key="openFolderImage" UriSource="Resources/Folder.png"></BitmapImage>
         <BitmapImage x:Key="defaultIcon" UriSource="Resources/AudioSharp_default32x32.ico"></BitmapImage>
     </Window.Resources>
     <Grid>
-        <xcdg:DataGridControl x:Name="recordingsDataGrid" ReadOnly="True" SnapsToDevicePixels="True" ClipToBounds="True" AutoCreateColumns="False" NavigationBehavior="RowOnly" Margin="36,0,0,22" MouseDoubleClick="recordingsDataGrid_MouseDoubleClick">
+        <xcdg:DataGridControl x:Name="recordingsDataGrid" ReadOnly="True" SnapsToDevicePixels="True" ClipToBounds="True" AutoCreateColumns="False" NavigationBehavior="RowOnly" Margin="34,0,0,22" MouseDoubleClick="recordingsDataGrid_MouseDoubleClick">
             <xcdg:DataGridControl.Columns>
                 <xcdg:Column FieldName="Image" AllowGroup="False" AllowSort="False" IsMainColumn="True" Width="20" MaxWidth="20" MinWidth="20"/>
                 <xcdg:Column FieldName="FileName" Title="Name" Width="185"></xcdg:Column>
@@ -28,7 +28,7 @@
                 <xcdg:Column FieldName="Size" Title="Size"></xcdg:Column>
             </xcdg:DataGridControl.Columns>
         </xcdg:DataGridControl>
-        <Button x:Name="playButton" HorizontalAlignment="Left" Margin="6,6,0,0" VerticalAlignment="Top" Width="25" Height="25" Click="playButton_Click">
+        <Button x:Name="playButton" HorizontalAlignment="Left" Margin="6,6,0,0" VerticalAlignment="Top" Width="20" Height="20" Click="playButton_Click">
             <Button.Content>
                 <customcontrols:AutoGreyableImage Source="{StaticResource playImage}" Height="16" Width="16"/>
             </Button.Content>
@@ -39,7 +39,7 @@
                 </StackPanel>
             </Button.ToolTip>
         </Button>
-        <Button x:Name="deleteButton" HorizontalAlignment="Left" Margin="6,36,0,0" VerticalAlignment="Top" Width="25" Height="25" Click="deleteButton_Click">
+        <Button x:Name="deleteButton" HorizontalAlignment="Left" Margin="6,31,0,0" VerticalAlignment="Top" Width="20" Height="20" Click="deleteButton_Click">
             <Button.Content>
                 <customcontrols:AutoGreyableImage Source="{StaticResource deleteImage}" Height="16" Width="16"/>
             </Button.Content>
@@ -50,7 +50,7 @@
                 </StackPanel>
             </Button.ToolTip>
         </Button>
-        <Button x:Name="convertButton" HorizontalAlignment="Left" Margin="6,66,0,0" VerticalAlignment="Top" Width="25" Height="25" Click="convertButton_Click">
+        <Button x:Name="convertButton" HorizontalAlignment="Left" Margin="6,56,0,0" VerticalAlignment="Top" Width="20" Height="20" Click="convertButton_Click">
             <Button.Content>
                 <customcontrols:AutoGreyableImage Source="{StaticResource convertImage}" Height="16" Width="16"/>
             </Button.Content>
@@ -61,7 +61,7 @@
                 </StackPanel>
             </Button.ToolTip>
         </Button>
-        <Button x:Name="openFolderButton" HorizontalAlignment="Left" Margin="6,96,0,0" VerticalAlignment="Top" Width="25" Height="25" Click="openFolderButton_Click">
+        <Button x:Name="openFolderButton" HorizontalAlignment="Left" Margin="6,81,0,0" VerticalAlignment="Top" Width="20" Height="20" Click="openFolderButton_Click">
             <Button.Content>
                 <customcontrols:AutoGreyableImage Source="{StaticResource openFolderImage}" Height="16" Width="16"/>
             </Button.Content>
