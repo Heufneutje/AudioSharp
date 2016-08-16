@@ -21,22 +21,46 @@
                 <MenuItem.Icon>
                     <customcontrols:AutoGreyableImage Source="{StaticResource recordImage}"/>
                 </MenuItem.Icon>
+                <MenuItem.ToolTip>
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold" Text="Record"/>
+                        <TextBlock Text="Start a new recording with the current settings." Padding="5,5,5,0"/>
+                    </StackPanel>
+                </MenuItem.ToolTip>
             </MenuItem>
             <MenuItem x:Name="pauseContextMenuItem" Header="Pause" Click="pauseButton_Click" IsEnabled="False">
                 <MenuItem.Icon>
                     <customcontrols:AutoGreyableImage Source="{StaticResource pauseImage}"/>
                 </MenuItem.Icon>
+                <MenuItem.ToolTip>
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold" Text="Pause"/>
+                        <TextBlock Text="Pause the current recording so it can be resumed later." Padding="5,5,5,0"/>
+                    </StackPanel>
+                </MenuItem.ToolTip>
             </MenuItem>
             <MenuItem x:Name="stopContextMenuItem" Header="Stop" Click="stopButton_Click" IsEnabled="False">
                 <MenuItem.Icon>
                     <customcontrols:AutoGreyableImage Source="{StaticResource stopImage}"/>
                 </MenuItem.Icon>
+                <MenuItem.ToolTip>
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold" Text="Stop"/>
+                        <TextBlock Text="Stop the current recording." Padding="5,5,5,0"/>
+                    </StackPanel>
+                </MenuItem.ToolTip>
             </MenuItem>
             <Separator HorizontalAlignment="Left" Width="122"/>
             <MenuItem x:Name="exitContextMenuItem" Header="Exit" Click="exitMenuItem_Click" InputGestureText="Alt+F4">
                 <MenuItem.Icon>
                     <customcontrols:AutoGreyableImage Source="{StaticResource exitImage}"/>
                 </MenuItem.Icon>
+                <MenuItem.ToolTip>
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold" Text="Exit"/>
+                        <TextBlock Text="Close AudioSharp." Padding="5,5,5,0"/>
+                    </StackPanel>
+                </MenuItem.ToolTip>
             </MenuItem>
         </ContextMenu>
     </Window.Resources>
@@ -47,45 +71,101 @@
                     <MenuItem.Icon>
                         <customcontrols:AutoGreyableImage Source="{StaticResource recordImage}"/>
                     </MenuItem.Icon>
+                    <MenuItem.ToolTip>
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" Text="Record"/>
+                            <TextBlock Text="Start a new recording with the current settings." Padding="5,5,5,0"/>
+                        </StackPanel>
+                    </MenuItem.ToolTip>
                 </MenuItem>
                 <MenuItem x:Name="pauseMenuItem" Header="Pause" Click="pauseButton_Click" IsEnabled="False">
                     <MenuItem.Icon>
                         <customcontrols:AutoGreyableImage Source="{StaticResource pauseImage}"/>
                     </MenuItem.Icon>
+                    <MenuItem.ToolTip>
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" Text="Pause"/>
+                            <TextBlock Text="Pause the current recording so it can be resumed later." Padding="5,5,5,0"/>
+                        </StackPanel>
+                    </MenuItem.ToolTip>
                 </MenuItem>
                 <MenuItem x:Name="stopMenuItem" Header="Stop" Click="stopButton_Click" IsEnabled="False">
                     <MenuItem.Icon>
                         <customcontrols:AutoGreyableImage Source="{StaticResource stopImage}"/>
                     </MenuItem.Icon>
+                    <MenuItem.ToolTip>
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" Text="Stop"/>
+                            <TextBlock Text="Stop the current recording." Padding="5,5,5,0"/>
+                        </StackPanel>
+                    </MenuItem.ToolTip>
                 </MenuItem>
                 <Separator HorizontalAlignment="Left" Width="122"/>
                 <MenuItem x:Name="exitMenuItem" Header="Exit" Click="exitMenuItem_Click" InputGestureText="Alt+F4">
                     <MenuItem.Icon>
                         <customcontrols:AutoGreyableImage Source="{StaticResource exitImage}"/>
                     </MenuItem.Icon>
+                    <MenuItem.ToolTip>
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" Text="Exit"/>
+                            <TextBlock Text="Close AudioSharp." Padding="5,5,5,0"/>
+                        </StackPanel>
+                    </MenuItem.ToolTip>
                 </MenuItem>
             </MenuItem>
             <MenuItem Header="View">
-                <MenuItem x:Name="viewRecordingSettingPanelMenuItem" Header="Recording Settings" IsCheckable="True" Checked="viewRecordingSettingPanelMenuItem_CheckedChanged" Unchecked="viewRecordingSettingPanelMenuItem_CheckedChanged"/>
-                <MenuItem x:Name="viewRecordingOutputPanelMenuItem" Header="Recording Output" IsCheckable="True" Checked="viewRecordingOutputPanelMenuItem_CheckedChanged" Unchecked="viewRecordingOutputPanelMenuItem_CheckedChanged"/>
+                <MenuItem x:Name="viewRecordingSettingPanelMenuItem" Header="Recording Settings" IsCheckable="True" Checked="viewRecordingSettingPanelMenuItem_CheckedChanged" Unchecked="viewRecordingSettingPanelMenuItem_CheckedChanged">
+                    <MenuItem.ToolTip>
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" Text="Recording Settings"/>
+                            <TextBlock Text="Show or hide the 'Recording Settings' part of the interface." Padding="5,5,5,0"/>
+                        </StackPanel>
+                    </MenuItem.ToolTip>
+                </MenuItem>
+                <MenuItem x:Name="viewRecordingOutputPanelMenuItem" Header="Recording Output" IsCheckable="True" Checked="viewRecordingOutputPanelMenuItem_CheckedChanged" Unchecked="viewRecordingOutputPanelMenuItem_CheckedChanged">
+                    <MenuItem.ToolTip>
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" Text="Recording Output"/>
+                            <TextBlock Text="Show or hide the 'Recording Output' part of the interface." Padding="5,5,5,0"/>
+                        </StackPanel>
+                    </MenuItem.ToolTip>
+                </MenuItem>
             </MenuItem>
             <MenuItem Header="Tools">
-                <MenuItem x:Name="recordingsMenuItem" Header="Recordings..." Click="recordingsMenuItem_Click">
+                <MenuItem x:Name="recordingsMenuItem" Header="Recordings" Click="recordingsMenuItem_Click">
                     <MenuItem.Icon>
                         <customcontrols:AutoGreyableImage Source="Resources/Folder.png"/>
                     </MenuItem.Icon>
+                    <MenuItem.ToolTip>
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" Text="Recordings"/>
+                            <TextBlock Text="Check recordings that have been made." Padding="5,5,5,0"/>
+                        </StackPanel>
+                    </MenuItem.ToolTip>
                 </MenuItem>
-                <MenuItem x:Name="settingsMenuItem" Header="Settings..." Click="settingsMenuItem_Click">
+                <MenuItem x:Name="settingsMenuItem" Header="Settings" Click="settingsMenuItem_Click">
                     <MenuItem.Icon>
                         <customcontrols:AutoGreyableImage Source="Resources/Compile.png"/>
                     </MenuItem.Icon>
+                    <MenuItem.ToolTip>
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" Text="Settings"/>
+                            <TextBlock Text="Configure AudioSharp's interface and recording settings." Padding="5,5,5,0"/>
+                        </StackPanel>
+                    </MenuItem.ToolTip>
                 </MenuItem>
             </MenuItem>
             <MenuItem Header="Help">
-                <MenuItem x:Name="aboutMenuItem" Header="About..." Click="aboutMenuItem_Click">
+                <MenuItem x:Name="aboutMenuItem" Header="About" Click="aboutMenuItem_Click">
                     <MenuItem.Icon>
                         <customcontrols:AutoGreyableImage Source="Resources/Info.png"/>
                     </MenuItem.Icon>
+                    <MenuItem.ToolTip>
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" Text="About"/>
+                            <TextBlock Text="Show information about AudioSharp." Padding="5,5,5,0"/>
+                        </StackPanel>
+                    </MenuItem.ToolTip>
                 </MenuItem>
             </MenuItem>
         </Menu>
@@ -114,18 +194,36 @@
                 <customcontrols:AutoGreyableImage Source="{StaticResource recordImage}" Width="16" Height="16"/>
                 <TextBlock Padding="5,0,0,0">Record</TextBlock>
             </StackPanel>
+            <Button.ToolTip>
+                <StackPanel>
+                    <TextBlock FontWeight="Bold" Text="Record"/>
+                    <TextBlock Text="Start a new recording with the current settings." Padding="5,5,5,0"/>
+                </StackPanel>
+            </Button.ToolTip>
         </Button>
         <Button x:Name="pauseButton" Margin="0,0,90,27" HorizontalAlignment="Right" Width="75" Height="20" VerticalAlignment="Bottom" HorizontalContentAlignment="Left" Click="pauseButton_Click" IsEnabled="False">
             <StackPanel Orientation="Horizontal">
                 <customcontrols:AutoGreyableImage Source="{StaticResource pauseImage}" Width="16" Height="16"/>
                 <TextBlock Padding="5,0,0,0">Pause</TextBlock>
             </StackPanel>
+            <Button.ToolTip>
+                <StackPanel>
+                    <TextBlock FontWeight="Bold" Text="Pause"/>
+                    <TextBlock Text="Pause the current recording so it can be resumed later." Padding="5,5,5,0"/>
+                </StackPanel>
+            </Button.ToolTip>
         </Button>
         <Button x:Name="stopButton" Margin="0,0,10,27" Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75" HorizontalContentAlignment="Left" Click="stopButton_Click" IsEnabled="False">
             <StackPanel Orientation="Horizontal">
                 <customcontrols:AutoGreyableImage Source="{StaticResource stopImage}" Width="16" Height="16"/>
                 <TextBlock Padding="5,0,0,0">Stop</TextBlock>
             </StackPanel>
+            <Button.ToolTip>
+                <StackPanel>
+                    <TextBlock FontWeight="Bold" Text="Stop"/>
+                    <TextBlock Text="Stop the current recording." Padding="5,5,5,0"/>
+                </StackPanel>
+            </Button.ToolTip>
         </Button>
         <StatusBar x:Name="statusBar" VerticalAlignment="Bottom" Background="DodgerBlue">
             <StatusBarItem x:Name="recordingStatusBarItem" Content="Status: Ready" VerticalAlignment="Top" Foreground="White" FontWeight="Bold"/>
