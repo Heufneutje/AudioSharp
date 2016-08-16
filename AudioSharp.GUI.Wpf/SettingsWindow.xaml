@@ -30,13 +30,14 @@
                             <CheckBox x:Name="startMinimizedCheckBox" Content="Minimize AudioSharp on startup" HorizontalAlignment="Left" Margin="3,25,0,0" VerticalAlignment="Top" IsChecked="{Binding StartMinimized}"/>
                         </Grid>
                     </GroupBox>
-                    <GroupBox Header="System Tray" Margin="10,68,10,0" VerticalAlignment="Top" Height="63">
+                    <GroupBox Header="System Tray" Margin="10,68,10,0" VerticalAlignment="Top" Height="83">
                         <Grid>
                             <CheckBox x:Name="showTrayIconCheckBox" Content="Enable tray icon" HorizontalAlignment="Left" Margin="3,5,0,0" VerticalAlignment="Top" IsChecked="{Binding ShowTrayIcon}" Checked="showTrayIconCheckBox_CheckedChanged" Unchecked="showTrayIconCheckBox_CheckedChanged"/>
                             <CheckBox x:Name="minimizeToTrayCheckBox" Content="Hide AudioSharp window in the tray when minimized" HorizontalAlignment="Left" Margin="3,25,0,0" VerticalAlignment="Top" IsChecked="{Binding MinimizeToTray}" IsEnabled="False"/>
+                            <CheckBox x:Name="closeToTrayCheckBox" Content="Hide AudioSharp window in the tray when closed" HorizontalAlignment="Left" Margin="3,45,0,0" VerticalAlignment="Top" IsChecked="{Binding CloseToTray}" IsEnabled="False"/>
                         </Grid>
                     </GroupBox>
-                    <GroupBox Header="Update Checker" Margin="10,136,10,0" VerticalAlignment="Top" Height="44">
+                    <GroupBox Header="Update Checker" Margin="10,156,10,0" VerticalAlignment="Top" Height="44" Grid.RowSpan="2">
                         <CheckBox Content="Automatically check for updates on startup" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="3,5,0,0" IsChecked="{Binding CheckForUpdates}"/>
                     </GroupBox>
                 </Grid>

@@ -18,6 +18,7 @@ namespace AudioSharp.Config
         // General Settings
         public bool ShowTrayIcon { get; set; }
         public bool MinimizeToTray { get; set; }
+        public bool CloseToTray { get; set; }
         public bool AlwaysOnTop { get; set; }
         public bool StartMinimized { get; set; }
         public bool CheckForUpdates { get; set; }

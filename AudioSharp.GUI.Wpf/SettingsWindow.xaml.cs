@@ -94,10 +94,13 @@ namespace AudioSharp.GUI.Wpf
         {
             bool isChecked = showTrayIconCheckBox.IsChecked ?? false;
             minimizeToTrayCheckBox.IsEnabled = isChecked;
+            closeToTrayCheckBox.IsEnabled = isChecked;
             if (!isChecked)
             {
                 Config.MinimizeToTray = false;
+                Config.CloseToTray = false;
                 GuiHelper.UpdateToggleButtonBindingTarget(minimizeToTrayCheckBox);
+                GuiHelper.UpdateToggleButtonBindingTarget(closeToTrayCheckBox);
             }
         }
 

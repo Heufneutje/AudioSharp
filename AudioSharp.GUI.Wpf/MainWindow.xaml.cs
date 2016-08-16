@@ -116,6 +116,12 @@ namespace AudioSharp.GUI.Wpf
 
         private void Window_Closing(object sender, CancelEventArgs e)
         {
+            if (_config.CloseToTray && Visibility != Visibility.Hidden)
+            {
+                Hide();
+                e.Cancel = true;
+            }
+
             if (_IsRecording)
             {
                 if (MessageBox.Show(Messages.GUIStopRecording, Messages.GUIStopRecordingTitle, MessageBoxButton.YesNo, MessageBoxImage.Question) != MessageBoxResult.Yes)
