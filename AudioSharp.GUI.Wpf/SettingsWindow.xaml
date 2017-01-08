@@ -61,10 +61,10 @@
                     </GroupBox>
                     <GroupBox Header="File Name" Margin="10,107,10,36">
                         <Grid>
-                            <RadioButton x:Name="promptFileNameRadioButton" Content="Prompt for a file name every time." HorizontalAlignment="Left" Margin="4,5,0,0" VerticalAlignment="Top"/>
-                            <RadioButton x:Name="generateFileNameRadioButton" Content="Automatically generate a file name." HorizontalAlignment="Left" Margin="4,25,0,0" VerticalAlignment="Top" Checked="generateFileNameRadioButton_CheckedChanged" Unchecked="generateFileNameRadioButton_CheckedChanged"/>
+                            <RadioButton x:Name="promptFileNameRadioButton" Content="Ask for a file name every time" HorizontalAlignment="Left" Margin="4,5,0,0" VerticalAlignment="Top"/>
+                            <RadioButton x:Name="generateFileNameRadioButton" Content="Automatically generate a file name" HorizontalAlignment="Left" Margin="4,25,0,0" VerticalAlignment="Top" Checked="generateFileNameRadioButton_CheckedChanged" Unchecked="generateFileNameRadioButton_CheckedChanged"/>
                             <TextBox x:Name="recordingPrefixTextBox" Height="23" Margin="159,45,10,0" TextWrapping="Wrap" Text="{Binding RecordingPrefix, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" SourceUpdated="control_SourceUpdated" IsEnabled="False" ToolTipService.ShowDuration="2147483647"/>
-                            <TextBox x:Name="nextRecordingPreviewTextBox" Height="24" Margin="159,96,10,0" TextWrapping="Wrap" VerticalAlignment="Top" IsReadOnly="True" SourceUpdated="control_SourceUpdated" IsEnabled="False"/>
+                            <TextBox x:Name="nextRecordingPreviewTextBox" Height="23" Margin="159,96,10,0" TextWrapping="Wrap" VerticalAlignment="Top" IsReadOnly="True" SourceUpdated="control_SourceUpdated" IsEnabled="False"/>
                             <xctk:IntegerUpDown x:Name="recordingNumberIntegerUpDown" HorizontalAlignment="Left" Margin="159,72,0,0" VerticalAlignment="Top" Width="62" Maximum="9999" Minimum="-3" Value="{Binding NextRecordingNumber, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" SourceUpdated="control_SourceUpdated" IsEnabled="False"/>
                             <Label x:Name="recordingPrefixLabel" Content="File name format:" HorizontalAlignment="Left" Margin="18,44,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.079,0.692" IsEnabled="False"/>
                             <Label x:Name="nextRecordingNumberLabel" Content="Next recording number:" HorizontalAlignment="Left" Margin="18,69,0,0" VerticalAlignment="Top" IsEnabled="False"/>
