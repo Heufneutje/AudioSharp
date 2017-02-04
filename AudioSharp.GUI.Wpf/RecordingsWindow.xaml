@@ -16,7 +16,7 @@
         <BitmapImage x:Key="deleteImage" UriSource="Resources/Trash.png"></BitmapImage>
         <BitmapImage x:Key="convertImage" UriSource="Resources/mime_mp3.png"></BitmapImage>
         <BitmapImage x:Key="openFolderImage" UriSource="Resources/Folder.png"></BitmapImage>
-        <BitmapImage x:Key="defaultIcon" UriSource="Resources/AudioSharp_default32x32.ico"></BitmapImage>
+        <BitmapImage x:Key="defaultIcon" UriSource="Resources/AudioSharp256x256.png"></BitmapImage>
     </Window.Resources>
     <Grid>
         <xcdg:DataGridControl x:Name="recordingsDataGrid" ReadOnly="True" SnapsToDevicePixels="True" ClipToBounds="True" AutoCreateColumns="False" NavigationBehavior="RowOnly" Margin="34,0,0,22" MouseDoubleClick="recordingsDataGrid_MouseDoubleClick">

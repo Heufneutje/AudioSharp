@@ -37,7 +37,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Resources\AudioSharp_default32x32.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\AudioSharp.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
@@ -194,13 +194,7 @@
     <Resource Include="Resources\Trash.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\AudioSharp_default32x32.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\AudioSharp_paused32x32.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\AudioSharp_recording32x32.ico" />
+    <Resource Include="Resources\AudioSharp.ico" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AudioSharp.Config\AudioSharp.Config.csproj">
@@ -232,6 +226,11 @@
       <Link>LICENSE.txt</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Resources\AudioSharpRec.ico" />
+    <Resource Include="Resources\AudioSharpPause.ico" />
+    <Resource Include="Resources\AudioSharpRec256x256.png" />
+    <Resource Include="Resources\AudioSharpPause256x256.png" />
+    <Resource Include="Resources\AudioSharp256x256.png" />
     <Resource Include="Resources\mime_mp3.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

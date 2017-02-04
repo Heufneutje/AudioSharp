@@ -73,30 +73,60 @@ namespace AudioSharp.GUI.Wpf.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
-        internal static System.Drawing.Icon AudioSharp_default32x32 {
+        internal static System.Drawing.Icon AudioSharp {
             get {
-                object obj = ResourceManager.GetObject("AudioSharp_default32x32", resourceCulture);
+                object obj = ResourceManager.GetObject("AudioSharp", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap AudioSharp256x256 {
+            get {
+                object obj = ResourceManager.GetObject("AudioSharp256x256", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
-        internal static System.Drawing.Icon AudioSharp_paused32x32 {
+        internal static System.Drawing.Icon AudioSharpPause {
             get {
-                object obj = ResourceManager.GetObject("AudioSharp_paused32x32", resourceCulture);
+                object obj = ResourceManager.GetObject("AudioSharpPause", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap AudioSharpPause256x256 {
+            get {
+                object obj = ResourceManager.GetObject("AudioSharpPause256x256", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
-        internal static System.Drawing.Icon AudioSharp_recording32x32 {
+        internal static System.Drawing.Icon AudioSharpRec {
             get {
-                object obj = ResourceManager.GetObject("AudioSharp_recording32x32", resourceCulture);
+                object obj = ResourceManager.GetObject("AudioSharpRec", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap AudioSharpRec256x256 {
+            get {
+                object obj = ResourceManager.GetObject("AudioSharpRec256x256", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         

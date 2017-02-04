@@ -427,19 +427,19 @@ namespace AudioSharp.GUI.Wpf
             {
                 case RecordingState.Started:
                     Icon = (ImageSource)FindResource("recordIcon");
-                    taskbarIcon.IconSource = (ImageSource)FindResource("recordIcon");
+                    taskbarIcon.IconSource = (ImageSource)FindResource("recordTrayIcon");
                     statusBar.Background = Brushes.Red;
                     recordingStatusBarItem.Content = "Status: Recording";
                     break;
                 case RecordingState.Paused:
                     Icon = (ImageSource)FindResource("pauseIcon");
-                    taskbarIcon.IconSource = (ImageSource)FindResource("pauseIcon");
+                    taskbarIcon.IconSource = (ImageSource)FindResource("pauseTrayIcon");
                     statusBar.Background = Brushes.Orange;
                     recordingStatusBarItem.Content = "Status: Paused";
                     break;
                 case RecordingState.Stopped:
                     Icon = (ImageSource)FindResource("defaultIcon");
-                    taskbarIcon.IconSource = (ImageSource)FindResource("defaultIcon");
+                    taskbarIcon.IconSource = (ImageSource)FindResource("defaultTrayIcon");
                     statusBar.Background = Brushes.DodgerBlue;
                     recordingStatusBarItem.Content = "Status: Ready";
                     break;

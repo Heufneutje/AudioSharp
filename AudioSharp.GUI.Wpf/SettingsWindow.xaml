@@ -8,13 +8,14 @@
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:Config="clr-namespace:AudioSharp.Config;assembly=AudioSharp.Config" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="AudioSharp.GUI.Wpf.SettingsWindow"
         mc:Ignorable="d"
-        Title="Settings" Height="373" Width="700" MinWidth="3" ResizeMode="CanMinimize" Icon="Resources/AudioSharp_default32x32.ico">
+        Title="Settings" Height="373" Width="700" MinWidth="3" ResizeMode="CanMinimize" Icon="{DynamicResource defaultIcon}">
     <Window.DataContext>
         <Config:Configuration/>
     </Window.DataContext>
     <Window.Resources>
         <BitmapImage x:Key="openFolderImage" UriSource="Resources/Folder.png"></BitmapImage>
         <BitmapImage x:Key="deleteImage" UriSource="Resources/Delete.png"></BitmapImage>
+        <BitmapImage x:Key="defaultIcon" UriSource="Resources/AudioSharp256x256.png"></BitmapImage>
     </Window.Resources>
     <Grid>
         <TabControl x:Name="tabControl" Height="295" VerticalAlignment="Top">

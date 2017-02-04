@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:AudioSharp.GUI.Wpf"
         xmlns:customcontrols="clr-namespace:AudioSharp.GUI.CustomControls;assembly=AudioSharp.GUI.CustomControls"
         xmlns:tb="http://www.hardcodet.net/taskbar"
         mc:Ignorable="d"
@@ -13,9 +12,12 @@
         <BitmapImage x:Key="pauseImage" UriSource="Resources/pause.png"></BitmapImage>
         <BitmapImage x:Key="stopImage" UriSource="Resources/stop.png"></BitmapImage>
         <BitmapImage x:Key="exitImage" UriSource="Resources/Application-cancel.png"></BitmapImage>
-        <BitmapImage x:Key="recordIcon" UriSource="Resources/AudioSharp_recording32x32.ico"></BitmapImage>
-        <BitmapImage x:Key="pauseIcon" UriSource="Resources/AudioSharp_paused32x32.ico"></BitmapImage>
-        <BitmapImage x:Key="defaultIcon" UriSource="Resources/AudioSharp_default32x32.ico"></BitmapImage>
+        <BitmapImage x:Key="defaultIcon" UriSource="Resources/AudioSharp256x256.png"></BitmapImage>
+        <BitmapImage x:Key="recordIcon" UriSource="Resources/AudioSharpRec256x256.png"></BitmapImage>
+        <BitmapImage x:Key="pauseIcon" UriSource="Resources/AudioSharpPause256x256.png"></BitmapImage>
+        <BitmapImage x:Key="defaultTrayIcon" UriSource="Resources/AudioSharp.ico"></BitmapImage>
+        <BitmapImage x:Key="recordTrayIcon" UriSource="Resources/AudioSharpRec.ico"></BitmapImage>
+        <BitmapImage x:Key="pauseTrayIcon" UriSource="Resources/AudioSharpPause.ico"></BitmapImage>
         <ContextMenu x:Key="contextMenu" x:Name="contextMenu">
             <MenuItem x:Name="recordContextMenuItem" Header="Record" Click="recordButton_Click">
                 <MenuItem.Icon>
@@ -230,6 +232,6 @@
             <Separator Background="White"/>
             <StatusBarItem x:Name="driveSpaceBarItem" Content="Free space: ??" VerticalAlignment="Top" Foreground="White" FontWeight="Bold"/>
         </StatusBar>
-        <tb:TaskbarIcon x:Name="taskbarIcon" IconSource="Resources/AudioSharp_default32x32.ico" ContextMenu="{DynamicResource contextMenu}" ToolTipText="AudioSharp" TrayLeftMouseDown="taskbarIcon_TrayLeftMouseDown"/>
+        <tb:TaskbarIcon x:Name="taskbarIcon" IconSource="{DynamicResource defaultTrayIcon}" ContextMenu="{DynamicResource contextMenu}" ToolTipText="AudioSharp" TrayLeftMouseDown="taskbarIcon_TrayLeftMouseDown"/>
     </Grid>
 </Window>

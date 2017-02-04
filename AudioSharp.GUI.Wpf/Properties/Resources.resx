@@ -145,19 +145,28 @@
   <data name="Trash" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Trash.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="AudioSharp_default32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\AudioSharp_default32x32.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="AudioSharp_paused32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\AudioSharp_paused32x32.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="AudioSharp_recording32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\AudioSharp_recording32x32.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Delete" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Delete.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="mime_mp3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\mime_mp3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="AudioSharp256x256" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\AudioSharp256x256.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="AudioSharp" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\AudioSharp.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="AudioSharpPause256x256" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\AudioSharpPause256x256.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="AudioSharpRec256x256" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\AudioSharpRec256x256.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="AudioSharpPause" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\AudioSharpPause.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="AudioSharpRec" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\AudioSharpRec.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
