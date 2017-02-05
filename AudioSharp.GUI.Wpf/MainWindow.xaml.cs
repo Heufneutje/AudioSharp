@@ -297,6 +297,16 @@ namespace AudioSharp.GUI.Wpf
             HotkeyUtils.RegisterAllHotkeys(windowHandle, _config.GlobalHotkeys);
         }
 
+        private void issueTrackerMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start("https://github.com/Heufneutje/AudioSharp/issues");
+        }
+
+        private void sourceCodeMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start("https://github.com/Heufneutje/AudioSharp");
+        }
+
         private void aboutMenuItem_Click(object sender, RoutedEventArgs e)
         {
             AboutWindow aboutWindow = new AboutWindow();

@@ -168,6 +168,29 @@
                 </MenuItem>
             </MenuItem>
             <MenuItem Header="Help">
+                <MenuItem x:Name="issueTrackerMenuItem" Header="Issue tracker" Click="issueTrackerMenuItem_Click">
+                    <MenuItem.Icon>
+                        <customcontrols:AutoGreyableImage Source="Resources/bug.png"/>
+                    </MenuItem.Icon>
+                    <MenuItem.ToolTip>
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" Text="Issue tracker"/>
+                            <TextBlock Text="Open AudioSharp's issue tracker on GitHub." Padding="5,5,5,0"/>
+                        </StackPanel>
+                    </MenuItem.ToolTip>
+                </MenuItem>
+                <MenuItem x:Name="sourceCodeMenuItem" Header="Source code" Click="sourceCodeMenuItem_Click">
+                    <MenuItem.Icon>
+                        <customcontrols:AutoGreyableImage Source="Resources/page_code.png"/>
+                    </MenuItem.Icon>
+                    <MenuItem.ToolTip>
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" Text="Source code"/>
+                            <TextBlock Text="Open AudioSharp's source code repository on GitHub." Padding="5,5,5,0"/>
+                        </StackPanel>
+                    </MenuItem.ToolTip>
+                </MenuItem>
+                <Separator HorizontalAlignment="Left" Width="122"/>
                 <MenuItem x:Name="aboutMenuItem" Header="About" Click="aboutMenuItem_Click">
                     <MenuItem.Icon>
                         <customcontrols:AutoGreyableImage Source="Resources/Info.png"/>

@@ -226,6 +226,8 @@
       <Link>LICENSE.txt</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Resources\page_code.png" />
+    <Resource Include="Resources\bug.png" />
     <Resource Include="Resources\notmute.png" />
     <Resource Include="Resources\mute.png" />
     <Resource Include="Resources\AudioSharpRec.ico" />
