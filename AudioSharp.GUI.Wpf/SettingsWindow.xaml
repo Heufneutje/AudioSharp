@@ -133,12 +133,14 @@
                 </Grid>
             </TabItem>
             <TabItem Header="Hotkeys" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="54">
-                <GroupBox Header="Global Hotkeys" Margin="10,0" VerticalAlignment="Top" Height="78">
+                <GroupBox Header="Global Hotkeys" Margin="10,0" VerticalAlignment="Top" Height="106">
                     <Grid>
                         <customcontrols:ButtonTextBox x:Name="hotkeyRecordTextBox" Height="23" Margin="159,0,10,0" TextWrapping="Wrap" VerticalAlignment="Top" IsReadOnly="True" KeyDown="hotkeyRecordTextBox_KeyDown" ButtonImage="{DynamicResource deleteImage}" ButtonToolTip="Remove" ButtonClick="hotkeyRecordTextBox_ButtonClick"/>
                         <customcontrols:ButtonTextBox x:Name="hotkeyStopTextBox" Height="23" Margin="159,28,10,0" TextWrapping="Wrap" VerticalAlignment="Top" IsReadOnly="True" KeyDown="hotkeyStopTextBox_KeyDown" ButtonImage="{DynamicResource deleteImage}" ButtonToolTip="Remove" ButtonClick="hotkeyStopTextBox_ButtonClick"/>
+                        <customcontrols:ButtonTextBox x:Name="hotkeyMuteUnmuteTextBox" Height="23" Margin="159,56,10,0" TextWrapping="Wrap" VerticalAlignment="Top" IsReadOnly="True" ButtonImage="{DynamicResource deleteImage}" ButtonToolTip="Remove" KeyDown="hotkeyMuteUnmuteTextBox_KeyDown" ButtonClick="hotkeyMuteUnmuteTextBox_ButtonClick"/>
                         <Label Content="Start recording:" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                        <Label Content="Stop recording:" HorizontalAlignment="Left" Margin="0,24,0,0" VerticalAlignment="Top"/>
+                        <Label Content="Stop recording:" HorizontalAlignment="Left" Margin="0,28,0,0" VerticalAlignment="Top"/>
+                        <Label Content="Mute/unmute:" HorizontalAlignment="Left" Margin="0,56,0,0" VerticalAlignment="Top"/>
                     </Grid>
                 </GroupBox>
             </TabItem>

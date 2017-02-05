@@ -14,6 +14,7 @@ using AudioSharp.Translations;
 using AudioSharp.Utils;
 using Microsoft.Win32;
 using NAudio.CoreAudioApi;
+using AudioSharp.GUI.CustomControls;
 
 namespace AudioSharp.GUI.Wpf
 {
@@ -175,6 +176,27 @@ namespace AudioSharp.GUI.Wpf
             StopRecording();
         }
 
+        private void muteToggleButton_CheckedChanged(object sender, RoutedEventArgs e)
+        {
+            bool isChecked = muteToggleButton.IsChecked ?? false;
+            inputVolumeSlider.IsEnabled = !isChecked;
+            inputVolumePercLabel.IsEnabled = !isChecked;
+
+            if (_audioRecorder.SelectedDevice != null)
+                _audioRecorder.SelectedDevice.AudioEndpointVolume.Mute = isChecked;
+
+            if (isChecked)
+            {
+                muteToggleButton.ToolTip = FindResource("unmuteTooltip");
+                ((AutoGreyableImage)muteToggleButton.Content).Source = (ImageSource)FindResource("muteImage");
+            }
+            else
+            {
+                muteToggleButton.ToolTip = isChecked ? FindResource("unmuteTooltip") : FindResource("muteTooltip");
+                ((AutoGreyableImage)muteToggleButton.Content).Source = (ImageSource)FindResource("notmuteImage");
+            }
+        }
+
         private void timerVAMeter_Tick(object sender, EventArgs e)
         {
             if (devicesComboBox.SelectedItem != null)
@@ -200,8 +222,8 @@ namespace AudioSharp.GUI.Wpf
             if (devicesComboBox.SelectedItem != null)
             {
                 _audioRecorder.SelectedDevice = (MMDevice)devicesComboBox.SelectedItem;
-                inputVolumeSlider.IsEnabled = true;
                 inputVolumeSlider.Value = Convert.ToInt32(_audioRecorder.SelectedDevice.AudioEndpointVolume.MasterVolumeLevelScalar * 100 / 2);
+                muteToggleButton.IsChecked = _audioRecorder.SelectedDevice.AudioEndpointVolume.Mute;
             }
         }
 
@@ -214,15 +236,18 @@ namespace AudioSharp.GUI.Wpf
             }
         }
 
-        private void HotkeyUtils_GlobalHoykeyPressed(HotkeyUtils.HotkeyType hotkey)
+        private void HotkeyUtils_GlobalHoykeyPressed(HotkeyType hotkey)
         {
             switch (hotkey)
             {
-                case HotkeyUtils.HotkeyType.StartRecording:
+                case HotkeyType.StartRecording:
                     StartRecording();
                     break;
-                case HotkeyUtils.HotkeyType.StopRecording:
+                case HotkeyType.StopRecording:
                     StopRecording();
+                    break;
+                case HotkeyType.MuteUnmute:
+                    muteToggleButton.IsChecked = !muteToggleButton.IsChecked;
                     break;
             }
         }

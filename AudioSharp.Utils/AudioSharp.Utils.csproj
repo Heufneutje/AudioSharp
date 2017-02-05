@@ -58,6 +58,7 @@
     <Compile Include="DriveSpaceUtils.cs" />
     <Compile Include="FileUtils.cs" />
     <Compile Include="FormattingUtils.cs" />
+    <Compile Include="HotkeyType.cs" />
     <Compile Include="HotkeyUtils.cs" />
     <Compile Include="JsonUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

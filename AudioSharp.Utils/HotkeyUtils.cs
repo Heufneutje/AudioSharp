@@ -6,15 +6,10 @@ using GlobalHotKey;
 
 namespace AudioSharp.Utils
 {
-    public class HotkeyUtils
+    public static class HotkeyUtils
     {
         private static readonly HotKeyManager _hotKeyManager = new HotKeyManager();
         private static Dictionary<HotKey, HotkeyType> _hotkeys = new Dictionary<HotKey, HotkeyType>();
-
-        public enum HotkeyType
-        {
-            StartRecording, StopRecording
-        }
 
         public static readonly List<Key> IllegalHotkeys = new List<Key>
         {

@@ -24,7 +24,7 @@ namespace AudioSharp.Config
         public bool CheckForUpdates { get; set; }
 
         // Hotkeys
-        public Dictionary<HotkeyUtils.HotkeyType, Tuple<Key, ModifierKeys>> GlobalHotkeys { get; set; }
+        public Dictionary<HotkeyType, Tuple<Key, ModifierKeys>> GlobalHotkeys { get; set; }
 
         // View
         public bool RecordingSettingsPanelVisible { get; set; }

@@ -12,12 +12,22 @@
         <BitmapImage x:Key="pauseImage" UriSource="Resources/pause.png"></BitmapImage>
         <BitmapImage x:Key="stopImage" UriSource="Resources/stop.png"></BitmapImage>
         <BitmapImage x:Key="exitImage" UriSource="Resources/Application-cancel.png"></BitmapImage>
+        <BitmapImage x:Key="muteImage" UriSource="Resources/mute.png"></BitmapImage>
+        <BitmapImage x:Key="notmuteImage" UriSource="Resources/notmute.png"></BitmapImage>
         <BitmapImage x:Key="defaultIcon" UriSource="Resources/AudioSharp256x256.png"></BitmapImage>
         <BitmapImage x:Key="recordIcon" UriSource="Resources/AudioSharpRec256x256.png"></BitmapImage>
         <BitmapImage x:Key="pauseIcon" UriSource="Resources/AudioSharpPause256x256.png"></BitmapImage>
         <BitmapImage x:Key="defaultTrayIcon" UriSource="Resources/AudioSharp.ico"></BitmapImage>
         <BitmapImage x:Key="recordTrayIcon" UriSource="Resources/AudioSharpRec.ico"></BitmapImage>
         <BitmapImage x:Key="pauseTrayIcon" UriSource="Resources/AudioSharpPause.ico"></BitmapImage>
+        <StackPanel x:Key="muteTooltip">
+            <TextBlock FontWeight="Bold" Text="Mute"/>
+            <TextBlock Text="Microphone is not currently muted. Click to mute the microphone." Padding="5,5,5,0"/>
+        </StackPanel>
+        <StackPanel x:Key="unmuteTooltip">
+            <TextBlock FontWeight="Bold" Text="Unmute"/>
+            <TextBlock Text="Microphone is currently muted. Click to unmute the microphone." Padding="5,5,5,0"/>
+        </StackPanel>
         <ContextMenu x:Key="contextMenu" x:Name="contextMenu">
             <MenuItem x:Name="recordContextMenuItem" Header="Record" Click="recordButton_Click">
                 <MenuItem.Icon>
@@ -174,10 +184,15 @@
         <GroupBox x:Name="recordingSettingsGroup" Header="Recording Settings" Margin="10,23,10,0" Height="73" VerticalAlignment="Top">
             <Grid>
                 <ComboBox x:Name="devicesComboBox" Margin="107,0,0,0" VerticalAlignment="Top" SelectionChanged="devicesComboBox_SelectionChanged"/>
-                <Slider x:Name="inputVolumeSlider" Margin="107,27,55,0" VerticalAlignment="Top" TickPlacement="BottomRight" Maximum="50" ValueChanged="inputVolumeSlider_ValueChanged"/>
-                <Label x:Name="inputVolumePercLabel" Content="0 %" Margin="0,22,0,0" VerticalAlignment="Top" Background="Transparent" HorizontalAlignment="Right" Width="50"/>
+                <Slider x:Name="inputVolumeSlider" Margin="107,27,80,0" VerticalAlignment="Top" TickPlacement="BottomRight" Maximum="50" ValueChanged="inputVolumeSlider_ValueChanged"/>
+                <Label x:Name="inputVolumePercLabel" Content="0 %" Margin="488,24,25,0" VerticalAlignment="Top" Background="Transparent"/>
                 <Label Content="Input Device:" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                 <Label Content="Input Volume:" HorizontalAlignment="Left" Margin="0,22,0,0" VerticalAlignment="Top"/>
+                <ToggleButton x:Name="muteToggleButton" VerticalAlignment="Top" Margin="0,28,0,0" Height="20" HorizontalAlignment="Right" Width="20" Checked="muteToggleButton_CheckedChanged" Unchecked="muteToggleButton_CheckedChanged">
+                    <ToggleButton.Content>
+                        <customcontrols:AutoGreyableImage Source="{StaticResource notmuteImage}" Height="16" Width="16"/>
+                    </ToggleButton.Content>
+                </ToggleButton>
             </Grid>
         </GroupBox>
         <GroupBox x:Name="recordingOutputGroup" Header="Recording Output" Margin="10,101,10,0" Height="121" VerticalAlignment="Top">
