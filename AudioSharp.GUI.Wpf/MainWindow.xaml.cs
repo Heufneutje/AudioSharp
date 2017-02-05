@@ -10,11 +10,11 @@ using System.Windows.Media;
 using System.Windows.Threading;
 using AudioSharp.Config;
 using AudioSharp.Core;
+using AudioSharp.GUI.CustomControls;
 using AudioSharp.Translations;
 using AudioSharp.Utils;
 using Microsoft.Win32;
 using NAudio.CoreAudioApi;
-using AudioSharp.GUI.CustomControls;
 
 namespace AudioSharp.GUI.Wpf
 {
@@ -242,6 +242,9 @@ namespace AudioSharp.GUI.Wpf
             {
                 case HotkeyType.StartRecording:
                     StartRecording();
+                    break;
+                case HotkeyType.PauseRecording:
+                    PauseRecording();
                     break;
                 case HotkeyType.StopRecording:
                     StopRecording();

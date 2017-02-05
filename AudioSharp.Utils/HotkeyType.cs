@@ -4,6 +4,7 @@
     {
         StartRecording = 0,
         StopRecording = 1,
-        MuteUnmute = 2
+        MuteUnmute = 2,
+        PauseRecording = 3
     }
 }

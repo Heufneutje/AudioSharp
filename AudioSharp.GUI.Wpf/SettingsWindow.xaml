@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:AudioSharp.GUI.Wpf"
         xmlns:customcontrols="clr-namespace:AudioSharp.GUI.CustomControls;assembly=AudioSharp.GUI.CustomControls"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:Config="clr-namespace:AudioSharp.Config;assembly=AudioSharp.Config" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="AudioSharp.GUI.Wpf.SettingsWindow"
@@ -16,6 +15,10 @@
         <BitmapImage x:Key="openFolderImage" UriSource="Resources/Folder.png"></BitmapImage>
         <BitmapImage x:Key="deleteImage" UriSource="Resources/Delete.png"></BitmapImage>
         <BitmapImage x:Key="defaultIcon" UriSource="Resources/AudioSharp256x256.png"></BitmapImage>
+        <StackPanel x:Key="hotkeyTooltip">
+            <TextBlock FontWeight="Bold" Text="Hotkey"/>
+            <TextBlock Text="Press any key while with field is selected to set it as a global hotkey." Padding="5,5,5,0"/>
+        </StackPanel>
     </Window.Resources>
     <Grid>
         <TabControl x:Name="tabControl" Height="295" VerticalAlignment="Top">
@@ -133,14 +136,16 @@
                 </Grid>
             </TabItem>
             <TabItem Header="Hotkeys" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="54">
-                <GroupBox Header="Global Hotkeys" Margin="10,0" VerticalAlignment="Top" Height="106">
+                <GroupBox Header="Global Hotkeys" Margin="10,0" VerticalAlignment="Top" Height="151">
                     <Grid>
-                        <customcontrols:ButtonTextBox x:Name="hotkeyRecordTextBox" Height="23" Margin="159,0,10,0" TextWrapping="Wrap" VerticalAlignment="Top" IsReadOnly="True" KeyDown="hotkeyRecordTextBox_KeyDown" ButtonImage="{DynamicResource deleteImage}" ButtonToolTip="Remove" ButtonClick="hotkeyRecordTextBox_ButtonClick"/>
-                        <customcontrols:ButtonTextBox x:Name="hotkeyStopTextBox" Height="23" Margin="159,28,10,0" TextWrapping="Wrap" VerticalAlignment="Top" IsReadOnly="True" KeyDown="hotkeyStopTextBox_KeyDown" ButtonImage="{DynamicResource deleteImage}" ButtonToolTip="Remove" ButtonClick="hotkeyStopTextBox_ButtonClick"/>
-                        <customcontrols:ButtonTextBox x:Name="hotkeyMuteUnmuteTextBox" Height="23" Margin="159,56,10,0" TextWrapping="Wrap" VerticalAlignment="Top" IsReadOnly="True" ButtonImage="{DynamicResource deleteImage}" ButtonToolTip="Remove" KeyDown="hotkeyMuteUnmuteTextBox_KeyDown" ButtonClick="hotkeyMuteUnmuteTextBox_ButtonClick"/>
+                        <customcontrols:ButtonTextBox x:Name="hotkeyRecordTextBox" Height="23" Margin="159,0,10,0" TextWrapping="Wrap" VerticalAlignment="Top" IsReadOnly="True" KeyDown="hotkeyTextBox_KeyDown" ButtonImage="{DynamicResource deleteImage}" ButtonToolTip="Remove" ButtonClick="hotkeyTextBox_ButtonClick" Tag="0" IsReadOnlyCaretVisible="True" ToolTip="{StaticResource hotkeyTooltip}"/>
+                        <customcontrols:ButtonTextBox x:Name="hotkeyPauseTextBox" Height="23" Margin="159,28,10,0" TextWrapping="Wrap" VerticalAlignment="Top" IsReadOnly="True" ButtonImage="{DynamicResource deleteImage}" ButtonToolTip="Remove" KeyDown="hotkeyTextBox_KeyDown" ButtonClick="hotkeyTextBox_ButtonClick" Tag="3" IsReadOnlyCaretVisible="True" ToolTip="{StaticResource hotkeyTooltip}"/>
+                        <customcontrols:ButtonTextBox x:Name="hotkeyStopTextBox" Height="23" Margin="159,56,10,0" TextWrapping="Wrap" VerticalAlignment="Top" IsReadOnly="True" KeyDown="hotkeyTextBox_KeyDown" ButtonImage="{DynamicResource deleteImage}" ButtonToolTip="Remove" ButtonClick="hotkeyTextBox_ButtonClick" Tag="1" IsReadOnlyCaretVisible="True" ToolTip="{StaticResource hotkeyTooltip}"/>
+                        <customcontrols:ButtonTextBox x:Name="hotkeyMuteUnmuteTextBox" Height="23" Margin="159,84,10,0" TextWrapping="Wrap" VerticalAlignment="Top" IsReadOnly="True" ButtonImage="{DynamicResource deleteImage}" ButtonToolTip="Remove" KeyDown="hotkeyTextBox_KeyDown" ButtonClick="hotkeyTextBox_ButtonClick" Tag="2" IsReadOnlyCaretVisible="True" ToolTip="{StaticResource hotkeyTooltip}"/>
                         <Label Content="Start recording:" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                        <Label Content="Stop recording:" HorizontalAlignment="Left" Margin="0,28,0,0" VerticalAlignment="Top"/>
-                        <Label Content="Mute/unmute:" HorizontalAlignment="Left" Margin="0,56,0,0" VerticalAlignment="Top"/>
+                        <Label Content="Pause recording:" HorizontalAlignment="Left" Margin="0,28,0,0" VerticalAlignment="Top"/>
+                        <Label Content="Stop recording:" HorizontalAlignment="Left" Margin="0,56,0,0" VerticalAlignment="Top"/>
+                        <Label Content="Mute/unmute microphone:" HorizontalAlignment="Left" Margin="0,84,0,0" VerticalAlignment="Top"/>
                     </Grid>
                 </GroupBox>
             </TabItem>

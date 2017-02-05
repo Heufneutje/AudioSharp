@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using AudioSharp.Config;
+using AudioSharp.GUI.CustomControls;
 using AudioSharp.Translations;
 using AudioSharp.Utils;
 
@@ -106,34 +107,30 @@ namespace AudioSharp.GUI.Wpf
             }
         }
 
-        private void hotkeyRecordTextBox_KeyDown(object sender, KeyEventArgs e)
+        private void hotkeyTextBox_KeyDown(object sender, KeyEventArgs e)
         {
-            HandleHotkey(HotkeyType.StartRecording, e);
+            Key key = e.Key;
+            if (key == Key.System)
+                key = e.SystemKey;
+
+            if (HotkeyUtils.IllegalHotkeys.Contains(key))
+                return;
+
+            HotkeyType hotkeyType = (HotkeyType)Convert.ToInt32(((ButtonTextBox)e.Source).Tag);
+            if (key == Key.Escape)
+            {
+                ClearHotkey(hotkeyType);
+            }
+            else
+            {
+                FillHotkeyField(hotkeyType, key, Keyboard.Modifiers);
+                Config.GlobalHotkeys[hotkeyType] = new Tuple<Key, ModifierKeys>(key, Keyboard.Modifiers);
+            }
         }
 
-        private void hotkeyStopTextBox_KeyDown(object sender, KeyEventArgs e)
+        private void hotkeyTextBox_ButtonClick(object sender, RoutedEventArgs e)
         {
-            HandleHotkey(HotkeyType.StopRecording, e);
-        }
-
-        private void hotkeyRecordTextBox_ButtonClick(object sender, RoutedEventArgs e)
-        {
-            ClearHotkey(HotkeyType.StartRecording);
-        }
-
-        private void hotkeyStopTextBox_ButtonClick(object sender, RoutedEventArgs e)
-        {
-            ClearHotkey(HotkeyType.StopRecording);
-        }
-
-        private void hotkeyMuteUnmuteTextBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            HandleHotkey(HotkeyType.MuteUnmute, e);
-        }
-
-        private void hotkeyMuteUnmuteTextBox_ButtonClick(object sender, RoutedEventArgs e)
-        {
-            ClearHotkey(HotkeyType.MuteUnmute);
+            ClearHotkey((HotkeyType)Convert.ToInt32(((ButtonTextBox)e.Source).Tag));
         }
         #endregion
 
@@ -144,26 +141,6 @@ namespace AudioSharp.GUI.Wpf
                 nextRecordingPreviewTextBox.Text = "<invalid path>";
             else
                 nextRecordingPreviewTextBox.Text = $"{Path.Combine(Config.RecordingsFolder, FormattingUtils.FormatString(Config.RecordingPrefix, Config.NextRecordingNumber))}.{Config.OutputFormat}";
-        }
-
-        private void HandleHotkey(HotkeyType hotkeyType, KeyEventArgs e)
-        {
-            Key key = e.Key;
-            if (key == Key.System)
-                key = e.SystemKey;
-
-            if (HotkeyUtils.IllegalHotkeys.Contains(key))
-                return;
-
-            if (key == Key.Escape)
-            {
-                ClearHotkey(hotkeyType);
-            }
-            else
-            {
-                FillHotkeyField(hotkeyType, key, Keyboard.Modifiers);
-                Config.GlobalHotkeys[hotkeyType] = new Tuple<Key, ModifierKeys>(key, Keyboard.Modifiers);
-            }
         }
 
         private void ClearHotkey(HotkeyType hotkeyType)
@@ -189,6 +166,8 @@ namespace AudioSharp.GUI.Wpf
             {
                 case HotkeyType.StartRecording:
                     return hotkeyRecordTextBox;
+                case HotkeyType.PauseRecording:
+                    return hotkeyPauseTextBox;
                 case HotkeyType.StopRecording:
                     return hotkeyStopTextBox;
                 case HotkeyType.MuteUnmute:
