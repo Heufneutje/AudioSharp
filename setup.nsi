@@ -12,6 +12,9 @@
 !define REG_ROOT "HKCU"
 !define REG_APP_PATH "Software\Microsoft\Windows\CurrentVersion\App Paths\${MAIN_APP_EXE}"
 !define UNINSTALL_PATH "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APP_NAME}"
+!define MUI_FINISHPAGE_RUN
+!define MUI_FINISHPAGE_RUN_TEXT "Run AudioSharp"
+!define MUI_FINISHPAGE_RUN_FUNCTION "LaunchLink"
 
 !define REG_START_MENU "Start Menu Folder"
 
@@ -46,6 +49,9 @@ function .onInit
         SetRegView 64
         StrCpy $INSTDIR "$PROGRAMFILES64\AudioSharp"
     ${EndIf}
+functionEnd
+function LaunchLink
+	ExecShell "" "$INSTDIR\AudioSharp.exe"
 functionEnd
 
 !define MUI_ABORTWARNING
