@@ -24,7 +24,7 @@ namespace AudioSharp.GUI.Wpf
         #region Constructor
         public SettingsWindow(Configuration currentConfig)
         {
-            Config = currentConfig;
+            Config = CloneUtils.DeepCopy(currentConfig);
             InitializeComponent();
             DataContext = Config;
 

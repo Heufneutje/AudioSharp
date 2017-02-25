@@ -5,6 +5,7 @@ using AudioSharp.Utils;
 
 namespace AudioSharp.Config
 {
+    [Serializable]
     public class Configuration
     {
         // Recording

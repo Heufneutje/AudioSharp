@@ -55,6 +55,7 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="CloneUtils.cs" />
     <Compile Include="DriveSpaceUtils.cs" />
     <Compile Include="FileUtils.cs" />
     <Compile Include="FormattingUtils.cs" />
