@@ -162,6 +162,12 @@
   <data name="GUINoFileSelected" xml:space="preserve">
     <value>No file was selected.</value>
   </data>
+  <data name="GUINoUpdateAvailable" xml:space="preserve">
+    <value>Current version: {0}{1}{1}You are using the latest version of AudioSharp.</value>
+  </data>
+  <data name="GUINoUpdateAvailableTitle" xml:space="preserve">
+    <value>No update available</value>
+  </data>
   <data name="GUIQuestionOverwriteRecording" xml:space="preserve">
     <value>A recording with this name already exists. Would you like to overwrite it?</value>
   </data>
@@ -175,6 +181,9 @@
     <value>Recording in progress</value>
   </data>
   <data name="GUIUpdateAvailable" xml:space="preserve">
+    <value>Current version: {0}{1}Latest version: {2}{1}{1}Would you like to download this version now?</value>
+  </data>
+  <data name="GUIUpdateAvailableTitle" xml:space="preserve">
     <value>Update available</value>
   </data>
 </root>

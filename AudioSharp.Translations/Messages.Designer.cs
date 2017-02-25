@@ -196,6 +196,24 @@ namespace AudioSharp.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Current version: {0}{1}{1}You are using the latest version of AudioSharp..
+        /// </summary>
+        public static string GUINoUpdateAvailable {
+            get {
+                return ResourceManager.GetString("GUINoUpdateAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No update available.
+        /// </summary>
+        public static string GUINoUpdateAvailableTitle {
+            get {
+                return ResourceManager.GetString("GUINoUpdateAvailableTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to A recording with this name already exists. Would you like to overwrite it?.
         /// </summary>
         public static string GUIQuestionOverwriteRecording {
@@ -232,11 +250,20 @@ namespace AudioSharp.Translations {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Update available.
+        ///   Looks up a localized string similar to Current version: {0}{1}Latest version: {2}{1}{1}Would you like to download this version now?.
         /// </summary>
         public static string GUIUpdateAvailable {
             get {
                 return ResourceManager.GetString("GUIUpdateAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update available.
+        /// </summary>
+        public static string GUIUpdateAvailableTitle {
+            get {
+                return ResourceManager.GetString("GUIUpdateAvailableTitle", resourceCulture);
             }
         }
     }

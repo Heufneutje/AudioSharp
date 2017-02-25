@@ -112,7 +112,7 @@ namespace AudioSharp.GUI.Wpf
             _isSizeChanged = false;
 
             if (_config.CheckForUpdates)
-                CheckForUpdate();
+                CheckForUpdate(false);
         }
 
         private void Window_Closing(object sender, CancelEventArgs e)
@@ -308,6 +308,11 @@ namespace AudioSharp.GUI.Wpf
         private void sourceCodeMenuItem_Click(object sender, RoutedEventArgs e)
         {
             Process.Start("https://github.com/Heufneutje/AudioSharp");
+        }
+
+        private void checkForUpdatesMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            CheckForUpdate(true);
         }
 
         private void aboutMenuItem_Click(object sender, RoutedEventArgs e)
@@ -559,7 +564,7 @@ namespace AudioSharp.GUI.Wpf
             }
         }
 
-        private void CheckForUpdate()
+        private void CheckForUpdate(bool shouldPopUp)
         {
             FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location);
             BackgroundWorker updateChecker = new BackgroundWorker();
@@ -569,11 +574,15 @@ namespace AudioSharp.GUI.Wpf
             };
             updateChecker.RunWorkerCompleted += (sender, args) =>
             {
+                string currentVersion = string.Join(".", new int[3] { fvi.FileMajorPart, fvi.FileMinorPart, fvi.FileBuildPart });
                 if (args.Result == null)
+                {
+                    if (shouldPopUp)
+                        MessageBox.Show(string.Format(Messages.GUINoUpdateAvailable, currentVersion, Environment.NewLine), Messages.GUINoUpdateAvailableTitle, MessageBoxButton.OK, MessageBoxImage.Information);
                     return;
+                }
 
-                string message = string.Format("Current version: {0}{1}Latest version: {2}{1}{1}Would you like to download this version now?", string.Join(".", new int[3] { fvi.FileMajorPart, fvi.FileMinorPart, fvi.FileBuildPart }), Environment.NewLine, args.Result);
-                if (MessageBox.Show(message, Messages.GUIUpdateAvailable, MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                if (MessageBox.Show(string.Format(Messages.GUIUpdateAvailable, currentVersion, Environment.NewLine, args.Result), Messages.GUIUpdateAvailableTitle, MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                     Process.Start("https://github.com/Heufneutje/AudioSharp/releases");
             };
             updateChecker.RunWorkerAsync();

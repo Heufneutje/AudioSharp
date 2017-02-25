@@ -190,6 +190,17 @@
                         </StackPanel>
                     </MenuItem.ToolTip>
                 </MenuItem>
+                <MenuItem x:Name="checkForUpdatesMenuItem" Header="Check for updates" Click="checkForUpdatesMenuItem_Click">
+                    <MenuItem.Icon>
+                        <customcontrols:AutoGreyableImage Source="Resources/Web-Download.png"/>
+                    </MenuItem.Icon>
+                    <MenuItem.ToolTip>
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" Text="Check for updates"/>
+                            <TextBlock Text="Check whether a newer version of AudioSharp is available for download." Padding="5,5,5,0"/>
+                        </StackPanel>
+                    </MenuItem.ToolTip>
+                </MenuItem>
                 <Separator HorizontalAlignment="Left" Width="122"/>
                 <MenuItem x:Name="aboutMenuItem" Header="About" Click="aboutMenuItem_Click">
                     <MenuItem.Icon>

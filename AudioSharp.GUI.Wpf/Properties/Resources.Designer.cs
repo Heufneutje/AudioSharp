@@ -269,5 +269,15 @@ namespace AudioSharp.GUI.Wpf.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Web_Download {
+            get {
+                object obj = ResourceManager.GetObject("Web_Download", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }
