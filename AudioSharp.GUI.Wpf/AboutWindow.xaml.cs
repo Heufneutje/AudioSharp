@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
-using System.Reflection;
 using System.Windows;
 using System.Windows.Documents;
+using AudioSharp.Utils;
 
 namespace AudioSharp.GUI.Wpf
 {
@@ -24,7 +25,8 @@ namespace AudioSharp.GUI.Wpf
             FlowDocument document = new FlowDocument(paragraph);
             richTextBox.Document = document;
 
-            versionLabel.Content = $"AudioSharp {Assembly.GetExecutingAssembly().GetName().Version.ToString()}";
+            FileVersionInfo fvi = UpdateUtils.GetCurrentVersion();
+            versionLabel.Content = $"AudioSharp v{string.Join(".", new int[3] { fvi.FileMajorPart, fvi.FileMinorPart, fvi.FileBuildPart })}";
         }
 
         private void closeButton_Click(object sender, RoutedEventArgs e)
