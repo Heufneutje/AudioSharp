@@ -187,6 +187,24 @@ namespace AudioSharp.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An unknown error occurred.{0}Error: {1}.
+        /// </summary>
+        public static string GUIErrorUnknown {
+            get {
+                return ResourceManager.GetString("GUIErrorUnknown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A connection error occurred. Check your internet connection.{0}Error: {1}.
+        /// </summary>
+        public static string GUIErrorWeb {
+            get {
+                return ResourceManager.GetString("GUIErrorWeb", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No file was selected..
         /// </summary>
         public static string GUINoFileSelected {

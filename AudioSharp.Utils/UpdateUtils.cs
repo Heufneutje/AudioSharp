@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Reflection;
+using AudioSharp.Translations;
 using Newtonsoft.Json.Linq;
 
 namespace AudioSharp.Utils
@@ -11,7 +12,7 @@ namespace AudioSharp.Utils
     {
         private const string _GITHUB_BASE_URL = "https://api.github.com";
 
-        public static string CheckForUpdate()
+        public static UpdateCheckResult CheckForUpdate()
         {
             try
             {
@@ -28,12 +29,19 @@ namespace AudioSharp.Utils
 
                 string latestVersion = tags.First["name"].ToString().Substring(1);
                 FileVersionInfo fvi = GetCurrentVersion();
-                return VersionsEqual(fvi.FileMajorPart, fvi.FileMinorPart, fvi.FileBuildPart, latestVersion) ? null : latestVersion;
+                string currentVersion = string.Join(".", new int[3] { fvi.FileMajorPart, fvi.FileMinorPart, fvi.FileBuildPart });
+                if (VersionsEqual(fvi.FileMajorPart, fvi.FileMinorPart, fvi.FileBuildPart, latestVersion))
+                    return new UpdateCheckResult(UpdateResultType.NoUpdateAvailable, string.Format(Messages.GUINoUpdateAvailable, currentVersion, Environment.NewLine), Messages.GUINoUpdateAvailableTitle);
+
+                return new UpdateCheckResult(UpdateResultType.UpdateAvailable, string.Format(Messages.GUIUpdateAvailable, currentVersion, Environment.NewLine, latestVersion), Messages.GUIUpdateAvailableTitle);
             }
-            catch (Exception)
+            catch (WebException webEx)
             {
-                // TODO: Error logging.
-                return null;
+                return new UpdateCheckResult(UpdateResultType.Error, string.Format(Messages.GUIErrorWeb, Environment.NewLine, webEx.Message), Messages.GUIErrorCommon);
+            }
+            catch (Exception ex)
+            {
+                return new UpdateCheckResult(UpdateResultType.Error, string.Format(Messages.GUIErrorUnknown, Environment.NewLine, ex.Message), Messages.GUIErrorCommon);
             }
         }
 

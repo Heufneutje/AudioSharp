@@ -563,7 +563,6 @@ namespace AudioSharp.GUI.Wpf
         private void CheckForUpdate(bool shouldPopUp)
         {
             checkForUpdatesMenuItem.IsEnabled = false;
-            FileVersionInfo fvi = UpdateUtils.GetCurrentVersion();
             BackgroundWorker updateChecker = new BackgroundWorker();
             updateChecker.DoWork += (sender, args) =>
             {
@@ -573,16 +572,11 @@ namespace AudioSharp.GUI.Wpf
             {
                 try
                 {
-                    string currentVersion = string.Join(".", new int[3] { fvi.FileMajorPart, fvi.FileMinorPart, fvi.FileBuildPart });
-                    if (args.Result == null)
-                    {
-                        if (shouldPopUp)
-                            MessageBox.Show(string.Format(Messages.GUINoUpdateAvailable, currentVersion, Environment.NewLine), Messages.GUINoUpdateAvailableTitle, MessageBoxButton.OK, MessageBoxImage.Information);
-                        return;
-                    }
-
-                    if (MessageBox.Show(string.Format(Messages.GUIUpdateAvailable, currentVersion, Environment.NewLine, args.Result), Messages.GUIUpdateAvailableTitle, MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                    UpdateCheckResult result = (UpdateCheckResult)args.Result;
+                    if (result.ResultType == UpdateResultType.UpdateAvailable && MessageBox.Show(result.Message, result.MessageTitle, MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                         Process.Start("https://github.com/Heufneutje/AudioSharp/releases");
+                    else if (shouldPopUp)
+                        MessageBox.Show(result.Message, result.MessageTitle, MessageBoxButton.OK, result.ResultType == UpdateResultType.NoUpdateAvailable ? MessageBoxImage.Information : MessageBoxImage.Error);
                 }
                 finally
                 {

@@ -57,17 +57,24 @@
     </Compile>
     <Compile Include="CloneUtils.cs" />
     <Compile Include="DriveSpaceUtils.cs" />
+    <Compile Include="Enums.cs" />
     <Compile Include="FileUtils.cs" />
     <Compile Include="FormattingUtils.cs" />
-    <Compile Include="HotkeyType.cs" />
     <Compile Include="HotkeyUtils.cs" />
     <Compile Include="JsonUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RecordingItem.cs" />
+    <Compile Include="UpdateCheckResult.cs" />
     <Compile Include="UpdateUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AudioSharp.Translations\AudioSharp.Translations.csproj">
+      <Project>{0e5bef57-5d0f-414c-8b3d-b8a3924bde71}</Project>
+      <Name>AudioSharp.Translations</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
