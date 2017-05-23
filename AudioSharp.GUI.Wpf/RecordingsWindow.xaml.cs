@@ -166,15 +166,7 @@ namespace AudioSharp.GUI.Wpf
                 string formattedDate = info.CreationTime.ToString("yyyy-MM-dd HH:mm");
                 System.Drawing.Image image = FileUtils.GetSmallIcon(filePath);
 
-                recordings.Add(new RecordingItem()
-                {
-                    FileName = Path.GetFileNameWithoutExtension(filePath),
-                    Extension = info.Extension,
-                    CreationTime = info.CreationTime,
-                    Size = DriveSpaceUtils.BytesTostring(info.Length),
-                    Image = image,
-                    FullPath = filePath
-                });
+                recordings.Add(new RecordingItem(Path.GetFileNameWithoutExtension(filePath), info.Extension, info.CreationTime, DriveSpaceUtils.BytesTostring(info.Length), image, filePath));
             }
             recordingsDataGrid.ItemsSource = recordings;
         }
