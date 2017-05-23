@@ -281,6 +281,5 @@
             <Separator Background="White"/>
             <StatusBarItem x:Name="driveSpaceBarItem" Content="Free space: ??" VerticalAlignment="Top" Foreground="White" FontWeight="Bold"/>
         </StatusBar>
-        <tb:TaskbarIcon x:Name="taskbarIcon" IconSource="{DynamicResource defaultTrayIcon}" ContextMenu="{DynamicResource contextMenu}" ToolTipText="AudioSharp" TrayLeftMouseDown="taskbarIcon_TrayLeftMouseDown"/>
     </Grid>
 </Window>

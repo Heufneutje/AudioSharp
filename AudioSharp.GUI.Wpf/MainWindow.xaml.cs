@@ -11,6 +11,7 @@ using AudioSharp.Core;
 using AudioSharp.GUI.CustomControls;
 using AudioSharp.Translations;
 using AudioSharp.Utils;
+using Hardcodet.Wpf.TaskbarNotification;
 using Microsoft.Win32;
 using NAudio.CoreAudioApi;
 
@@ -33,6 +34,9 @@ namespace AudioSharp.GUI.Wpf
         private DispatcherTimer _timerSpaceCheck;
         private DispatcherTimer _timerVAMeter;
         private DispatcherTimer _timerClock;
+
+        private TaskbarIcon _taskbarIcon;
+
         private string NextRecordingPath
         {
             get
@@ -467,19 +471,19 @@ namespace AudioSharp.GUI.Wpf
             {
                 case RecordingState.Started:
                     Icon = (ImageSource)FindResource("recordIcon");
-                    taskbarIcon.IconSource = (ImageSource)FindResource("recordTrayIcon");
+                    _taskbarIcon.IconSource = (ImageSource)FindResource("recordTrayIcon");
                     statusBar.Background = Brushes.Red;
                     recordingStatusBarItem.Content = "Status: Recording";
                     break;
                 case RecordingState.Paused:
                     Icon = (ImageSource)FindResource("pauseIcon");
-                    taskbarIcon.IconSource = (ImageSource)FindResource("pauseTrayIcon");
+                    _taskbarIcon.IconSource = (ImageSource)FindResource("pauseTrayIcon");
                     statusBar.Background = Brushes.Orange;
                     recordingStatusBarItem.Content = "Status: Paused";
                     break;
                 case RecordingState.Stopped:
                     Icon = (ImageSource)FindResource("defaultIcon");
-                    taskbarIcon.IconSource = (ImageSource)FindResource("defaultTrayIcon");
+                    _taskbarIcon.IconSource = (ImageSource)FindResource("defaultTrayIcon");
                     statusBar.Background = Brushes.DodgerBlue;
                     recordingStatusBarItem.Content = "Status: Ready";
                     break;
@@ -512,7 +516,23 @@ namespace AudioSharp.GUI.Wpf
                 outputFileTextBox.Text = string.Empty;
             else
                 outputFileTextBox.Text = NextRecordingPath;
-            taskbarIcon.Visibility = _config.ShowTrayIcon ? Visibility.Visible : Visibility.Hidden;
+
+            if (_config.ShowTrayIcon && _taskbarIcon == null)
+            {
+                _taskbarIcon = new TaskbarIcon()
+                {
+                    IconSource = (ImageSource)FindResource("defaultTrayIcon"),
+                    ToolTipText = "AudioSharp",
+                    ContextMenu = (ContextMenu)FindResource("contextMenu"),
+                    Visibility = Visibility.Visible
+                };
+            }
+            else if (!_config.ShowTrayIcon && _taskbarIcon != null)
+            {
+                _taskbarIcon.Dispose();
+                _taskbarIcon = null;
+            }
+            
             Topmost = _config.AlwaysOnTop;
 
             Tuple<double, double> windowSize = _config.GetWindowSize(Name);
