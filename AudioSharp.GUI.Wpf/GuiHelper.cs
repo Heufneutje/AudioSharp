@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
+using System.Windows.Interop;
 
 namespace AudioSharp.GUI.Wpf
 {
@@ -47,6 +48,11 @@ namespace AudioSharp.GUI.Wpf
                 dp = ToggleButton.IsCheckedProperty;
 
             UpdateBindingTarget(toggleButton, dp);
+        }
+
+        public static IntPtr GetWindowHandle(Window window)
+        {
+            return new WindowInteropHelper(window).Handle;
         }
     }
 }

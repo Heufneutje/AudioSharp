@@ -2,10 +2,8 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
-using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Threading;
 using AudioSharp.Config;
@@ -142,8 +140,7 @@ namespace AudioSharp.GUI.Wpf
             if (_isSizeChanged || _initialRecordingSettingsVisibilityState != _config.RecordingSettingsPanelVisible || _initialRecordingOutputVisibilityState != _config.RecordingOutputPanelVisible)
                 ConfigHandler.SaveConfig(_config);
 
-            IntPtr windowHandle = new WindowInteropHelper(this).Handle;
-            HotkeyUtils.UnregisterAllHotkeys(windowHandle);
+            HotkeyUtils.UnregisterAllHotkeys(GuiHelper.GetWindowHandle(this));
             HotkeyUtils.GlobalHoykeyPressed -= HotkeyUtils_GlobalHoykeyPressed;
         }
 
@@ -288,7 +285,7 @@ namespace AudioSharp.GUI.Wpf
             string oldOutputFormat = _config.OutputFormat;
             Topmost = false;
 
-            IntPtr windowHandle = new WindowInteropHelper(this).Handle;
+            IntPtr windowHandle = GuiHelper.GetWindowHandle(this);
             HotkeyUtils.UnregisterAllHotkeys(windowHandle);
             if (settingsWindow.ShowDialog() == true)
             {
@@ -528,8 +525,7 @@ namespace AudioSharp.GUI.Wpf
 
         private void RegisterHotkeys()
         {
-            IntPtr windowHandle = new WindowInteropHelper(this).Handle;
-            if (!HotkeyUtils.RegisterAllHotkeys(windowHandle, _config.GlobalHotkeys))
+            if (!HotkeyUtils.RegisterAllHotkeys(GuiHelper.GetWindowHandle(this), _config.GlobalHotkeys))
                 MessageBox.Show(Messages.GUIErrorHotkeys, Messages.GUIErrorCommon, MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
@@ -566,24 +562,32 @@ namespace AudioSharp.GUI.Wpf
 
         private void CheckForUpdate(bool shouldPopUp)
         {
-            FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location);
+            checkForUpdatesMenuItem.IsEnabled = false;
+            FileVersionInfo fvi = UpdateUtils.GetCurrentVersion();
             BackgroundWorker updateChecker = new BackgroundWorker();
             updateChecker.DoWork += (sender, args) =>
             {
-                args.Result = UpdateUtils.CheckForUpdate(fvi.FileMajorPart, fvi.FileMinorPart, fvi.FileBuildPart);
+                args.Result = UpdateUtils.CheckForUpdate();
             };
             updateChecker.RunWorkerCompleted += (sender, args) =>
             {
-                string currentVersion = string.Join(".", new int[3] { fvi.FileMajorPart, fvi.FileMinorPart, fvi.FileBuildPart });
-                if (args.Result == null)
+                try
                 {
-                    if (shouldPopUp)
-                        MessageBox.Show(string.Format(Messages.GUINoUpdateAvailable, currentVersion, Environment.NewLine), Messages.GUINoUpdateAvailableTitle, MessageBoxButton.OK, MessageBoxImage.Information);
-                    return;
-                }
+                    string currentVersion = string.Join(".", new int[3] { fvi.FileMajorPart, fvi.FileMinorPart, fvi.FileBuildPart });
+                    if (args.Result == null)
+                    {
+                        if (shouldPopUp)
+                            MessageBox.Show(string.Format(Messages.GUINoUpdateAvailable, currentVersion, Environment.NewLine), Messages.GUINoUpdateAvailableTitle, MessageBoxButton.OK, MessageBoxImage.Information);
+                        return;
+                    }
 
-                if (MessageBox.Show(string.Format(Messages.GUIUpdateAvailable, currentVersion, Environment.NewLine, args.Result), Messages.GUIUpdateAvailableTitle, MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
-                    Process.Start("https://github.com/Heufneutje/AudioSharp/releases");
+                    if (MessageBox.Show(string.Format(Messages.GUIUpdateAvailable, currentVersion, Environment.NewLine, args.Result), Messages.GUIUpdateAvailableTitle, MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                        Process.Start("https://github.com/Heufneutje/AudioSharp/releases");
+                }
+                finally
+                {
+                    checkForUpdatesMenuItem.IsEnabled = true;
+                }
             };
             updateChecker.RunWorkerAsync();
         }

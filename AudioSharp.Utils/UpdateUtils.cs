@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
+using System.Reflection;
 using Newtonsoft.Json.Linq;
 
 namespace AudioSharp.Utils
@@ -9,7 +11,7 @@ namespace AudioSharp.Utils
     {
         private const string _GITHUB_BASE_URL = "https://api.github.com";
 
-        public static string CheckForUpdate(int curMajor, int curMinor, int curPatch)
+        public static string CheckForUpdate()
         {
             try
             {
@@ -25,13 +27,19 @@ namespace AudioSharp.Utils
                     return null;
 
                 string latestVersion = tags.First["name"].ToString().Substring(1);
-                return VersionsEqual(curMajor, curMinor, curPatch, latestVersion) ? null : latestVersion;
+                FileVersionInfo fvi = GetCurrentVersion();
+                return VersionsEqual(fvi.FileMajorPart, fvi.FileMinorPart, fvi.FileBuildPart, latestVersion) ? null : latestVersion;
             }
             catch (Exception)
             {
                 // TODO: Error logging.
                 return null;
             }
+        }
+
+        public static FileVersionInfo GetCurrentVersion()
+        {
+            return FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location);
         }
 
         private static bool VersionsEqual(int curMajor, int curMinor, int curPatch, string latest)
