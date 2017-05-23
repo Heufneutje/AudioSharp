@@ -47,7 +47,7 @@ namespace AudioSharp.Utils
 
         public static FileVersionInfo GetCurrentVersion()
         {
-            return FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location);
+            return FileVersionInfo.GetVersionInfo(Assembly.GetEntryAssembly().Location);
         }
 
         private static bool VersionsEqual(int curMajor, int curMinor, int curPatch, string latest)
