@@ -12,6 +12,10 @@ namespace AudioSharp.Utils
         public Image Image { get; private set; }
         public string FullPath { get; private set; }
 
+        public RecordingItem()
+        {
+        }
+
         public RecordingItem(string fileName, string extension, DateTime creationTime, string size, Image image, string fullPath)
         {
             FileName = fileName;
