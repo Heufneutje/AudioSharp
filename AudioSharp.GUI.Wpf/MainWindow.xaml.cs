@@ -23,6 +23,7 @@ namespace AudioSharp.GUI.Wpf
     public partial class MainWindow : Window
     {
         #region Fields & Properties
+
         private bool _isSizeChanged;
         private bool _isLoading;
         private bool _initialRecordingSettingsVisibilityState;
@@ -65,6 +66,7 @@ namespace AudioSharp.GUI.Wpf
                 }
             }
         }
+
         private bool _IsRecording
         {
             get
@@ -72,9 +74,11 @@ namespace AudioSharp.GUI.Wpf
                 return !recordButton.IsEnabled;
             }
         }
-        #endregion
+
+        #endregion Fields & Properties
 
         #region Constructors
+
         public MainWindow()
         {
             _isLoading = true;
@@ -104,9 +108,11 @@ namespace AudioSharp.GUI.Wpf
             RegisterHotkeys();
             HotkeyUtils.GlobalHoykeyPressed += HotkeyUtils_GlobalHoykeyPressed;
         }
-        #endregion
+
+        #endregion Constructors
 
         #region Window Events
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             ApplySettings();
@@ -140,7 +146,7 @@ namespace AudioSharp.GUI.Wpf
 
             if (_isSizeChanged)
                 _config.SetWindowSize(Name, Width, Height);
-                
+
             if (_isSizeChanged || _initialRecordingSettingsVisibilityState != _config.RecordingSettingsPanelVisible || _initialRecordingOutputVisibilityState != _config.RecordingOutputPanelVisible)
                 ConfigHandler.SaveConfig(_config);
 
@@ -159,9 +165,11 @@ namespace AudioSharp.GUI.Wpf
             if (!_isLoading)
                 _isSizeChanged = true;
         }
-        #endregion
+
+        #endregion Window Events
 
         #region Control Events
+
         private void recordButton_Click(object sender, RoutedEventArgs e)
         {
             StartRecording();
@@ -255,9 +263,11 @@ namespace AudioSharp.GUI.Wpf
                     break;
             }
         }
-        #endregion
+
+        #endregion Control Events
 
         #region Menu Events
+
         private void exitMenuItem_Click(object sender, RoutedEventArgs e)
         {
             Close();
@@ -323,9 +333,11 @@ namespace AudioSharp.GUI.Wpf
             aboutWindow.ShowDialog();
             Topmost = _config.AlwaysOnTop;
         }
-        #endregion
+
+        #endregion Menu Events
 
         #region Context Menu Events
+
         private void taskbarIcon_TrayLeftMouseDown(object sender, RoutedEventArgs e)
         {
             Show();
@@ -333,9 +345,11 @@ namespace AudioSharp.GUI.Wpf
                 WindowState = WindowState.Normal;
             Activate();
         }
-        #endregion
+
+        #endregion Context Menu Events
 
         #region Helper Functions
+
         private void StartRecording()
         {
             if (_IsRecording)
@@ -471,19 +485,22 @@ namespace AudioSharp.GUI.Wpf
             {
                 case RecordingState.Started:
                     Icon = (ImageSource)FindResource("recordIcon");
-                    _taskbarIcon.IconSource = (ImageSource)FindResource("recordTrayIcon");
+                    if (_taskbarIcon != null)
+                        _taskbarIcon.IconSource = (ImageSource)FindResource("recordTrayIcon");
                     statusBar.Background = Brushes.Red;
                     recordingStatusBarItem.Content = "Status: Recording";
                     break;
                 case RecordingState.Paused:
                     Icon = (ImageSource)FindResource("pauseIcon");
-                    _taskbarIcon.IconSource = (ImageSource)FindResource("pauseTrayIcon");
+                    if (_taskbarIcon != null)
+                        _taskbarIcon.IconSource = (ImageSource)FindResource("pauseTrayIcon");
                     statusBar.Background = Brushes.Orange;
                     recordingStatusBarItem.Content = "Status: Paused";
                     break;
                 case RecordingState.Stopped:
                     Icon = (ImageSource)FindResource("defaultIcon");
-                    _taskbarIcon.IconSource = (ImageSource)FindResource("defaultTrayIcon");
+                    if (_taskbarIcon != null)
+                        _taskbarIcon.IconSource = (ImageSource)FindResource("defaultTrayIcon");
                     statusBar.Background = Brushes.DodgerBlue;
                     recordingStatusBarItem.Content = "Status: Ready";
                     break;
@@ -532,7 +549,7 @@ namespace AudioSharp.GUI.Wpf
                 _taskbarIcon.Dispose();
                 _taskbarIcon = null;
             }
-            
+
             Topmost = _config.AlwaysOnTop;
 
             Tuple<double, double> windowSize = _config.GetWindowSize(Name);
@@ -605,6 +622,7 @@ namespace AudioSharp.GUI.Wpf
             };
             updateChecker.RunWorkerAsync();
         }
-        #endregion
+
+        #endregion Helper Functions
     }
 }
