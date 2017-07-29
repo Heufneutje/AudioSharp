@@ -610,8 +610,11 @@ namespace AudioSharp.GUI.Wpf
                 try
                 {
                     UpdateCheckResult result = (UpdateCheckResult)args.Result;
-                    if (result.ResultType == UpdateResultType.UpdateAvailable && MessageBox.Show(result.Message, result.MessageTitle, MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
-                        Process.Start("https://github.com/Heufneutje/AudioSharp/releases");
+                    if (result.ResultType == UpdateResultType.UpdateAvailable)
+                    {
+                        if (MessageBox.Show(result.Message, result.MessageTitle, MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                            Process.Start("https://github.com/Heufneutje/AudioSharp/releases");
+                    }
                     else if (shouldPopUp)
                         MessageBox.Show(result.Message, result.MessageTitle, MessageBoxButton.OK, result.ResultType == UpdateResultType.NoUpdateAvailable ? MessageBoxImage.Information : MessageBoxImage.Error);
                 }
