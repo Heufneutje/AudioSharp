@@ -418,6 +418,9 @@ namespace AudioSharp.GUI.Wpf
             if (!_IsRecording)
                 return;
 
+            if (_audioRecorder.IsPaused)
+                PauseRecording();
+
             UpdateGUIState(RecordingState.Stopped);
             _audioRecorder.StopRecording();
             _timerClock.Stop();

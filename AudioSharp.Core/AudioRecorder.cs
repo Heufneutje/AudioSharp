@@ -7,11 +7,13 @@ namespace AudioSharp.Core
     public abstract class AudioRecorder : IDisposable
     {
         #region Fields & Properties
+
         private MMDevice _selectedDevice;
         protected WasapiCapture _captureStream;
-        
+
         public bool IsPaused { get; private set; }
         public MMDeviceCollection Devices { get; private set; }
+
         public MMDevice SelectedDevice
         {
             get
@@ -30,6 +32,7 @@ namespace AudioSharp.Core
                 _captureStream.StartRecording();
             }
         }
+
         public MMDevice DefaultDevice
         {
             get
@@ -38,6 +41,7 @@ namespace AudioSharp.Core
                 return Devices.Where(x => x.ID == defaultDev.ID).FirstOrDefault();
             }
         }
+
         public int DefaultDeviceNumber
         {
             get
@@ -51,17 +55,21 @@ namespace AudioSharp.Core
                 return -1;
             }
         }
-        #endregion
+
+        #endregion Fields & Properties
 
         #region Constructors
+
         public AudioRecorder()
         {
             MMDeviceEnumerator enumerator = new MMDeviceEnumerator();
             Devices = enumerator.EnumerateAudioEndPoints(DataFlow.Capture, DeviceState.Active);
         }
-        #endregion
+
+        #endregion Constructors
 
         #region Virtual Functions
+
         public abstract void StartRecording(string fileName);
 
         public virtual void PauseRecording()
@@ -74,7 +82,10 @@ namespace AudioSharp.Core
             IsPaused = !IsPaused;
         }
 
-        public abstract void StopRecording();
+        public virtual void StopRecording()
+        {
+            IsPaused = false;
+        }
 
         public virtual void Dispose()
         {
@@ -85,6 +96,7 @@ namespace AudioSharp.Core
                 _captureStream = null;
             }
         }
-        #endregion
+
+        #endregion Virtual Functions
     }
 }
