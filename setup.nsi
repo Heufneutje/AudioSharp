@@ -209,6 +209,7 @@ Delete "$SMPROGRAMS\AudioSharp\Uninstall ${APP_NAME}.lnk"
 Delete "$SMPROGRAMS\AudioSharp\${APP_NAME} Website.lnk"
 !endif
 Delete "$DESKTOP\${APP_NAME}.lnk"
+Delete "$SMSTARTUP\${APP_NAME}.lnk"
 
 RmDir "$SMPROGRAMS\AudioSharp"
 !endif
