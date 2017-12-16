@@ -168,35 +168,35 @@
                 </MenuItem>
             </MenuItem>
             <MenuItem Header="Help">
-                <MenuItem x:Name="issueTrackerMenuItem" Header="Issue tracker" Click="issueTrackerMenuItem_Click">
+                <MenuItem x:Name="issueTrackerMenuItem" Header="Issue Tracker" Click="issueTrackerMenuItem_Click">
                     <MenuItem.Icon>
                         <customcontrols:AutoGreyableImage Source="Resources/bug.png"/>
                     </MenuItem.Icon>
                     <MenuItem.ToolTip>
                         <StackPanel>
-                            <TextBlock FontWeight="Bold" Text="Issue tracker"/>
+                            <TextBlock FontWeight="Bold" Text="Issue Tracker"/>
                             <TextBlock Text="Open AudioSharp's issue tracker on GitHub." Padding="5,5,5,0"/>
                         </StackPanel>
                     </MenuItem.ToolTip>
                 </MenuItem>
-                <MenuItem x:Name="sourceCodeMenuItem" Header="Source code" Click="sourceCodeMenuItem_Click">
+                <MenuItem x:Name="sourceCodeMenuItem" Header="Source Code" Click="sourceCodeMenuItem_Click">
                     <MenuItem.Icon>
                         <customcontrols:AutoGreyableImage Source="Resources/page_code.png"/>
                     </MenuItem.Icon>
                     <MenuItem.ToolTip>
                         <StackPanel>
-                            <TextBlock FontWeight="Bold" Text="Source code"/>
+                            <TextBlock FontWeight="Bold" Text="Source Code"/>
                             <TextBlock Text="Open AudioSharp's source code repository on GitHub." Padding="5,5,5,0"/>
                         </StackPanel>
                     </MenuItem.ToolTip>
                 </MenuItem>
-                <MenuItem x:Name="checkForUpdatesMenuItem" Header="Check for updates" Click="checkForUpdatesMenuItem_Click">
+                <MenuItem x:Name="checkForUpdatesMenuItem" Header="Check for Updates" Click="checkForUpdatesMenuItem_Click">
                     <MenuItem.Icon>
                         <customcontrols:AutoGreyableImage Source="Resources/Web-Download.png"/>
                     </MenuItem.Icon>
                     <MenuItem.ToolTip>
                         <StackPanel>
-                            <TextBlock FontWeight="Bold" Text="Check for updates"/>
+                            <TextBlock FontWeight="Bold" Text="Check for Updates"/>
                             <TextBlock Text="Check whether a newer version of AudioSharp is available for download." Padding="5,5,5,0"/>
                         </StackPanel>
                     </MenuItem.ToolTip>
