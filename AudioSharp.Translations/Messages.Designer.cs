@@ -19,7 +19,7 @@ namespace AudioSharp.Translations {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Messages {
@@ -106,6 +106,15 @@ namespace AudioSharp.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An error occurred while creating the startup shortcut:{0}{1}.
+        /// </summary>
+        public static string GUIErrorAddingStartupShortcut {
+            get {
+                return ResourceManager.GetString("GUIErrorAddingStartupShortcut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
         public static string GUIErrorCommon {
@@ -183,6 +192,15 @@ namespace AudioSharp.Translations {
         public static string GUIErrorRecordingsFolder {
             get {
                 return ResourceManager.GetString("GUIErrorRecordingsFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred while removing the startup shortcut:{0}{1}.
+        /// </summary>
+        public static string GUIErrorRemovingStartupShortcut {
+            get {
+                return ResourceManager.GetString("GUIErrorRemovingStartupShortcut", resourceCulture);
             }
         }
         

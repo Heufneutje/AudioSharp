@@ -561,6 +561,33 @@ namespace AudioSharp.GUI.Wpf
 
             viewRecordingSettingPanelMenuItem.IsChecked = _config.RecordingSettingsPanelVisible;
             viewRecordingOutputPanelMenuItem.IsChecked = _config.RecordingOutputPanelVisible;
+
+            if (_config.RunAtStartup)
+            {
+                try
+                {
+                    ShortcutUtils.AddStartupShortcut();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(string.Format(Messages.GUIErrorAddingStartupShortcut, Environment.NewLine, ex.Message), Messages.GUIErrorCommon, MessageBoxButton.OK, MessageBoxImage.Error);
+                    _config.RunAtStartup = false;
+                    ConfigHandler.SaveConfig(_config);
+                }
+            }
+            else
+            {
+                try
+                {
+                    ShortcutUtils.RemoveStartupShortcut();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(string.Format(Messages.GUIErrorRemovingStartupShortcut, Environment.NewLine, ex.Message), Messages.GUIErrorCommon, MessageBoxButton.OK, MessageBoxImage.Error);
+                    _config.RunAtStartup = true;
+                    ConfigHandler.SaveConfig(_config);
+                }
+            }
         }
 
         private void RegisterHotkeys()

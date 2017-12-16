@@ -9,7 +9,9 @@ namespace AudioSharp.Config
     public class Configuration
     {
         // Recording
+
         public bool PromptForFileName { get; set; }
+
         public string RecordingsFolder { get; set; }
         public string RecordingPrefix { get; set; }
         public int NextRecordingNumber { get; set; }
@@ -17,21 +19,26 @@ namespace AudioSharp.Config
         public string OutputFormat { get; set; }
 
         // General Settings
+
         public bool ShowTrayIcon { get; set; }
         public bool MinimizeToTray { get; set; }
         public bool CloseToTray { get; set; }
         public bool AlwaysOnTop { get; set; }
         public bool StartMinimized { get; set; }
         public bool CheckForUpdates { get; set; }
+        public bool RunAtStartup { get; set; }
 
         // Hotkeys
+
         public Dictionary<HotkeyType, Tuple<Key, ModifierKeys>> GlobalHotkeys { get; set; }
 
         // View
+
         public bool RecordingSettingsPanelVisible { get; set; }
         public bool RecordingOutputPanelVisible { get; set; }
 
         // Window
+
         public Dictionary<string, Tuple<double, double>> WindowSizes { get; set; }
 
         public Configuration()
