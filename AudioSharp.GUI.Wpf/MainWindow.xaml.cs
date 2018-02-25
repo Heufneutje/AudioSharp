@@ -185,6 +185,21 @@ namespace AudioSharp.GUI.Wpf
             StopRecording();
         }
 
+        private void recordThumbButtonInfo_Click(object sender, EventArgs e)
+        {
+            StartRecording();
+        }
+
+        private void pauseThumbButtonInfo_Click(object sender, EventArgs e)
+        {
+            PauseRecording();
+        }
+
+        private void stopThumbButtonInfo_Click(object sender, EventArgs e)
+        {
+            StopRecording();
+        }
+
         private void muteToggleButton_CheckedChanged(object sender, RoutedEventArgs e)
         {
             bool isChecked = muteToggleButton.IsChecked ?? false;
@@ -469,14 +484,20 @@ namespace AudioSharp.GUI.Wpf
             ContextMenu menu = (ContextMenu)FindResource("contextMenu");
 
             recordButton.IsEnabled = status == RecordingState.Stopped;
+            recordThumbButtonInfo.IsEnabled = status == RecordingState.Stopped;
+            recordThumbButtonInfo.ImageSource = status == RecordingState.Stopped ? (ImageSource)FindResource("recordThumb") : (ImageSource)FindResource("recordThumbTransparent");
             ((MenuItem)menu.Items[0]).IsEnabled = status == RecordingState.Stopped;
             recordingsMenuItem.IsEnabled = status == RecordingState.Stopped;
             stopButton.IsEnabled = status != RecordingState.Stopped;
+            stopThumbButtonInfo.IsEnabled = status != RecordingState.Stopped;
+            stopThumbButtonInfo.ImageSource = status != RecordingState.Stopped ? (ImageSource)FindResource("stopThumb") : (ImageSource)FindResource("stopThumbTransparent");
             ((MenuItem)menu.Items[1]).IsEnabled = status != RecordingState.Stopped;
             stopMenuItem.IsEnabled = status != RecordingState.Stopped;
             devicesComboBox.IsEnabled = status == RecordingState.Stopped;
             settingsMenuItem.IsEnabled = status == RecordingState.Stopped;
             pauseButton.IsEnabled = status != RecordingState.Stopped;
+            pauseThumbButtonInfo.IsEnabled = status != RecordingState.Stopped;
+            pauseThumbButtonInfo.ImageSource = status != RecordingState.Stopped ? (ImageSource)FindResource("pauseThumb") : (ImageSource)FindResource("pauseThumbTransparent");
             ((MenuItem)menu.Items[2]).IsEnabled = status != RecordingState.Stopped;
             pauseMenuItem.IsEnabled = status != RecordingState.Stopped;
 

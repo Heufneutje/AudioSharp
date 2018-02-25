@@ -184,4 +184,22 @@
   <data name="Web_Download" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Web-Download.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="pause_thumb" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pause_thumb.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pause_thumb_transparent" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pause_thumb_transparent.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="record_thumb" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\record_thumb.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="record_thumb_transparent" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\record_thumb_transparent.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="stop_thumb" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\stop_thumb.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="stop_thumb_transparent" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\stop_thumb_transparent.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

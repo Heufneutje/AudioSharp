@@ -226,6 +226,12 @@
       <Link>LICENSE.txt</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Resources\stop_thumb_transparent.png" />
+    <Resource Include="Resources\pause_thumb_transparent.png" />
+    <Resource Include="Resources\record_thumb_transparent.png" />
+    <Resource Include="Resources\stop_thumb.png" />
+    <Resource Include="Resources\pause_thumb.png" />
+    <Resource Include="Resources\record_thumb.png" />
     <Resource Include="Resources\Web-Download.png" />
     <Resource Include="Resources\page_code.png" />
     <Resource Include="Resources\bug.png" />
