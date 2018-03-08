@@ -89,7 +89,10 @@ namespace AudioSharp.GUI.Wpf
             {
                 WindowState = WindowState.Minimized;
                 if (_config.MinimizeToTray)
+                {
                     Hide();
+                    InitTrayIcon();
+                }
             }
 
             if (!Directory.Exists(_config.RecordingsFolder))
@@ -558,22 +561,7 @@ namespace AudioSharp.GUI.Wpf
             else
                 outputFileTextBox.Text = NextRecordingPath;
 
-            if (_config.ShowTrayIcon && _taskbarIcon == null)
-            {
-                _taskbarIcon = new TaskbarIcon()
-                {
-                    IconSource = (ImageSource)FindResource("defaultTrayIcon"),
-                    ToolTipText = "AudioSharp",
-                    ContextMenu = (ContextMenu)FindResource("contextMenu"),
-                    Visibility = Visibility.Visible
-                };
-            }
-            else if (!_config.ShowTrayIcon && _taskbarIcon != null)
-            {
-                _taskbarIcon.Dispose();
-                _taskbarIcon = null;
-            }
-
+            InitTrayIcon();
             Topmost = _config.AlwaysOnTop;
 
             Tuple<double, double> windowSize = _config.GetWindowSize(Name);
@@ -608,6 +596,26 @@ namespace AudioSharp.GUI.Wpf
                     _config.RunAtStartup = true;
                     ConfigHandler.SaveConfig(_config);
                 }
+            }
+        }
+
+        private void InitTrayIcon()
+        {
+            if (_config.ShowTrayIcon && _taskbarIcon == null)
+            {
+                _taskbarIcon = new TaskbarIcon()
+                {
+                    IconSource = (ImageSource)FindResource("defaultTrayIcon"),
+                    ToolTipText = "AudioSharp",
+                    ContextMenu = (ContextMenu)FindResource("contextMenu"),
+                    Visibility = Visibility.Visible
+                };
+                _taskbarIcon.TrayLeftMouseDown += taskbarIcon_TrayLeftMouseDown;
+            }
+            else if (!_config.ShowTrayIcon && _taskbarIcon != null)
+            {
+                _taskbarIcon.Dispose();
+                _taskbarIcon = null;
             }
         }
 
