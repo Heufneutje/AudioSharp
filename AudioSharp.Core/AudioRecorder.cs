@@ -46,7 +46,10 @@ namespace AudioSharp.Core
         {
             get
             {
-                MMDevice defaultDev = new MMDeviceEnumerator().GetDefaultAudioEndpoint(DataFlow.Capture, Role.Console);
+                MMDevice defaultDev = null;
+                if (Devices.Any())
+                    defaultDev = new MMDeviceEnumerator().GetDefaultAudioEndpoint(DataFlow.Capture, Role.Console);
+
                 for (int i = 0; i < Devices.Count; i++)
                 {
                     if (Devices[i].ID == defaultDev.ID)
