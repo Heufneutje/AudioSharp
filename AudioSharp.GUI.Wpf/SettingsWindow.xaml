@@ -7,7 +7,7 @@
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:Config="clr-namespace:AudioSharp.Config;assembly=AudioSharp.Config" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="AudioSharp.GUI.Wpf.SettingsWindow"
         mc:Ignorable="d"
-        Title="Settings" Height="373" Width="700" MinWidth="3" ResizeMode="CanMinimize" Icon="{DynamicResource defaultIcon}">
+        Title="Settings" Height="367" Width="700" MinWidth="3" ResizeMode="CanMinimize" Icon="{DynamicResource defaultIcon}">
     <Window.DataContext>
         <Config:Configuration />
     </Window.DataContext>
@@ -21,7 +21,7 @@
         </StackPanel>
     </Window.Resources>
     <Grid>
-        <TabControl x:Name="tabControl" Height="295" VerticalAlignment="Top">
+        <TabControl x:Name="tabControl" Height="290" VerticalAlignment="Top" Margin="0">
             <TabItem Header="General Settings">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -44,29 +44,33 @@
                     <GroupBox Header="Update Checker" Margin="10,156,10,0" VerticalAlignment="Top" Height="44" Grid.RowSpan="2">
                         <CheckBox Content="Automatically check for updates on startup" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="3,5,0,0" IsChecked="{Binding CheckForUpdates}" />
                     </GroupBox>
-                    <GroupBox Header="Automatic Startup" Margin="10,11,10,0" VerticalAlignment="Top" Height="44" Grid.Row="1">
+                    <GroupBox Header="Automatic Startup" Margin="10,205,10,0" VerticalAlignment="Top" Height="44" Grid.RowSpan="2">
                         <CheckBox Content="Run AudioSharp on Windows startup" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="3,5,0,0" IsChecked="{Binding RunAtStartup}" />
                     </GroupBox>
                 </Grid>
             </TabItem>
             <TabItem Header="Recording">
-                <Grid Margin="0,0,0,-25">
-                    <GroupBox Header="Format" VerticalAlignment="Top" Height="48" Margin="10,0">
+                <Grid Margin="0,0,0,-18">
+                    <GroupBox Header="Format" VerticalAlignment="Top" Height="47" Margin="10,0">
                         <Grid>
-                            <ComboBox HorizontalAlignment="Left" Margin="159,2,0,0" VerticalAlignment="Top" Width="66" SelectedValue="{Binding OutputFormat, NotifyOnSourceUpdated=True}" SourceUpdated="control_SourceUpdated">
+                            <ComboBox HorizontalAlignment="Left" Margin="159,2,0,0" VerticalAlignment="Top" Width="75" SelectedValue="{Binding OutputFormat, NotifyOnSourceUpdated=True}" SourceUpdated="control_SourceUpdated">
                                 <sys:String>wav</sys:String>
                                 <sys:String>mp3</sys:String>
                             </ComboBox>
                             <Label Content="Output format:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-2,0,0,0" />
                         </Grid>
                     </GroupBox>
-                    <GroupBox Header="Default File Destination" Margin="10,53,10,0" VerticalAlignment="Top" Height="49">
+                    <GroupBox Header="Default File Destination" Margin="10,52,10,0" VerticalAlignment="Top" Height="49">
                         <Grid>
-                            <customcontrols:ButtonTextBox x:Name="recordingFolderTextBox" Height="23" Margin="159,1,10,0" TextWrapping="Wrap" Text="{Binding RecordingsFolder}" VerticalAlignment="Top" ButtonImage="{DynamicResource openFolderImage}" ButtonClick="recordingFolderTextBox_ButtonClick" ButtonToolTip="Browse..." />
-                            <Label Content="Recordings folder:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-2,0,0,0" />
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="7*"/>
+                            </Grid.ColumnDefinitions>
+                            <customcontrols:ButtonTextBox x:Name="recordingFolderTextBox" Height="23" Margin="77,1,10,0" TextWrapping="Wrap" Text="{Binding RecordingsFolder}" VerticalAlignment="Top" ButtonImage="{DynamicResource openFolderImage}" ButtonClick="recordingFolderTextBox_ButtonClick" ButtonToolTip="Browse..." Grid.Column="1" />
+                            <Label Content="Recordings folder:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-2,0,0,0" Grid.ColumnSpan="2" />
                         </Grid>
                     </GroupBox>
-                    <GroupBox Header="File Name" Margin="10,107,10,36">
+                    <GroupBox Header="File Name" Margin="10,106,10,0" Height="148" VerticalAlignment="Top">
                         <Grid>
                             <RadioButton x:Name="promptFileNameRadioButton" Content="Ask for a file name every time" HorizontalAlignment="Left" Margin="4,5,0,0" VerticalAlignment="Top" />
                             <RadioButton x:Name="generateFileNameRadioButton" Content="Automatically generate a file name" HorizontalAlignment="Left" Margin="4,25,0,0" VerticalAlignment="Top" Checked="generateFileNameRadioButton_CheckedChanged" Unchecked="generateFileNameRadioButton_CheckedChanged" />
@@ -138,7 +142,7 @@
                     </GroupBox>
                 </Grid>
             </TabItem>
-            <TabItem Header="Hotkeys" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="54">
+            <TabItem Header="Hotkeys">
                 <GroupBox Header="Global Hotkeys" Margin="10,0" VerticalAlignment="Top" Height="132">
                     <Grid>
                         <customcontrols:ButtonTextBox x:Name="hotkeyRecordTextBox" Height="23" Margin="159,0,10,0" TextWrapping="Wrap" VerticalAlignment="Top" IsReadOnly="True" KeyDown="hotkeyTextBox_KeyDown" ButtonImage="{DynamicResource deleteImage}" ButtonToolTip="Remove" ButtonClick="hotkeyTextBox_ButtonClick" Tag="0" IsReadOnlyCaretVisible="True" ToolTip="{StaticResource hotkeyTooltip}" />
@@ -151,6 +155,24 @@
                         <Label Content="Mute/unmute microphone:" HorizontalAlignment="Left" Margin="0,84,0,0" VerticalAlignment="Top" />
                     </Grid>
                 </GroupBox>
+            </TabItem>
+            <TabItem Header="Advanced">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="194*" />
+                        <RowDefinition Height="73*" />
+                    </Grid.RowDefinitions>
+                    <GroupBox Header="MP3 Bit Rate Settings" Margin="10, 0" Height="113" VerticalAlignment="Top">
+                        <Grid>
+                            <Label Content="Quality type:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-2,0,0,0" />
+                            <Label Content="Quality:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-2,65,0,0" />
+                            <RadioButton x:Name="presetBitrateRadioButton" Content="Preset" HorizontalAlignment="Left" Margin="159,5,0,0" VerticalAlignment="Top" Checked="PresetBitrateRadioButton_Checked" />
+                            <RadioButton x:Name="averageBitRateRadioButton" Content="Average" HorizontalAlignment="Left" Margin="159,25,0,0" VerticalAlignment="Top" Checked="AverageBitRateRadioButton_Checked"/>
+                            <RadioButton x:Name="variableBitRateRadioButton" Content="Variable" HorizontalAlignment="Left" Margin="159,45,0,0" VerticalAlignment="Top" Checked="VariableBitRateRadioButton_Checked"/>
+                            <ComboBox HorizontalAlignment="Left" Margin="159,65,0,0" VerticalAlignment="Top" Width="200" Height="21" ItemsSource="{Binding MP3EncodingPresets}" DisplayMemberPath="Description" SelectedValuePath="LamePreset" SelectedValue="{Binding MP3EncodingPreset}"/>
+                        </Grid>
+                    </GroupBox>
+                </Grid>
             </TabItem>
         </TabControl>
         <Button x:Name="okButton" Content="OK" Margin="529,0,90,10" VerticalAlignment="Bottom" Click="okButton_Click" />

@@ -1,6 +1,8 @@
 using System;
 using System.Linq;
+using AudioSharp.Utils;
 using NAudio.CoreAudioApi;
+using NAudio.Wave;
 
 namespace AudioSharp.Core
 {

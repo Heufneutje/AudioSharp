@@ -314,7 +314,6 @@ namespace AudioSharp.GUI.Wpf
         private void settingsMenuItem_Click(object sender, RoutedEventArgs e)
         {
             SettingsWindow settingsWindow = new SettingsWindow(_config);
-            string oldOutputFormat = _config.OutputFormat;
             Topmost = false;
 
             IntPtr windowHandle = GuiHelper.GetWindowHandle(this);
@@ -323,7 +322,9 @@ namespace AudioSharp.GUI.Wpf
             {
                 _config = settingsWindow.Config;
                 ApplySettings();
-                if (oldOutputFormat != _config.OutputFormat)
+                
+                if (_config.HasPropertyChanged(nameof(_config.OutputFormat)) 
+                    || _config.HasPropertyChanged(nameof(_config.MP3EncodingPreset)))
                     InitAudioDevices();
             }
             HotkeyUtils.RegisterAllHotkeys(windowHandle, _config.GlobalHotkeys);
@@ -459,7 +460,7 @@ namespace AudioSharp.GUI.Wpf
                     _audioRecorder = new WaveRecorder();
                     break;
                 case "mp3":
-                    _audioRecorder = new MP3Recorder();
+                    _audioRecorder = new MP3Recorder(_config.MP3EncodingPreset);
                     break;
             }
 

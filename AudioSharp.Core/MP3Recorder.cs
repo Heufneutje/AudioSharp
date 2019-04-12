@@ -8,14 +8,22 @@ namespace AudioSharp.Core
         #region Properties & Fields
 
         private LameMP3FileWriter _outWriter;
+        private int _bitRate;
 
         #endregion Properties & Fields
+
+        #region Constructors
+        public MP3Recorder(int bitRate)
+        {
+            _bitRate = bitRate;
+        }
+        #endregion
 
         #region Overrides
 
         public override void StartRecording(string fileName)
         {
-            _outWriter = new LameMP3FileWriter(fileName, _captureStream.WaveFormat, 128);
+            _outWriter = new LameMP3FileWriter(fileName, _captureStream.WaveFormat, (LAMEPreset)_bitRate);
             _captureStream.DataAvailable += CaptureStream_DataAvailable;
         }
 

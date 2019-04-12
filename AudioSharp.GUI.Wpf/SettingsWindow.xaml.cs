@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using AudioSharp.Config;
+using AudioSharp.Core;
 using AudioSharp.GUI.CustomControls;
 using AudioSharp.Translations;
 using AudioSharp.Utils;
@@ -18,6 +21,10 @@ namespace AudioSharp.GUI.Wpf
     public partial class SettingsWindow : Window
     {
         #region Fields & Properties
+        private ObservableCollection<LAMEPresetWrapper> _presetValues;
+        private ObservableCollection<LAMEPresetWrapper> _abrValues;
+        private ObservableCollection<LAMEPresetWrapper> _vbrValues;
+
         public Configuration Config { get; private set; }
         #endregion
 
@@ -25,6 +32,7 @@ namespace AudioSharp.GUI.Wpf
         public SettingsWindow(Configuration currentConfig)
         {
             Config = CloneUtils.DeepCopy(currentConfig);
+            Config.StartTracking();
             InitializeComponent();
             DataContext = Config;
 
@@ -32,6 +40,26 @@ namespace AudioSharp.GUI.Wpf
                 promptFileNameRadioButton.IsChecked = true;
             else
                 generateFileNameRadioButton.IsChecked = true;
+
+            _presetValues = LAMEPresetWrapper.GetPresetValues();
+            _abrValues = LAMEPresetWrapper.GetAbrValues();
+            _vbrValues = LAMEPresetWrapper.GetVbrValues();
+
+            if (_presetValues.Any(x => x.LamePreset == Config.MP3EncodingPreset))
+            {
+                Config.MP3EncodingPresets = _presetValues;
+                presetBitrateRadioButton.IsChecked = true;
+            }
+            else if (_abrValues.Any(x => x.LamePreset == Config.MP3EncodingPreset))
+            {
+                Config.MP3EncodingPresets = _abrValues;
+                averageBitRateRadioButton.IsChecked = true;
+            }
+            else if (_vbrValues.Any(x => x.LamePreset == Config.MP3EncodingPreset))
+            {
+                Config.MP3EncodingPresets = _vbrValues;
+                variableBitRateRadioButton.IsChecked = true;
+            }
 
             foreach (KeyValuePair<HotkeyType, Tuple<Key, ModifierKeys>> hotkey in currentConfig.GlobalHotkeys)
             {
@@ -132,6 +160,28 @@ namespace AudioSharp.GUI.Wpf
         {
             ClearHotkey((HotkeyType)Convert.ToInt32(((ButtonTextBox)e.Source).Tag));
         }
+
+        private void PresetBitrateRadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            Config.MP3EncodingPresets = _presetValues;
+            if (!_presetValues.Any(x => x.LamePreset == Config.MP3EncodingPreset))
+                Config.MP3EncodingPreset = LAMEPresetWrapper.GetDefaultPresetValue().LamePreset;
+        }
+
+        private void AverageBitRateRadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            Config.MP3EncodingPresets = _abrValues;
+            if (!_abrValues.Any(x => x.LamePreset == Config.MP3EncodingPreset))
+                Config.MP3EncodingPreset = LAMEPresetWrapper.GetDefaultAbrValue().LamePreset;
+        }
+
+        private void VariableBitRateRadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            Config.MP3EncodingPresets = _vbrValues;
+            if (!_vbrValues.Any(x => x.LamePreset == Config.MP3EncodingPreset))
+                Config.MP3EncodingPreset = LAMEPresetWrapper.GetDefaultVbrValue().LamePreset;
+        }
+
         #endregion
 
         #region Helper Methods

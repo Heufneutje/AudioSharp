@@ -20,7 +20,12 @@ namespace AudioSharp.Config
             if (File.Exists(path))
             {
                 string json = File.ReadAllText(path);
-                return JsonUtils.DeserializeObject<Configuration>(json);
+                Configuration config = JsonUtils.DeserializeObject<Configuration>(json);
+
+                if (config.MP3EncodingPreset == 0)
+                    config.MP3EncodingPreset = 1001;
+
+                return config;
             }
 
             return new Configuration()
