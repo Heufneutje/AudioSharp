@@ -1,12 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Reflection;
 using AudioSharp.Translations;
-using Newtonsoft.Json.Linq;
 
-namespace AudioSharp.Utils
+namespace AudioSharp.Utils.Update
 {
     public static class UpdateUtils
     {
@@ -20,14 +20,14 @@ namespace AudioSharp.Utils
                 using (WebClient client = new WebClient())
                 {
                     SetHeaders(client);
-                    json = client.DownloadString($"{_GITHUB_BASE_URL}/repos/heufneutje/audiosharp/tags");
+                    json = client.DownloadString($"{_GITHUB_BASE_URL}/repos/heufneutje/audiosharp/releases");
                 }
 
-                JArray tags = (JArray)JsonUtils.DeserializeObject(json);
-                if (!tags.Any())
+                IEnumerable<GitHubRelease> releases = JsonUtils.DeserializeObject<List<GitHubRelease>>(json).Where(x => !x.Prerelease);
+                if (!releases.Any())
                     return null;
 
-                string latestVersion = tags.First["name"].ToString().Substring(1);
+                string latestVersion = releases.Select(x => x.TagName).First();
                 FileVersionInfo fvi = GetCurrentVersion();
                 string currentVersion = string.Join(".", new int[3] { fvi.FileMajorPart, fvi.FileMinorPart, fvi.FileBuildPart });
                 if (VersionsEqual(fvi.FileMajorPart, fvi.FileMinorPart, fvi.FileBuildPart, latestVersion))

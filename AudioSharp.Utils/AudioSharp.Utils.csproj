@@ -68,7 +68,9 @@
     <Compile Include="RecordingItem.cs" />
     <Compile Include="ShortcutUtils.cs" />
     <Compile Include="UpdateCheckResult.cs" />
-    <Compile Include="UpdateUtils.cs" />
+    <Compile Include="Update\GitHubRelease.cs" />
+    <Compile Include="Update\GitHubReleaseAsset.cs" />
+    <Compile Include="Update\UpdateUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

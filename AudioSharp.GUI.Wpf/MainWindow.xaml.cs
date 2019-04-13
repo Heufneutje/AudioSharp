@@ -11,6 +11,7 @@ using AudioSharp.Core;
 using AudioSharp.GUI.CustomControls;
 using AudioSharp.Translations;
 using AudioSharp.Utils;
+using AudioSharp.Utils.Update;
 using Hardcodet.Wpf.TaskbarNotification;
 using Microsoft.Win32;
 using NAudio.CoreAudioApi;

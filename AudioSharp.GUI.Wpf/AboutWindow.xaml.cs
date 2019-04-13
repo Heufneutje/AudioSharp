@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using System.Windows.Documents;
-using AudioSharp.Utils;
+using AudioSharp.Utils.Update;
 
 namespace AudioSharp.GUI.Wpf
 {
