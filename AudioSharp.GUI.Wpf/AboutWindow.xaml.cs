@@ -25,7 +25,7 @@ namespace AudioSharp.GUI.Wpf
             FlowDocument document = new FlowDocument(paragraph);
             richTextBox.Document = document;
 
-            FileVersionInfo fvi = UpdateUtils.GetCurrentVersion();
+            FileVersionInfo fvi = UpdateHelper.GetCurrentVersion();
             versionLabel.Content = $"AudioSharp v{string.Join(".", new int[3] { fvi.FileMajorPart, fvi.FileMinorPart, fvi.FileBuildPart })}";
         }
 

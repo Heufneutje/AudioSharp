@@ -19,7 +19,7 @@ namespace AudioSharp.Translations {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Messages {
@@ -205,6 +205,15 @@ namespace AudioSharp.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An error occurred while running the update installer: {0}.
+        /// </summary>
+        public static string GUIErrorRunningInstaller {
+            get {
+                return ResourceManager.GetString("GUIErrorRunningInstaller", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An unknown error occurred.{0}Error: {1}.
         /// </summary>
         public static string GUIErrorUnknown {
@@ -286,7 +295,7 @@ namespace AudioSharp.Translations {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Current version: {0}{1}Latest version: {2}{1}{1}Would you like to download this version now?.
+        ///   Looks up a localized string similar to Current version: {0}{1}Latest version: {2}{1}{1}Changelog:{1}{3}{1}{1}Would you like to download this version now?.
         /// </summary>
         public static string GUIUpdateAvailable {
             get {

@@ -292,9 +292,11 @@
             </Button.ToolTip>
         </Button>
         <StatusBar x:Name="statusBar" VerticalAlignment="Bottom" Background="DodgerBlue">
-            <StatusBarItem x:Name="recordingStatusBarItem" Content="Status: Ready" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" />
+            <StatusBarItem x:Name="statusBarItem" Content="Ready" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" />
             <Separator Background="White" />
             <StatusBarItem x:Name="driveSpaceBarItem" Content="Free space: ??" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" />
+            <Separator x:Name="progressSeparator" Background="White" Visibility="Hidden" />
+            <ProgressBar x:Name="progressBar" Height="20" Width="200" Visibility="Hidden" />
         </StatusBar>
     </Grid>
 </Window>

@@ -486,6 +486,8 @@ namespace AudioSharp.GUI.Wpf
 
         private void UpdateGUIState(RecordingState status)
         {
+            checkForUpdatesMenuItem.IsEnabled = status == RecordingState.Stopped;
+
             ContextMenu menu = (ContextMenu)FindResource("contextMenu");
 
             recordButton.IsEnabled = status == RecordingState.Stopped;
@@ -517,21 +519,21 @@ namespace AudioSharp.GUI.Wpf
                     if (_taskbarIcon != null)
                         _taskbarIcon.IconSource = (ImageSource)FindResource("recordTrayIcon");
                     statusBar.Background = Brushes.Red;
-                    recordingStatusBarItem.Content = "Status: Recording";
+                    statusBarItem.Content = "Recording";
                     break;
                 case RecordingState.Paused:
                     Icon = (ImageSource)FindResource("pauseIcon");
                     if (_taskbarIcon != null)
                         _taskbarIcon.IconSource = (ImageSource)FindResource("pauseTrayIcon");
                     statusBar.Background = Brushes.Orange;
-                    recordingStatusBarItem.Content = "Status: Paused";
+                    statusBarItem.Content = "Paused";
                     break;
                 case RecordingState.Stopped:
                     Icon = (ImageSource)FindResource("defaultIcon");
                     if (_taskbarIcon != null)
                         _taskbarIcon.IconSource = (ImageSource)FindResource("defaultTrayIcon");
                     statusBar.Background = Brushes.DodgerBlue;
-                    recordingStatusBarItem.Content = "Status: Ready";
+                    statusBarItem.Content = "Ready";
                     break;
             }
         }
@@ -661,30 +663,71 @@ namespace AudioSharp.GUI.Wpf
         private void CheckForUpdate(bool shouldPopUp)
         {
             checkForUpdatesMenuItem.IsEnabled = false;
-            BackgroundWorker updateChecker = new BackgroundWorker();
-            updateChecker.DoWork += (sender, args) =>
+            statusBarItem.Content = "Checking for updates";
+
+            BackgroundWorker updateCheckerBackgroundWorker = new BackgroundWorker();
+            UpdateHelper updateHelper = new UpdateHelper();
+            updateCheckerBackgroundWorker.DoWork += (sender, args) =>
             {
-                args.Result = UpdateUtils.CheckForUpdate();
+                args.Result = updateHelper.CheckForUpdate();
             };
-            updateChecker.RunWorkerCompleted += (sender, args) =>
+            updateCheckerBackgroundWorker.RunWorkerCompleted += (sender, args) =>
             {
-                try
+                UpdateCheckResult result = (UpdateCheckResult)args.Result;
+                if (result.ResultType == UpdateResultType.UpdateAvailable)
                 {
-                    UpdateCheckResult result = (UpdateCheckResult)args.Result;
-                    if (result.ResultType == UpdateResultType.UpdateAvailable)
-                    {
-                        if (MessageBox.Show(result.Message, result.MessageTitle, MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
-                            Process.Start("https://github.com/Heufneutje/AudioSharp/releases");
-                    }
-                    else if (shouldPopUp)
+                    if (MessageBox.Show(result.Message, result.MessageTitle, MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                        DownloadUpdate(updateHelper, result.DownloadUrl);
+                }
+                else
+                {
+                    if (shouldPopUp)
                         MessageBox.Show(result.Message, result.MessageTitle, MessageBoxButton.OK, result.ResultType == UpdateResultType.NoUpdateAvailable ? MessageBoxImage.Information : MessageBoxImage.Error);
-                }
-                finally
-                {
+
                     checkForUpdatesMenuItem.IsEnabled = true;
+                    statusBarItem.Content = "Ready";
+                    updateHelper.Dispose();
                 }
             };
-            updateChecker.RunWorkerAsync();
+            updateCheckerBackgroundWorker.RunWorkerAsync();
+        }
+
+        private void DownloadUpdate(UpdateHelper updateHelper, string downloadUrl)
+        {
+            statusBarItem.Content = "Downloading update files";
+            progressSeparator.Visibility = Visibility.Visible;
+            progressBar.Visibility = Visibility.Visible;
+
+            updateHelper.ProgressChanged += (sender, args) =>
+            {
+                progressBar.Value = args.ProgressPercentage;
+            };
+            updateHelper.DownloadCompleted += (sender, args) =>
+            {
+                if (args.Error != null)
+                {
+                    MessageBox.Show(args.Error.Message);
+                }
+                else
+                {
+                    try
+                    {
+                        ProcessStartInfo psi = new ProcessStartInfo(updateHelper.InstallerFilePath);
+                        psi.Arguments = $"/S /UPDATELOCATION={updateHelper.GetApplicationDirectory()}";
+                        updateHelper.Dispose();
+                        Process.Start(psi);
+                        Application.Current.Shutdown();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(string.Format(Messages.GUIErrorRunningInstaller, ex.Message), Messages.GUIErrorCommon, MessageBoxButton.OK, MessageBoxImage.Error);
+                        updateHelper.Dispose();
+                        checkForUpdatesMenuItem.IsEnabled = true;
+                        statusBarItem.Content = "Ready";
+                    }
+                }
+            };
+            updateHelper.DownloadUpdate(downloadUrl);
         }
 
         #endregion Helper Functions

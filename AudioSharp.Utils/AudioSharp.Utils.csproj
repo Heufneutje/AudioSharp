@@ -70,7 +70,7 @@
     <Compile Include="UpdateCheckResult.cs" />
     <Compile Include="Update\GitHubRelease.cs" />
     <Compile Include="Update\GitHubReleaseAsset.cs" />
-    <Compile Include="Update\UpdateUtils.cs" />
+    <Compile Include="Update\UpdateHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
