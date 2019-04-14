@@ -707,17 +707,19 @@ namespace AudioSharp.GUI.Wpf
                 if (result.ResultType == UpdateResultType.UpdateAvailable)
                 {
                     if (MessageBox.Show(result.Message, result.MessageTitle, MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                    {
                         DownloadUpdate(updateHelper, result.DownloadUrl);
+                        return;
+                    }
                 }
                 else
                 {
                     if (shouldPopUp)
                         MessageBox.Show(result.Message, result.MessageTitle, MessageBoxButton.OK, result.ResultType == UpdateResultType.NoUpdateAvailable ? MessageBoxImage.Information : MessageBoxImage.Error);
-
-                    checkForUpdatesMenuItem.IsEnabled = true;
-                    statusBarItem.Content = "Ready";
-                    updateHelper.Dispose();
                 }
+
+                FinishUpdateCheck();
+                updateHelper.Dispose();
             };
             updateCheckerBackgroundWorker.RunWorkerAsync();
         }
@@ -752,12 +754,19 @@ namespace AudioSharp.GUI.Wpf
                     {
                         MessageBox.Show(string.Format(Messages.GUIErrorRunningInstaller, ex.Message), Messages.GUIErrorCommon, MessageBoxButton.OK, MessageBoxImage.Error);
                         updateHelper.Dispose();
-                        checkForUpdatesMenuItem.IsEnabled = true;
-                        statusBarItem.Content = "Ready";
+                        FinishUpdateCheck();
                     }
                 }
             };
             updateHelper.DownloadUpdate(downloadUrl);
+        }
+
+        private void FinishUpdateCheck()
+        {
+            checkForUpdatesMenuItem.IsEnabled = true;
+            statusBarItem.Content = "Ready";
+            progressSeparator.Visibility = Visibility.Collapsed;
+            progressBar.Visibility = Visibility.Collapsed;
         }
 
         #endregion Helper Functions
