@@ -27,8 +27,6 @@ namespace AudioSharp.GUI.Wpf
 
         private bool _isSizeChanged;
         private bool _isLoading;
-        private bool _initialRecordingSettingsVisibilityState;
-        private bool _initialRecordingOutputVisibilityState;
 
         private AudioRecorder _audioRecorder;
         private TimeSpan _timer;
@@ -102,15 +100,13 @@ namespace AudioSharp.GUI.Wpf
                 ConfigHandler.SaveConfig(_config);
             }
 
-            _initialRecordingSettingsVisibilityState = _config.RecordingSettingsPanelVisible;
-            _initialRecordingOutputVisibilityState = _config.RecordingOutputPanelVisible;
-
             InitAudioDevices();
             InitTimers();
-            UpdateGroupVisibility();
+            UpdateItemVisibility();
 
             RegisterHotkeys();
             HotkeyUtils.GlobalHoykeyPressed += HotkeyUtils_GlobalHoykeyPressed;
+            _config.StartTrackingChanges();
         }
 
         #endregion Constructors
@@ -151,7 +147,7 @@ namespace AudioSharp.GUI.Wpf
             if (_isSizeChanged)
                 _config.SetWindowSize(Name, Width, Height);
 
-            if (_isSizeChanged || _initialRecordingSettingsVisibilityState != _config.RecordingSettingsPanelVisible || _initialRecordingOutputVisibilityState != _config.RecordingOutputPanelVisible)
+            if (_isSizeChanged || _config.HasChanges())
                 ConfigHandler.SaveConfig(_config);
 
             HotkeyUtils.UnregisterAllHotkeys(GuiHelper.GetWindowHandle(this));
@@ -294,14 +290,32 @@ namespace AudioSharp.GUI.Wpf
 
         private void viewRecordingSettingPanelMenuItem_CheckedChanged(object sender, RoutedEventArgs e)
         {
-            UpdateGroupVisibility();
+            UpdateItemVisibility();
             _config.RecordingSettingsPanelVisible = viewRecordingSettingPanelMenuItem.IsChecked;
         }
 
         private void viewRecordingOutputPanelMenuItem_CheckedChanged(object sender, RoutedEventArgs e)
         {
-            UpdateGroupVisibility();
+            UpdateItemVisibility();
             _config.RecordingOutputPanelVisible = viewRecordingOutputPanelMenuItem.IsChecked;
+        }
+
+        private void viewStatusBarMenuItem_CheckedChanged(object sender, RoutedEventArgs e)
+        {
+            UpdateItemVisibility();
+            _config.StatusBarVisible = viewStatusBarMenuItem.IsChecked;
+        }
+
+        private void viewStatusBarItemMenuItem_Checked(object sender, RoutedEventArgs e)
+        {
+            UpdateItemVisibility();
+            _config.StatusBarItemVisible = viewStatusBarItemMenuItem.IsChecked;
+        }
+
+        private void viewFreeSpaceMenuItem_Checked(object sender, RoutedEventArgs e)
+        {
+            UpdateItemVisibility();
+            _config.FreeSpaceBarItemVisible = viewFreeSpaceMenuItem.IsChecked;
         }
 
         private void recordingsMenuItem_Click(object sender, RoutedEventArgs e)
@@ -574,6 +588,9 @@ namespace AudioSharp.GUI.Wpf
 
             viewRecordingSettingPanelMenuItem.IsChecked = _config.RecordingSettingsPanelVisible;
             viewRecordingOutputPanelMenuItem.IsChecked = _config.RecordingOutputPanelVisible;
+            viewStatusBarMenuItem.IsChecked = _config.StatusBarVisible;
+            viewStatusBarItemMenuItem.IsChecked = _config.StatusBarItemVisible;
+            viewFreeSpaceMenuItem.IsChecked = _config.FreeSpaceBarItemVisible;
 
             if (_config.RunAtStartup)
             {
@@ -629,10 +646,14 @@ namespace AudioSharp.GUI.Wpf
                 MessageBox.Show(Messages.GUIErrorHotkeys, Messages.GUIErrorCommon, MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
-        private void UpdateGroupVisibility()
+        private void UpdateItemVisibility()
         {
             recordingSettingsGroup.Visibility = viewRecordingSettingPanelMenuItem.IsChecked ? Visibility.Visible : Visibility.Hidden;
             recordingOutputGroup.Visibility = viewRecordingOutputPanelMenuItem.IsChecked ? Visibility.Visible : Visibility.Hidden;
+            statusBar.Visibility = viewStatusBarMenuItem.IsChecked ? Visibility.Visible : Visibility.Hidden;
+            statusSeparator.Visibility = viewFreeSpaceMenuItem.IsChecked && viewStatusBarItemMenuItem.IsChecked ? Visibility.Visible : Visibility.Collapsed;
+            statusBarItem.Visibility = viewStatusBarItemMenuItem.IsChecked ? Visibility.Visible : Visibility.Collapsed;
+            driveSpaceBarItem.Visibility = viewFreeSpaceMenuItem.IsChecked ? Visibility.Visible : Visibility.Collapsed;
 
             if (recordingSettingsGroup.Visibility == Visibility.Hidden && recordingOutputGroup.Visibility == Visibility.Hidden)
             {
@@ -658,6 +679,15 @@ namespace AudioSharp.GUI.Wpf
                     MinHeight = 315;
                 }
             }
+
+            int yPosition = 5;
+            if (!viewStatusBarMenuItem.IsChecked)
+            {
+                MinHeight -= 22;
+                yPosition -= 22;
+            }
+
+            buttonGrid.Margin = new Thickness(0, 0, 0, yPosition);
         }
 
         private void CheckForUpdate(bool shouldPopUp)
@@ -695,7 +725,7 @@ namespace AudioSharp.GUI.Wpf
         private void DownloadUpdate(UpdateHelper updateHelper, string downloadUrl)
         {
             statusBarItem.Content = "Downloading update files";
-            progressSeparator.Visibility = Visibility.Visible;
+            progressSeparator.Visibility = viewStatusBarMenuItem.IsChecked || viewFreeSpaceMenuItem.IsChecked ? Visibility.Visible : Visibility.Collapsed;
             progressBar.Visibility = Visibility.Visible;
 
             updateHelper.ProgressChanged += (sender, args) =>

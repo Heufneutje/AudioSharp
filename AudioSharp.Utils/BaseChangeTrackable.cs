@@ -17,7 +17,7 @@ namespace AudioSharp.Utils
         [NonSerialized]
         private bool _hasChangesCache;
 
-        public void StartTracking()
+        public void StartTrackingChanges()
         {
             _originalValues = new Dictionary<string, object>();
 
@@ -49,6 +49,11 @@ namespace AudioSharp.Utils
         public bool HasPropertyChanged(string propertyName, bool refreshChanges = false)
         {
             return GetChanges(refreshChanges).ContainsKey(propertyName);
+        }
+
+        public bool HasChanges(bool refreshChanges = false)
+        {
+            return GetChanges(refreshChanges).Any();
         }
     }
 }

@@ -141,22 +141,51 @@
                 </MenuItem>
             </MenuItem>
             <MenuItem Header="View">
-                <MenuItem x:Name="viewRecordingSettingPanelMenuItem" Header="Recording Settings" IsCheckable="True" Checked="viewRecordingSettingPanelMenuItem_CheckedChanged" Unchecked="viewRecordingSettingPanelMenuItem_CheckedChanged">
+                <MenuItem Header="Status Bar" x:Name="viewStatusBarMenuItem" IsCheckable="True" Checked="viewStatusBarMenuItem_CheckedChanged" Unchecked="viewStatusBarMenuItem_CheckedChanged">
                     <MenuItem.ToolTip>
                         <StackPanel>
-                            <TextBlock FontWeight="Bold" Text="Recording Settings" />
-                            <TextBlock Text="Show or hide the 'Recording Settings' part of the interface." Padding="5,5,5,0" />
+                            <TextBlock FontWeight="Bold" Text="Status Bar" />
+                            <TextBlock Text="Show or hide the status bar." Padding="5,5,5,0" />
                         </StackPanel>
                     </MenuItem.ToolTip>
                 </MenuItem>
-                <MenuItem x:Name="viewRecordingOutputPanelMenuItem" Header="Recording Output" IsCheckable="True" Checked="viewRecordingOutputPanelMenuItem_CheckedChanged" Unchecked="viewRecordingOutputPanelMenuItem_CheckedChanged">
-                    <MenuItem.ToolTip>
-                        <StackPanel>
-                            <TextBlock FontWeight="Bold" Text="Recording Output" />
-                            <TextBlock Text="Show or hide the 'Recording Output' part of the interface." Padding="5,5,5,0" />
-                        </StackPanel>
-                    </MenuItem.ToolTip>
+                <MenuItem Header="Main Interface Elements">
+                    <MenuItem x:Name="viewRecordingSettingPanelMenuItem" Header="Recording Settings" IsCheckable="True" Checked="viewRecordingSettingPanelMenuItem_CheckedChanged" Unchecked="viewRecordingSettingPanelMenuItem_CheckedChanged">
+                        <MenuItem.ToolTip>
+                            <StackPanel>
+                                <TextBlock FontWeight="Bold" Text="Recording Settings" />
+                                <TextBlock Text="Show or hide the 'Recording Settings' part of the interface." Padding="5,5,5,0" />
+                            </StackPanel>
+                        </MenuItem.ToolTip>
+                    </MenuItem>
+                    <MenuItem x:Name="viewRecordingOutputPanelMenuItem" Header="Recording Output" IsCheckable="True" Checked="viewRecordingOutputPanelMenuItem_CheckedChanged" Unchecked="viewRecordingOutputPanelMenuItem_CheckedChanged">
+                        <MenuItem.ToolTip>
+                            <StackPanel>
+                                <TextBlock FontWeight="Bold" Text="Recording Output" />
+                                <TextBlock Text="Show or hide the 'Recording Output' part of the interface." Padding="5,5,5,0" />
+                            </StackPanel>
+                        </MenuItem.ToolTip>
+                    </MenuItem>
                 </MenuItem>
+                <MenuItem Header="Status Bar Elements">
+                    <MenuItem x:Name="viewStatusBarItemMenuItem" Header="Status" IsCheckable="True" Checked="viewStatusBarItemMenuItem_Checked" Unchecked="viewStatusBarItemMenuItem_Checked">
+                        <MenuItem.ToolTip>
+                            <StackPanel>
+                                <TextBlock FontWeight="Bold" Text="Status" />
+                                <TextBlock Text="Show or hide the AudioSharp status item of the status bar." Padding="5,5,5,0" />
+                            </StackPanel>
+                        </MenuItem.ToolTip>
+                    </MenuItem>
+                    <MenuItem x:Name="viewFreeSpaceMenuItem" Header="Free Space" IsCheckable="True" Checked="viewFreeSpaceMenuItem_Checked" Unchecked="viewFreeSpaceMenuItem_Checked">
+                        <MenuItem.ToolTip>
+                            <StackPanel>
+                                <TextBlock FontWeight="Bold" Text="Free Space" />
+                                <TextBlock Text="Show or hide the 'Free Space' item of the status bar." Padding="5,5,5,0" />
+                            </StackPanel>
+                        </MenuItem.ToolTip>
+                    </MenuItem>
+                </MenuItem>
+                
             </MenuItem>
             <MenuItem Header="Tools">
                 <MenuItem x:Name="recordingsMenuItem" Header="Recordings" Click="recordingsMenuItem_Click">
@@ -255,48 +284,50 @@
                 <Label Content="File Size:" HorizontalAlignment="Left" Margin="0,46,0,0" VerticalAlignment="Top" />
             </Grid>
         </GroupBox>
-        <Button x:Name="recordButton" Margin="0,0,170,27" HorizontalAlignment="Right" Width="75" Height="20" VerticalAlignment="Bottom" HorizontalContentAlignment="Left" Click="recordButton_Click">
-            <StackPanel Orientation="Horizontal">
-                <customcontrols:AutoGreyableImage Source="{StaticResource recordImage}" Width="16" Height="16" />
-                <TextBlock Padding="5,0,0,0">Record</TextBlock>
-            </StackPanel>
-            <Button.ToolTip>
-                <StackPanel>
-                    <TextBlock FontWeight="Bold" Text="Record" />
-                    <TextBlock Text="Start a new recording with the current settings." Padding="5,5,5,0" />
+        <Grid x:Name="buttonGrid">
+            <Button x:Name="recordButton" Margin="0,0,170,27" HorizontalAlignment="Right" Width="75" Height="20" VerticalAlignment="Bottom" HorizontalContentAlignment="Left" Click="recordButton_Click">
+                <StackPanel Orientation="Horizontal">
+                    <customcontrols:AutoGreyableImage Source="{StaticResource recordImage}" Width="16" Height="16" />
+                    <TextBlock Padding="5,0,0,0">Record</TextBlock>
                 </StackPanel>
-            </Button.ToolTip>
-        </Button>
-        <Button x:Name="pauseButton" Margin="0,0,90,27" HorizontalAlignment="Right" Width="75" Height="20" VerticalAlignment="Bottom" HorizontalContentAlignment="Left" Click="pauseButton_Click" IsEnabled="False">
-            <StackPanel Orientation="Horizontal">
-                <customcontrols:AutoGreyableImage Source="{StaticResource pauseImage}" Width="16" Height="16" />
-                <TextBlock Padding="5,0,0,0">Pause</TextBlock>
-            </StackPanel>
-            <Button.ToolTip>
-                <StackPanel>
-                    <TextBlock FontWeight="Bold" Text="Pause" />
-                    <TextBlock Text="Pause the current recording so it can be resumed later." Padding="5,5,5,0" />
+                <Button.ToolTip>
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold" Text="Record" />
+                        <TextBlock Text="Start a new recording with the current settings." Padding="5,5,5,0" />
+                    </StackPanel>
+                </Button.ToolTip>
+            </Button>
+            <Button x:Name="pauseButton" Margin="0,0,90,27" HorizontalAlignment="Right" Width="75" Height="20" VerticalAlignment="Bottom" HorizontalContentAlignment="Left" Click="pauseButton_Click" IsEnabled="False">
+                <StackPanel Orientation="Horizontal">
+                    <customcontrols:AutoGreyableImage Source="{StaticResource pauseImage}" Width="16" Height="16" />
+                    <TextBlock Padding="5,0,0,0">Pause</TextBlock>
                 </StackPanel>
-            </Button.ToolTip>
-        </Button>
-        <Button x:Name="stopButton" Margin="0,0,10,27" Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75" HorizontalContentAlignment="Left" Click="stopButton_Click" IsEnabled="False">
-            <StackPanel Orientation="Horizontal">
-                <customcontrols:AutoGreyableImage Source="{StaticResource stopImage}" Width="16" Height="16" />
-                <TextBlock Padding="5,0,0,0">Stop</TextBlock>
-            </StackPanel>
-            <Button.ToolTip>
-                <StackPanel>
-                    <TextBlock FontWeight="Bold" Text="Stop" />
-                    <TextBlock Text="Stop the current recording." Padding="5,5,5,0" />
+                <Button.ToolTip>
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold" Text="Pause" />
+                        <TextBlock Text="Pause the current recording so it can be resumed later." Padding="5,5,5,0" />
+                    </StackPanel>
+                </Button.ToolTip>
+            </Button>
+            <Button x:Name="stopButton" Margin="0,0,10,27" Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75" HorizontalContentAlignment="Left" Click="stopButton_Click" IsEnabled="False">
+                <StackPanel Orientation="Horizontal">
+                    <customcontrols:AutoGreyableImage Source="{StaticResource stopImage}" Width="16" Height="16" />
+                    <TextBlock Padding="5,0,0,0">Stop</TextBlock>
                 </StackPanel>
-            </Button.ToolTip>
-        </Button>
-        <StatusBar x:Name="statusBar" VerticalAlignment="Bottom" Background="DodgerBlue">
+                <Button.ToolTip>
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold" Text="Stop" />
+                        <TextBlock Text="Stop the current recording." Padding="5,5,5,0" />
+                    </StackPanel>
+                </Button.ToolTip>
+            </Button>
+        </Grid>
+        <StatusBar x:Name="statusBar" VerticalAlignment="Bottom" Background="DodgerBlue" Height="22">
             <StatusBarItem x:Name="statusBarItem" Content="Ready" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" />
-            <Separator Background="White" />
+            <Separator x:Name="statusSeparator" Background="White" />
             <StatusBarItem x:Name="driveSpaceBarItem" Content="Free space: ??" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" />
-            <Separator x:Name="progressSeparator" Background="White" Visibility="Hidden" />
-            <ProgressBar x:Name="progressBar" Height="20" Width="200" Visibility="Hidden" />
+            <Separator x:Name="progressSeparator" Background="White" Visibility="Collapsed" />
+            <ProgressBar x:Name="progressBar" Height="20" Width="200" Visibility="Collapsed" />
         </StatusBar>
     </Grid>
 </Window>

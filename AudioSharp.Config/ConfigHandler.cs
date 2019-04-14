@@ -39,6 +39,9 @@ namespace AudioSharp.Config
                 GlobalHotkeys = new Dictionary<HotkeyType, Tuple<Key, ModifierKeys>>(),
                 RecordingSettingsPanelVisible = true,
                 RecordingOutputPanelVisible = true,
+                StatusBarVisible = true,
+                StatusBarItemVisible = true,
+                FreeSpaceBarItemVisible = true,
                 CheckForUpdates = true,
                 MP3EncodingPreset = 1001
             };

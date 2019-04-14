@@ -68,8 +68,11 @@ namespace AudioSharp.Config
         public Dictionary<HotkeyType, Tuple<Key, ModifierKeys>> GlobalHotkeys { get; set; }
 
         // View
-        public bool RecordingSettingsPanelVisible { get; set; }
-        public bool RecordingOutputPanelVisible { get; set; }
+        public bool RecordingSettingsPanelVisible { get; set; } = true;
+        public bool RecordingOutputPanelVisible { get; set; } = true;
+        public bool StatusBarVisible { get; set; } = true;
+        public bool StatusBarItemVisible { get; set; } = true;
+        public bool FreeSpaceBarItemVisible { get; set; } = true;
 
         // Window
         public Dictionary<string, Tuple<double, double>> WindowSizes { get; set; }

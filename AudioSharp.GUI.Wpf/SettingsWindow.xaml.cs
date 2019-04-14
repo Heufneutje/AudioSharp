@@ -32,7 +32,7 @@ namespace AudioSharp.GUI.Wpf
         public SettingsWindow(Configuration currentConfig)
         {
             Config = CloneUtils.DeepCopy(currentConfig);
-            Config.StartTracking();
+            Config.StartTrackingChanges();
             InitializeComponent();
             DataContext = Config;
 
