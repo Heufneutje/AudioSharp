@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     x:Name="aboutWindow" x:Class="AudioSharp.GUI.Wpf.AboutWindow"
         mc:Ignorable="d"
-        Title="About AudioSharp" Height="450" Width="680" Icon="{DynamicResource defaultIcon}" MinHeight="450" MinWidth="680">
+        Title="About AudioSharp" Height="505.197" Width="680" Icon="{DynamicResource defaultIcon}" MinHeight="450" MinWidth="680">
     <Window.Resources>
         <BitmapImage x:Key="defaultIcon" UriSource="Resources/AudioSharp256x256.png"></BitmapImage>
     </Window.Resources>
