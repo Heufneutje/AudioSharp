@@ -27,6 +27,7 @@ namespace AudioSharp.GUI.Wpf
 
         private bool _isSizeChanged;
         private bool _isLoading;
+        public RecordingState RecordingState { get; private set; }
 
         private AudioRecorder _audioRecorder;
         private TimeSpan _timer;
@@ -65,15 +66,6 @@ namespace AudioSharp.GUI.Wpf
                 }
             }
         }
-
-        private bool _IsRecording
-        {
-            get
-            {
-                return !recordButton.IsEnabled;
-            }
-        }
-
         #endregion Fields & Properties
 
         #region Constructors
@@ -82,6 +74,7 @@ namespace AudioSharp.GUI.Wpf
         {
             _isLoading = true;
             InitializeComponent();
+
             _config = ConfigHandler.ReadConfig();
 
             if (_config.StartMinimized)
@@ -131,7 +124,7 @@ namespace AudioSharp.GUI.Wpf
                 e.Cancel = true;
             }
 
-            if (_IsRecording)
+            if (RecordingState != RecordingState.Stopped)
             {
                 if (MessageBox.Show(Messages.GUIStopRecording, Messages.GUIStopRecordingTitle, MessageBoxButton.YesNo, MessageBoxImage.Question) != MessageBoxResult.Yes)
                 {
@@ -169,37 +162,6 @@ namespace AudioSharp.GUI.Wpf
         #endregion Window Events
 
         #region Control Events
-
-        private void recordButton_Click(object sender, RoutedEventArgs e)
-        {
-            StartRecording();
-        }
-
-        private void pauseButton_Click(object sender, RoutedEventArgs e)
-        {
-            PauseRecording();
-        }
-
-        private void stopButton_Click(object sender, RoutedEventArgs e)
-        {
-            StopRecording();
-        }
-
-        private void recordThumbButtonInfo_Click(object sender, EventArgs e)
-        {
-            StartRecording();
-        }
-
-        private void pauseThumbButtonInfo_Click(object sender, EventArgs e)
-        {
-            PauseRecording();
-        }
-
-        private void stopThumbButtonInfo_Click(object sender, EventArgs e)
-        {
-            StopRecording();
-        }
-
         private void muteToggleButton_CheckedChanged(object sender, RoutedEventArgs e)
         {
             bool isChecked = muteToggleButton.IsChecked ?? false;
@@ -283,11 +245,6 @@ namespace AudioSharp.GUI.Wpf
 
         #region Menu Events
 
-        private void exitMenuItem_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
-
         private void viewRecordingSettingPanelMenuItem_CheckedChanged(object sender, RoutedEventArgs e)
         {
             UpdateItemVisibility();
@@ -345,27 +302,9 @@ namespace AudioSharp.GUI.Wpf
             HotkeyUtils.RegisterAllHotkeys(windowHandle, _config.GlobalHotkeys);
         }
 
-        private void issueTrackerMenuItem_Click(object sender, RoutedEventArgs e)
-        {
-            Process.Start("https://github.com/Heufneutje/AudioSharp/issues");
-        }
-
-        private void sourceCodeMenuItem_Click(object sender, RoutedEventArgs e)
-        {
-            Process.Start("https://github.com/Heufneutje/AudioSharp");
-        }
-
         private void checkForUpdatesMenuItem_Click(object sender, RoutedEventArgs e)
         {
             CheckForUpdate(true);
-        }
-
-        private void aboutMenuItem_Click(object sender, RoutedEventArgs e)
-        {
-            AboutWindow aboutWindow = new AboutWindow();
-            Topmost = false;
-            aboutWindow.ShowDialog();
-            Topmost = _config.AlwaysOnTop;
         }
 
         #endregion Menu Events
@@ -384,9 +323,9 @@ namespace AudioSharp.GUI.Wpf
 
         #region Helper Functions
 
-        private void StartRecording()
+        public void StartRecording()
         {
-            if (_IsRecording)
+            if (RecordingState != RecordingState.Stopped)
                 return;
 
             if (devicesComboBox.SelectedItem == null)
@@ -428,9 +367,9 @@ namespace AudioSharp.GUI.Wpf
             }
         }
 
-        private void PauseRecording()
+        public void PauseRecording()
         {
-            if (!_IsRecording)
+            if (RecordingState == RecordingState.Stopped)
                 return;
 
             if (_audioRecorder.IsPaused)
@@ -447,9 +386,9 @@ namespace AudioSharp.GUI.Wpf
             _audioRecorder.PauseRecording();
         }
 
-        private void StopRecording()
+        public void StopRecording()
         {
-            if (!_IsRecording)
+            if (RecordingState == RecordingState.Stopped)
                 return;
 
             if (_audioRecorder.IsPaused)
@@ -500,27 +439,12 @@ namespace AudioSharp.GUI.Wpf
 
         private void UpdateGUIState(RecordingState status)
         {
+            RecordingState = status;
             checkForUpdatesMenuItem.IsEnabled = status == RecordingState.Stopped;
 
-            ContextMenu menu = (ContextMenu)FindResource("contextMenu");
-
-            recordButton.IsEnabled = status == RecordingState.Stopped;
-            recordThumbButtonInfo.IsEnabled = status == RecordingState.Stopped;
             recordThumbButtonInfo.ImageSource = status == RecordingState.Stopped ? (ImageSource)FindResource("recordThumb") : (ImageSource)FindResource("recordThumbTransparent");
-            ((MenuItem)menu.Items[0]).IsEnabled = status == RecordingState.Stopped;
-            recordingsMenuItem.IsEnabled = status == RecordingState.Stopped;
-            stopButton.IsEnabled = status != RecordingState.Stopped;
-            stopThumbButtonInfo.IsEnabled = status != RecordingState.Stopped;
             stopThumbButtonInfo.ImageSource = status != RecordingState.Stopped ? (ImageSource)FindResource("stopThumb") : (ImageSource)FindResource("stopThumbTransparent");
-            ((MenuItem)menu.Items[1]).IsEnabled = status != RecordingState.Stopped;
-            stopMenuItem.IsEnabled = status != RecordingState.Stopped;
-            devicesComboBox.IsEnabled = status == RecordingState.Stopped;
-            settingsMenuItem.IsEnabled = status == RecordingState.Stopped;
-            pauseButton.IsEnabled = status != RecordingState.Stopped;
-            pauseThumbButtonInfo.IsEnabled = status != RecordingState.Stopped;
             pauseThumbButtonInfo.ImageSource = status != RecordingState.Stopped ? (ImageSource)FindResource("pauseThumb") : (ImageSource)FindResource("pauseThumbTransparent");
-            ((MenuItem)menu.Items[2]).IsEnabled = status != RecordingState.Stopped;
-            pauseMenuItem.IsEnabled = status != RecordingState.Stopped;
 
             FontWeight fontWeight = status != RecordingState.Stopped ? FontWeights.Bold : FontWeights.Normal;
             timerLabel.FontWeight = fontWeight;
@@ -767,6 +691,11 @@ namespace AudioSharp.GUI.Wpf
             statusBarItem.Content = "Ready";
             progressSeparator.Visibility = Visibility.Collapsed;
             progressBar.Visibility = Visibility.Collapsed;
+        }
+
+        public void ResetTopMost()
+        {
+            Topmost = _config.AlwaysOnTop;
         }
 
         #endregion Helper Functions

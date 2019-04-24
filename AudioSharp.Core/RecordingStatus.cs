@@ -8,6 +8,8 @@ namespace AudioSharp.Core
 {
     public enum RecordingState
     {
-        Started, Paused, Stopped
+        Started = 1,
+        Paused = 2,
+        Stopped = 0
     }
 }

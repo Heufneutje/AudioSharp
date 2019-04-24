@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:customcontrols="clr-namespace:AudioSharp.GUI.CustomControls;assembly=AudioSharp.GUI.CustomControls"
-        xmlns:tb="http://www.hardcodet.net/taskbar"
+        xmlns:viewModel="clr-namespace:AudioSharp.GUI.Wpf"
         mc:Ignorable="d"
         Title="AudioSharp" Height="315" Width="416" Icon="{DynamicResource defaultIcon}" MinHeight="315" MinWidth="600" Loaded="Window_Loaded" Closing="Window_Closing" StateChanged="Window_StateChanged" SizeChanged="Window_SizeChanged">
     <Window.Resources>
@@ -35,7 +35,7 @@
             <TextBlock Text="Microphone is currently muted. Click to unmute the microphone." Padding="5,5,5,0" />
         </StackPanel>
         <ContextMenu x:Key="contextMenu" x:Name="contextMenu">
-            <MenuItem x:Name="recordContextMenuItem" Header="Record" Click="recordButton_Click">
+            <MenuItem x:Name="recordContextMenuItem" Header="Record" Command="{Binding RecordCommand}">
                 <MenuItem.Icon>
                     <customcontrols:AutoGreyableImage Source="{StaticResource recordImage}" />
                 </MenuItem.Icon>
@@ -46,7 +46,7 @@
                     </StackPanel>
                 </MenuItem.ToolTip>
             </MenuItem>
-            <MenuItem x:Name="pauseContextMenuItem" Header="Pause" Click="pauseButton_Click" IsEnabled="False">
+            <MenuItem x:Name="pauseContextMenuItem" Header="Pause" Command="{Binding PauseCommand}">
                 <MenuItem.Icon>
                     <customcontrols:AutoGreyableImage Source="{StaticResource pauseImage}" />
                 </MenuItem.Icon>
@@ -57,7 +57,7 @@
                     </StackPanel>
                 </MenuItem.ToolTip>
             </MenuItem>
-            <MenuItem x:Name="stopContextMenuItem" Header="Stop" Click="stopButton_Click" IsEnabled="False">
+            <MenuItem x:Name="stopContextMenuItem" Header="Stop" Command="{Binding StopCommand}">
                 <MenuItem.Icon>
                     <customcontrols:AutoGreyableImage Source="{StaticResource stopImage}" />
                 </MenuItem.Icon>
@@ -69,7 +69,7 @@
                 </MenuItem.ToolTip>
             </MenuItem>
             <Separator HorizontalAlignment="Left" Width="122" />
-            <MenuItem x:Name="exitContextMenuItem" Header="Exit" Click="exitMenuItem_Click">
+            <MenuItem x:Name="exitContextMenuItem" Header="Exit" Command="{Binding ExitCommand}">
                 <MenuItem.Icon>
                     <customcontrols:AutoGreyableImage Source="{StaticResource exitImage}" />
                 </MenuItem.Icon>
@@ -85,16 +85,16 @@
     <Window.TaskbarItemInfo>
         <TaskbarItemInfo>
             <TaskbarItemInfo.ThumbButtonInfos>
-                <ThumbButtonInfo x:Name="recordThumbButtonInfo" ImageSource="{DynamicResource recordThumb}" Click="recordThumbButtonInfo_Click" Description="Record" />
-                <ThumbButtonInfo x:Name="pauseThumbButtonInfo" ImageSource="{DynamicResource pauseThumbTransparent}" IsEnabled="False" Click="pauseThumbButtonInfo_Click" Description="Pause" />
-                <ThumbButtonInfo x:Name="stopThumbButtonInfo" ImageSource="{DynamicResource stopThumbTransparent}" IsEnabled="False" Click="stopThumbButtonInfo_Click" Description="Stop" />
+                <ThumbButtonInfo x:Name="recordThumbButtonInfo" ImageSource="{DynamicResource recordThumb}" Command="{Binding RecordCommand}" Description="Record" />
+                <ThumbButtonInfo x:Name="pauseThumbButtonInfo" ImageSource="{DynamicResource pauseThumbTransparent}" Command="{Binding PauseCommand}" Description="Pause" />
+                <ThumbButtonInfo x:Name="stopThumbButtonInfo" ImageSource="{DynamicResource stopThumbTransparent}" Command="{Binding StopCommand}" Description="Stop" />
             </TaskbarItemInfo.ThumbButtonInfos>
         </TaskbarItemInfo>
     </Window.TaskbarItemInfo>
     <Grid>
         <Menu x:Name="menu" VerticalAlignment="Top">
             <MenuItem Header="File">
-                <MenuItem x:Name="recordMenuItem" Header="Record" Click="recordButton_Click">
+                <MenuItem x:Name="recordMenuItem" Header="Record" Command="{Binding RecordCommand}">
                     <MenuItem.Icon>
                         <customcontrols:AutoGreyableImage Source="{StaticResource recordImage}" />
                     </MenuItem.Icon>
@@ -105,7 +105,7 @@
                         </StackPanel>
                     </MenuItem.ToolTip>
                 </MenuItem>
-                <MenuItem x:Name="pauseMenuItem" Header="Pause" Click="pauseButton_Click" IsEnabled="False">
+                <MenuItem x:Name="pauseMenuItem" Header="Pause" Command="{Binding PauseCommand}">
                     <MenuItem.Icon>
                         <customcontrols:AutoGreyableImage Source="{StaticResource pauseImage}" />
                     </MenuItem.Icon>
@@ -116,7 +116,7 @@
                         </StackPanel>
                     </MenuItem.ToolTip>
                 </MenuItem>
-                <MenuItem x:Name="stopMenuItem" Header="Stop" Click="stopButton_Click" IsEnabled="False">
+                <MenuItem x:Name="stopMenuItem" Header="Stop" Command="{Binding StopCommand}">
                     <MenuItem.Icon>
                         <customcontrols:AutoGreyableImage Source="{StaticResource stopImage}" />
                     </MenuItem.Icon>
@@ -128,7 +128,7 @@
                     </MenuItem.ToolTip>
                 </MenuItem>
                 <Separator HorizontalAlignment="Left" Width="122" />
-                <MenuItem x:Name="exitMenuItem" Header="Exit" Click="exitMenuItem_Click" InputGestureText="Alt+F4">
+                <MenuItem x:Name="exitMenuItem" Header="Exit" Command="{Binding ExitCommand}" InputGestureText="Alt+F4">
                     <MenuItem.Icon>
                         <customcontrols:AutoGreyableImage Source="{StaticResource exitImage}" />
                     </MenuItem.Icon>
@@ -185,7 +185,6 @@
                         </MenuItem.ToolTip>
                     </MenuItem>
                 </MenuItem>
-                
             </MenuItem>
             <MenuItem Header="Tools">
                 <MenuItem x:Name="recordingsMenuItem" Header="Recordings" Click="recordingsMenuItem_Click">
@@ -212,7 +211,7 @@
                 </MenuItem>
             </MenuItem>
             <MenuItem Header="Help">
-                <MenuItem x:Name="issueTrackerMenuItem" Header="Issue Tracker" Click="issueTrackerMenuItem_Click">
+                <MenuItem x:Name="issueTrackerMenuItem" Header="Issue Tracker" Command="{Binding IssueTrackerCommand}">
                     <MenuItem.Icon>
                         <customcontrols:AutoGreyableImage Source="Resources/bug.png" />
                     </MenuItem.Icon>
@@ -223,7 +222,7 @@
                         </StackPanel>
                     </MenuItem.ToolTip>
                 </MenuItem>
-                <MenuItem x:Name="sourceCodeMenuItem" Header="Source Code" Click="sourceCodeMenuItem_Click">
+                <MenuItem x:Name="sourceCodeMenuItem" Header="Source Code" Command="{Binding SourceCodeCommand}">
                     <MenuItem.Icon>
                         <customcontrols:AutoGreyableImage Source="Resources/page_code.png" />
                     </MenuItem.Icon>
@@ -246,7 +245,7 @@
                     </MenuItem.ToolTip>
                 </MenuItem>
                 <Separator HorizontalAlignment="Left" Width="122" />
-                <MenuItem x:Name="aboutMenuItem" Header="About" Click="aboutMenuItem_Click">
+                <MenuItem x:Name="aboutMenuItem" Header="About" Command="{Binding AboutCommand}">
                     <MenuItem.Icon>
                         <customcontrols:AutoGreyableImage Source="Resources/Info.png" />
                     </MenuItem.Icon>
@@ -285,7 +284,7 @@
             </Grid>
         </GroupBox>
         <Grid x:Name="buttonGrid">
-            <Button x:Name="recordButton" Margin="0,0,170,27" HorizontalAlignment="Right" Width="75" Height="20" VerticalAlignment="Bottom" HorizontalContentAlignment="Left" Click="recordButton_Click">
+            <Button x:Name="recordButton" Margin="0,0,170,27" HorizontalAlignment="Right" Width="75" Height="20" VerticalAlignment="Bottom" HorizontalContentAlignment="Left" Command="{Binding RecordCommand}">
                 <StackPanel Orientation="Horizontal">
                     <customcontrols:AutoGreyableImage Source="{StaticResource recordImage}" Width="16" Height="16" />
                     <TextBlock Padding="5,0,0,0">Record</TextBlock>
@@ -297,7 +296,7 @@
                     </StackPanel>
                 </Button.ToolTip>
             </Button>
-            <Button x:Name="pauseButton" Margin="0,0,90,27" HorizontalAlignment="Right" Width="75" Height="20" VerticalAlignment="Bottom" HorizontalContentAlignment="Left" Click="pauseButton_Click" IsEnabled="False">
+            <Button x:Name="pauseButton" Margin="0,0,90,27" HorizontalAlignment="Right" Width="75" Height="20" VerticalAlignment="Bottom" HorizontalContentAlignment="Left" Command="{Binding PauseCommand}">
                 <StackPanel Orientation="Horizontal">
                     <customcontrols:AutoGreyableImage Source="{StaticResource pauseImage}" Width="16" Height="16" />
                     <TextBlock Padding="5,0,0,0">Pause</TextBlock>
@@ -309,7 +308,7 @@
                     </StackPanel>
                 </Button.ToolTip>
             </Button>
-            <Button x:Name="stopButton" Margin="0,0,10,27" Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75" HorizontalContentAlignment="Left" Click="stopButton_Click" IsEnabled="False">
+            <Button x:Name="stopButton" Margin="0,0,10,27" Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75" HorizontalContentAlignment="Left" Command="{Binding StopCommand}">
                 <StackPanel Orientation="Horizontal">
                     <customcontrols:AutoGreyableImage Source="{StaticResource stopImage}" Width="16" Height="16" />
                     <TextBlock Padding="5,0,0,0">Stop</TextBlock>
