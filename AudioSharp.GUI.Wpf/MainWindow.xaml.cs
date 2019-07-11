@@ -669,7 +669,7 @@ namespace AudioSharp.GUI.Wpf
                     try
                     {
                         ProcessStartInfo psi = new ProcessStartInfo(updateHelper.InstallerFilePath);
-                        psi.Arguments = $"/S /UPDATELOCATION={updateHelper.GetApplicationDirectory()}";
+                        psi.Arguments = $"\"/S /UPDATELOCATION={updateHelper.GetApplicationDirectory()}\"";
                         updateHelper.Dispose();
                         Process.Start(psi);
                         Application.Current.Shutdown();
